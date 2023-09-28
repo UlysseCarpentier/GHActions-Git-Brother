@@ -32,3 +32,17 @@ jobs:
           notify_when: 'failure'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+on:
+  push:
+    branches:
+      - main  # Remplacez "main" par le nom de votre branche
+
+jobs:
+  commit_job:
+    runs-on: ubuntu-latest
+    steps:
+  - name: Check Commit on Branch
+    if: github.event.ref == 'refs/heads/main'  # Remplacez "main" par le nom de votre branche
+    run: |
+      commit_message="${{ github.event.head_commit.message }}"
+      echo "Commit Message: $commit_message"
