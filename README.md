@@ -12,7 +12,13 @@
 
 
 
-
+To get useful and relevant slack notifications from the Git Brother, we would need the slack member ID.
+To get this ID, we have couple choices:
+- Easiest but requires actions from EVERY DEV :
+  - In slack,write your GITHUB mail address
+  - If you have a Github account different from your EP email address, you will have to create an account with the EP email address.
+- Pain : 
+  - Create a file with everybody 
 
 
 
