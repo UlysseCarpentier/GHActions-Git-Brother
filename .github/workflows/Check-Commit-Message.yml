@@ -1,23 +1,20 @@
 name: Commit Message Check
-run-name: ${{ github.actor }} Testing commit message on ?????
+run-name: ${{ github.actor }} Testing commit message on push
+
 on:
-  create:
+  push:
     branches:
       - '*'
 
 jobs:
-  Explore-GitHub-Actions:
+  commit_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-      - run: echo "🍏 This branch name is ${{ steps.extract_branch.outputs.branch }}."
-      - name: Check branch name
+      - run: echo "🍏 This commit message is ${{ github.event.head_commit.message }}."
+      - name: Check Commit Message
         id: check-branch_name
         run: |
-          if echo "${{ steps.extract_branch.outputs.branch }}" | grep -Po '^(chore|feat|fix|hotfix)/[a-zA-Z0-9-]+/(RM|GH)-\d{6}_[a-zA-Z0-9-]+$'; then
+          if echo "${{ github.event.head_commit.message }}" | grep -Po '^(GH|RM)-\d{6}'; then
               echo "match=true" >> $GITHUB_OUTPUT
           fi
       - name: Exit Status Update
@@ -32,17 +29,3 @@ jobs:
           notify_when: 'failure'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
-on:
-  push:
-    branches:
-      - main  # Remplacez "main" par le nom de votre branche
-
-jobs:
-  commit_job:
-    runs-on: ubuntu-latest
-    steps:
-  - name: Check Commit on Branch
-    if: github.event.ref == 'refs/heads/main'  # Remplacez "main" par le nom de votre branche
-    run: |
-      commit_message="${{ github.event.head_commit.message }}"
-      echo "Commit Message: $commit_message"
