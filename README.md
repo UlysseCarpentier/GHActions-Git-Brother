@@ -18,7 +18,8 @@ To get this ID, we have couple choices:
   - In slack,write your GITHUB mail address
   - If you have a Github account different from your EP email address, you will have to create an account with the EP email address.
 - Same but easier:
-  - 
+  - Everybody puts their Slack ID in the Github Bio
+
 - Pain : 
   - Create a file with everybody with their Github ID and Slack ID
   - Get it up to date, add it to the Onboarding
