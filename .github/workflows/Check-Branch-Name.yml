@@ -30,5 +30,7 @@ jobs:
         with:
           status: ${{ job.status }}
           notify_when: 'failure'
+          mention_users: "U0160UUNH8S,U0080UUAA9N"
+
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
