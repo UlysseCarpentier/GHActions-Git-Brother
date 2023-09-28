@@ -1,4 +1,4 @@
-name: GitHub Actions Demo Create Branch
+name: GitHub Actions Branch Name Check
 run-name: ${{ github.actor }} Testing name branch on create
 on:
   create:

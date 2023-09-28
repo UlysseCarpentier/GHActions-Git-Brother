@@ -8,3 +8,15 @@
         - Create a new webhook by clicking Add New Webhook to Workspace and choose the channel you want the notifications to be posted in.
         - Copy the webhook link
     - Add the webhook link to the Github Actions secrets with the name - ACTION_MONITORING_SLACK
+
+
+
+
+
+
+
+
+
+
+Refs:
+https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
