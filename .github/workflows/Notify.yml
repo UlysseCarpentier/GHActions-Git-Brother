@@ -30,7 +30,8 @@ jobs:
           notification_title: "Nom de branche mal formaté"
           notify_when: 'success'
           mention_users: ${{ steps.get_github_bio.outputs.bio }}
-          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}> \/ Merci de consulter la documentation pour le formatage des noms de branche : "
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
+          Merci de consulter la documentation pour le formatage des noms de branche : "
           footer: "<{run_url}|View Run>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
