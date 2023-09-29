@@ -32,8 +32,20 @@ To get this ID, we have couple choices:
 
 
 ### GH Actions to check the branches name "Check-Branch-Name"
-### GH Actions to check the commit message "Check-Commit-Message"
+Example of a good named branch : fix/microgrid/GH-123456_petite-description
 
+- Branch name must start with chore|feat|fix|hotfix
+- Followed by a directory (can contains numbers)
+- Followed by RM|GH and -
+- Followed by 6 digit number and _
+- Ended with a short description
+
+### GH Actions to check the commit message "Check-Commit-Message"
+Example of the start of a good commit message : GH-123456
+**The commit message must start with the issue ID**
+
+- Commit message must start with GH|RM and -
+- Followed by 6 digits 
 
 Refs:
 https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
