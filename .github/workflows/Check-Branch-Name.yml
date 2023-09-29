@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  Explore-GitHub-Actions:
+  Check-Branch-Name:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install jq -y
@@ -37,13 +37,15 @@ jobs:
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
           exit1
+          
+
       - name: Report Status
         if: always()
         uses: ravsamhq/notify-slack-action@v1
         with:
           status: ${{ job.status }}
           notification_title: "Nom de branche mal formaté"
-          notify_when: 'success'
+          notify_when: 'failure'
           mention_users: ${{ steps.get_github_bio.outputs.bio }}
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
           \n Merci de consulter la documentation pour le formatage des noms de branche : https://github.com/UlysseCarpentier/GHActions-Git-Brother"

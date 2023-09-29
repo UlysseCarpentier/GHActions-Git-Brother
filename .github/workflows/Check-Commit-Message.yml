@@ -1,5 +1,5 @@
 name: Commit Message Check
-run-name: ${{ github.actor }} Testing commit message on push
+run-name: ${{ github.actor }} Checking commit message on push
 
 on:
   push:
@@ -7,25 +7,49 @@ on:
       - '*'
 
 jobs:
-  commit_job:
+  Check-Commit-Message:
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get install jq -y
+      - name: Get GitHub Bio
+        id: get_github_bio
+        run: |
+          id_git=$(curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ github.token }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/users/${{ github.actor }} \
+          | jq -r '.bio'); \
+          echo "bio=$id_git" >> $GITHUB_OUTPUT
+          
+          
+
       - run: echo "🍏 This commit message is ${{ github.event.head_commit.message }}."
       - name: Check Commit Message
-        id: check-branch_name
+        id: check-commit_msg
         run: |
           if echo "${{ github.event.head_commit.message }}" | grep -Po '^(GH|RM)-\d{6}'; then
               echo "match=true" >> $GITHUB_OUTPUT
           fi
       - name: Exit Status Update
-        if: steps.check-branch_name.outputs.match != 'true'
+        if: steps.check-commit_msg.outputs.match != 'true'
         run: |
           exit1
+          
+          
+          
+          
+
       - name: Report Status
         if: always()
         uses: ravsamhq/notify-slack-action@v1
         with:
           status: ${{ job.status }}
+          notification_title: "Commit message mal formaté"
           notify_when: 'failure'
+          mention_users: ${{ steps.get_github_bio.outputs.bio }}
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
+          \n Merci de consulter la documentation pour le formatage des message de commit : https://github.com/UlysseCarpentier/GHActions-Git-Brother"
+          footer: "<{run_url}|View Run>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}

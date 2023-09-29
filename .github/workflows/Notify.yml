@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} Testing name branch on create
 on:
   create:
     branches:
-      - '*'
+      - 'test/'
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
