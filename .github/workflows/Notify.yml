@@ -19,9 +19,10 @@ jobs:
           https://api.github.com/users/${{ github.actor }} \
           | jq -r '.bio'); \
           echo "bio is $id_git"
+          echo "bio=$id_git" >> $GITHUB_OUTPUT
       - name: Access id_git in Another Run
         run: |
-          echo "The value of id_git from a previous run is: ${{ github.workflow_run.outputs.id_git }}"
+          echo "The value of id_git from a previous run is: ${{ steps.get_github_bio.outputs.bio }}"
       - name: Report Status
         if: always()
         uses: ravsamhq/notify-slack-action@v1
