@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: bitflight-devops/github-action-readme-generator@v1.4.0
+      - uses: bitflight-devops/github-action-readme-generator@v1.7.1
