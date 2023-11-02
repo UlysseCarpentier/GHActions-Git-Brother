@@ -4,13 +4,13 @@ description: |+
  Slack notification to your channel or person if you have his slack ID
 inputs:
   slack_username:
-    description: |
+    description: |+
       Slack username to send to
     required: true
     type: string
     default: test_bot
   slack_message:
-    description: |
+    description: |+
       The message to send, formatted etc...
     required: true
     type: string
