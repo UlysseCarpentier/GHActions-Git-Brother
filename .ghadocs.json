@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "ghadocs": "github-action-readme-generator --readme README.md && git add README.md"
+  }
+}
