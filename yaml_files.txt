@@ -1,2 +1,0 @@
-Python/action.yml
-Python/GHA_Build.yml
