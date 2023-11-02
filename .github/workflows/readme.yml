@@ -4,20 +4,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        yaml_file:
-          - 'Python/yaml_files.yml'  # Add more YAML files here as needed
-
     steps:
       - uses: actions/checkout@v3
-
       - name: List YAML Files
         id: list-yaml-files
         run: |
           find Python -type f -name '*.yml' -print > yaml_files.txt
           echo "::set-output name=paths::$(cat yaml_files.txt)"
-
       - name: Run Workflows for YAML Files
         run: |
           for file in $(cat yaml_files.txt); do
@@ -28,16 +21,21 @@ jobs:
             # Set up the matrix for the bitflight-devops/github-action-readme-generator action.
             echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
           done
-
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yaml_file:
+          - 'Python/yaml_files.yml'  # Add more YAML files here as needed
+    steps:
       - name: Run github-action-readme-generator
         uses: bitflight-devops/github-action-readme-generator@v1.4.0
-        https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
-        needs: job1
-        Faire 1 job de récup des fichiers
-        Puis un second avec ce readme generator et le needs jobs build
+        needs: build
         with:
           action: ${{ matrix.yaml_file }}
-
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
