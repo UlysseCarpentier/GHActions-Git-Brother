@@ -15,7 +15,7 @@ jobs:
       - name: List YAML Files
         id: list-yaml-files
         run: |
-          find Python -type f -name '*.yml' -print > yaml_files.txt
+          find . -type d -name .github -prune -o -type f -name '*.yml' -print > yaml_files.txt
           echo "::set-output name=paths::$(cat yaml_files.txt)"
 
       - name: Run Workflows for YAML Files
@@ -26,7 +26,7 @@ jobs:
             echo "YAML filename: $yaml_filename"
             
             # Set up the matrix for the bitflight-devops/github-action-readme-generator action.
-            echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
+            echo "yaml_file: './$yaml_filename'" >> matrix_input.yml
           done
 
       - name: Set up Python Environment
