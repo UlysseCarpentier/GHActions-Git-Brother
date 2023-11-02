@@ -1,105 +1,54 @@
-name: GitHub Action's Readme Generator
-author: Jamie Nelson <jamie@bitflight.io>
-description: |+
-  📓 Keep your action's README.md up to date with the `title` and `description` from the `[action.yml](./action.yml)` file, while also automatically generating sections for the inputs, outputs, and a usage example for the action.
+name: Branch Name Check
+run-name: ${{ github.actor }} Checking branch name on create
+on:
+  create:
+    branches:
+      - '*'
 
+jobs:
+  Check-Branch-Name:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install jq -y
+      - name: Get GitHub Bio
+        id: get_github_bio
+        run: |
+          id_git=$(curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ github.token }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/users/${{ github.actor }} \
+          | jq -r '.bio'); \
+          echo "bio=$id_git" >> $GITHUB_OUTPUT
+          
 
-  Additionally the Action's usage example is updated to match the Action's current release.
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - run: echo "🍏 This branch name is ${{ steps.extract_branch.outputs.branch }}."
+      - name: Check branch name
+        id: check-branch_name
+        run: |
+          if echo "${{ steps.extract_branch.outputs.branch }}" | grep -Po '^(chore|feat|fix|hotfix)/[a-zA-Z0-9-]+/(RM|GH)-\d{6}_[a-zA-Z0-9-]+$'; then
+              echo "match=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Exit Status Update
+        if: steps.check-branch_name.outputs.match != 'true'
+        run: |
+          exit1
+          
 
-
-  This is both a CLI tool and GitHub Action that will read the details from a GitHub Action's `[action.yml](./action.yml)` file. Configuration can be provided through a `.ghadocs.json` file stored in the root directory of the Action's repository, via the command line when using the CLI, or through the `with:` section of this Action.
-
-
-  ***📝 This tool uses markdown comments as delimiting tokens within the README.md file to determine where to place the generated content.***
-
-
-  ***🔗 You can find an example README template with all fields filled-in in the [`README.example.md`](README.example.md) file.***
-
-branding:
-  icon: book-open
-  color: yellow
-inputs:
-  action:
-    description: |
-      The absolute or relative path to the `action.yml` file to read in from.
-    required: false
-    default: action.yml
-  readme:
-    description: |
-      The absolute or relative path to the markdown output file that contains the formatting tokens within it.
-    required: false
-    default: README.md
-  owner:
-    description: |
-      The GitHub Action repository owner.
-      example `bitflight-devops` or `your-gh-username`
-    required: false
-  repo:
-    description: |
-      The GitHub Action repository name.
-      example - `github-action-readme-generator`
-    required: false
-  save:
-    description: |
-      Save the provided values in a `.ghadocs.json` file.
-      This will update any existing `.ghadocs.json` file that is in place.
-    required: false
-  pretty:
-    description: |
-      Use `prettier` to pretty print the new README.md file
-    required: false
-  versioning_enabled:
-    description: |
-      Enable the update of the usage version to match the latest version in the `package.json` file
-    required: false
-  version_override:
-    description: |
-      Set a specific version to display in the README.md
-    required: false
-  version_prefix:
-    description: |
-      Prefix the version with this value, if it isn't already prefixed
-    required: false
-    default: v
-  versioning_default_branch:
-    description: |
-      If versioning is disabled show this branch instead
-    required: false
-    default: main
-  title_prefix:
-    description: |
-      Add a prefix to the README title.
-      The title template looks like this:
-      # {brand}{prefix}{title}
-    required: false
-    default: "GitHub Action: "
-  include_github_version_badge:
-    description: |
-      Include additional badge showing latest tag
-    required: false
-    default: true
-  branding_svg_path:
-    description: |
-      Create the branding svg image from the branding object in `action.yml`
-      then save it to this path.
-      Then update the `README.md` file to source the branding image from this path.
-      You can use a section template like this:
-      `\<!-- start branding --><!-- stop branding -->`
-      or use the action input:
-      `branding_as_title_prefix: true`
-      to prefix the 'title' section with the image.
-      The title template looks like this:
-      # {brand}{prefix}{title}
-    required: false
-    default: ".github/ghadocs/branding.svg"
-  branding_as_title_prefix:
-    default: true
-    type: boolean
-    description: |
-      Prefix the title in the `\<!-- start title -->` section with the svg branding image
-      The title template looks like this:
-      # {brand}{prefix}{title}
-
-runs:
-  using: "node20"
-  main: "./dist/index.js"
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notification_title: "Nom de branche mal formaté"
+          notify_when: 'failure'
+          mention_users: ${{ steps.get_github_bio.outputs.bio }}
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
+          \n Merci de consulter la documentation pour le formatage des noms de branche : https://github.com/UlysseCarpentier/GHActions-Git-Brother"
+          footer: "<{run_url}|View Run>"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
