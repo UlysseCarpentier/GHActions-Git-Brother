@@ -48,3 +48,7 @@ jobs:
           branch: update-readme--${{ github.ref_name }}
           delete-branch: false
           labels: bot,documentation
+      - name: Cleanup
+        run: |
+          rm -f matrix_input.yml
+          rm -f yaml_files.txt
