@@ -1,5 +1,20 @@
 {
   "scripts": {
     "ghadocs": "github-action-readme-generator --readme README.md && git add README.md"
-  }
+  },
+  "owner": "bitflight-devops",
+  "repo": "github-action-readme-generator",
+  "title_prefix": "GitHub Action: ",
+  "paths": {
+    "action": "action.yml",
+    "readme": "README.md"
+  },
+  "show_logo": true,
+  "versioning": {
+    "enabled": true,
+    "prefix": "v",
+    "override": "",
+    "branch": "main"
+  },
+  "pretty": true
 }
