@@ -1,3 +1,2 @@
-./Archive/Notify.yml
-./Python/action.yml
-./Python/GHA_Build.yml
+Python/action.yml
+Python/GHA_Build.yml

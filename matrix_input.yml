@@ -1,3 +1,5 @@
 yaml_file: './Notify.yml'
 yaml_file: './action.yml'
 yaml_file: './GHA_Build.yml'
+yaml_file: './Python/action.yml'
+yaml_file: './Python/GHA_Build.yml'
