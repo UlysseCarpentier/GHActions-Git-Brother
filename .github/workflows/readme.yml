@@ -22,6 +22,7 @@ jobs:
             echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
           done
   run:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,7 +31,6 @@ jobs:
     steps:
       - name: Run github-action-readme-generator
         uses: bitflight-devops/github-action-readme-generator@v1.4.0
-        needs: build
         with:
           action: ${{ matrix.yaml_file }}
   cleanup:
