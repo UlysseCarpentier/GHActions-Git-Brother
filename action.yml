@@ -1,4 +1,5 @@
 name: slack notification
+name: Gradle config
 on:
   workflow_call:
     inputs:
