@@ -1,4 +1,3 @@
-<div align="center">
 <!-- start branding -->
 <!-- end branding -->
 <!-- start title -->
