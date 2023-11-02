@@ -1,4 +1,4 @@
-<div align="center" width="100%">
+<div align="center">
 <!-- start branding -->
 <!-- end branding -->
 <!-- start title -->
