@@ -29,13 +29,12 @@ jobs:
             echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
           done
 
-      - name: Set up Python Environment
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-
       - name: Run github-action-readme-generator
         uses: bitflight-devops/github-action-readme-generator@v1.4.0
+        https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+        needs: job1
+        Faire 1 job de récup des fichiers
+        Puis un second avec ce readme generator et le needs jobs build
         with:
           action: ${{ matrix.yaml_file }}
 
