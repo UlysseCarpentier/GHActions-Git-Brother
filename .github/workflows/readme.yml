@@ -1,19 +1,33 @@
 name: readme
 on:
   workflow_dispatch:
-env:
-  paths: 
-    -'./Python/*.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$paths"
-      - uses: bitflight-devops/github-action-readme-generator@v1.4.0
-        with:
-          action: './Python/GHA_Build.yml'
+
+      - name: List YAML Files
+        id: list-yaml-files
+        run: |
+          find Python -type f -name '*.yml' -print > yaml_files.txt
+          echo "::set-output name=paths::$(cat yaml_files.txt)"
+
+      - name: Run Workflows for YAML Files
+        run: |
+          for file in $(cat yaml_files.txt); do
+            echo "Running workflow for file: $file"
+            yaml_filename=$(basename $file)
+            echo "YAML filename: $yaml_filename"
+
+            # Create a new YAML file with the dynamically generated action input.
+            echo "action: './Python/$yaml_filename'" > action_input.yml
+
+            # Use the dynamic input file to run the github-action-readme-generator action.
+            uses: bitflight-devops/github-action-readme-generator@v1.4.0
+            with:
+              action: ./action_input.yml
+          done
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
