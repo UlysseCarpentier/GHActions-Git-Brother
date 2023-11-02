@@ -1,0 +1,3 @@
+yaml_file: './Notify.yml'
+yaml_file: './action.yml'
+yaml_file: './GHA_Build.yml'
