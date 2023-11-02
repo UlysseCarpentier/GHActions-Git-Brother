@@ -8,9 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: bitflight-devops/github-action-readme-generator@v1.4.0
-      - uses: magicstack/gha-commit-and-push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: gh-pages
-          workdir: docs/gh-pages
-          commit_message: Automatic documentation update
+
