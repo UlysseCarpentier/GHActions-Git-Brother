@@ -4,6 +4,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yaml_file:
+          - 'Python/GHA_Build.yml'  # Add more YAML files here as needed
+
     steps:
       - uses: actions/checkout@v3
 
@@ -13,26 +18,26 @@ jobs:
           find Python -type f -name '*.yml' -print > yaml_files.txt
           echo "::set-output name=paths::$(cat yaml_files.txt)"
 
+      - name: Run Workflows for YAML Files
+        run: |
+          for file in $(cat yaml_files.txt); do
+            echo "Running workflow for file: $file"
+            yaml_filename=$(basename $file)
+            echo "YAML filename: $yaml_filename"
+            
+            # Set up the matrix for the bitflight-devops/github-action-readme-generator action.
+            echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
+          done
+
       - name: Set up Python Environment
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
 
-      - name: Run github-action-readme-generator for YAML Files
-        run: |
-          while IFS= read -r file; do
-            echo "Running workflow for file: $file"
-            yaml_filename=$(basename "$file")
-            echo "YAML filename: $yaml_filename"
-
-            # Use GitHub workflow command to set the matrix dynamically.
-            echo "::set-output name=matrix_yaml_file::$yaml_filename"
-
-            # Run the github-action-readme-generator action for the current YAML file.
-            uses: bitflight-devops/github-action-readme-generator@v1.4.0
-            with:
-              action: "./Python/$yaml_filename"
-          done < yaml_files.txt
+      - name: Run github-action-readme-generator
+        uses: bitflight-devops/github-action-readme-generator@v1.4.0
+        with:
+          action: ${{ matrix.yaml_file }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -43,3 +48,7 @@ jobs:
           branch: update-readme--${{ github.ref_name }}
           delete-branch: false
           labels: bot,documentation
+      - name: Cleanup
+        run: |
+          rm -f matrix_input.yml
+          rm -f yaml_files.txt
