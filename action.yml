@@ -1,24 +1,20 @@
 name: slack notification
-name: Gradle config
-on:
-  workflow_call:
-    inputs:
-      slack_username:
-        required: true
-        type: string
-      slack_message:
-        required: true
-        type: string
-      slack_webhook:
-        required: true
-        type: string
-      slack_title:
-        required: true
-        type: string
-      slack_color:
-        required: true
-        type: string
-
+author: Ulysse Carpentier <ulysse@live.io>
+description: |+
+ Slack notification to your channel or person if you have his slack ID
+inputs:
+  slack_username:
+    description: |
+      Slack username to send to
+    required: true
+    type: string
+    default: test_bot
+  slack_message:
+    description: |
+      The message to send, formatted etc...
+    required: true
+    type: string
+    default: README.md
 jobs:
   notify-slack:
     name: Slack Notification
@@ -33,3 +29,6 @@ jobs:
           SLACK_TITLE: ${{ inputs.slack_title}}
           # get the webhook_url from slack api when creating the incoming webhook
           SLACK_WEBHOOK: ${{ inputs.slack_webhook }}
+runs:
+  using: "node20"
+  main: "./dist/index.js"
