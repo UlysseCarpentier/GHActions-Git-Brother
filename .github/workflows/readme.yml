@@ -8,3 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: bitflight-devops/github-action-readme-generator@v1.4.0
+      - uses: magicstack/gha-commit-and-push@master
+        with:
+          target_branch: main
+          workdir: main
+          commit_message: Automatic documentation update
