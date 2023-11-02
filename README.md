@@ -2,7 +2,7 @@
 <!-- start branding -->
 <!-- end branding -->
 <!-- start title -->
-# GitHub Action: Branch Name Check
+# GitHub Action: slack notification
 <!-- end title -->
 <!-- start badges -->
 <!-- end badges -->
