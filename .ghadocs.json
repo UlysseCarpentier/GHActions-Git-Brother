@@ -2,8 +2,8 @@
   "scripts": {
     "ghadocs": "github-action-readme-generator --readme README.md && git add README.md"
   },
-  "owner": "bitflight-devops",
-  "repo": "github-action-readme-generator",
+  "owner": "UlysseCarpentier",
+  "repo": "GHActions-Git-Brother",
   "title_prefix": "GitHub Action: ",
   "paths": {
     "action": "action.yml",
