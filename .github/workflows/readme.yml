@@ -4,6 +4,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yaml_file:
+          - 'Python/GHA_Build.yml'  # Add more YAML files here as needed
+
     steps:
       - uses: actions/checkout@v3
 
@@ -19,15 +24,20 @@ jobs:
             echo "Running workflow for file: $file"
             yaml_filename=$(basename $file)
             echo "YAML filename: $yaml_filename"
-
-            # Create a new YAML file with the dynamically generated action input.
-            echo "action: './Python/$yaml_filename'" > action_input.yml
-
-            # Use the dynamic input file to run the github-action-readme-generator action.
-            uses: bitflight-devops/github-action-readme-generator@v1.4.0
-            with:
-              action: ./action_input.yml
+            
+            # Set up the matrix for the bitflight-devops/github-action-readme-generator action.
+            echo "yaml_file: './Python/$yaml_filename'" >> matrix_input.yml
           done
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Run github-action-readme-generator
+        uses: bitflight-devops/github-action-readme-generator@v1.4.0
+        with:
+          action: ${{ matrix.yaml_file }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
