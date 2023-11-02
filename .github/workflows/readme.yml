@@ -2,7 +2,8 @@ name: readme
 on:
   workflow_dispatch:
 env:
-  paths: './Python/*.yml'
+  paths: 
+    -'./Python/*.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
