@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         yaml_file:
-          - 'Python/GHA_Build.yml'  # Add more YAML files here as needed
+          - 'Python/yaml_files.yml'  # Add more YAML files here as needed
 
     steps:
       - uses: actions/checkout@v3
