@@ -11,6 +11,6 @@ jobs:
       - uses: magicstack/gha-commit-and-push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: main
-          workdir: main
+          target_branch: gh-pages
+          workdir: docs/gh-pages
           commit_message: Automatic documentation update
