@@ -8,6 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: bitflight-devops/github-action-readme-generator@v1.4.0
+        with:
+          action: './Python/*.yml'
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
