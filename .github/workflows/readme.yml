@@ -1,12 +1,15 @@
 name: readme
 on:
   workflow_dispatch:
-
+env:
+  paths: './Python/*.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$paths"
       - uses: bitflight-devops/github-action-readme-generator@v1.4.0
         with:
           action: './Python/GHA_Build.yml'
