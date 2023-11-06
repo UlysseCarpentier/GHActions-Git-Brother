@@ -12,7 +12,6 @@ jobs:
         id: list-yaml-files
         run: |
           find Python -type f -name '*.yml' -print > yaml_files.txt
-          echo "::set-output name=paths::$(cat yaml_files.txt)"  
           while IFS= read -r line; do echo "file_output=$line" >> $GITHUB_OUTPUT; done < yaml_files.txt
       - name: Print results
         run: |
