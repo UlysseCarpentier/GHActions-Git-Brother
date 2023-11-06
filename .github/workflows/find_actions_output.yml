@@ -12,12 +12,12 @@ jobs:
       - uses: actions/checkout@v3
       - id: dataStep
         run: |
-          json_array=$(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .)
-          echo "myoutput=$json_array" >> $GITHUB_OUTPUT
+          json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
+          echo "myoutput = $json_array" >> $GITHUB_OUTPUT
   run-matrix:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.setup.outputs.mymatrix) }}
     steps:
-      - run: echo ${{matrix.myoutput}}
+      - run: echo ${{ matrix.target }}
