@@ -12,9 +12,9 @@ jobs:
         run: |
           files=()
           while IFS= read -r line; do
-            files+=("$line")
+            files+=("\"$line\"")
           done < yaml_files.txt
-          json_array=$(jq -n --argjson files "$(printf '%s\n' "${files[@]}")" '$files')
+          json_array="[${files[@]}]"
           echo "GITHUB_OUTPUT=$json_array" >> $GITHUB_ENV
         shell: bash
       - name: Display the output
