@@ -1,3 +1,6 @@
+name: Find Actions
+on:
+  workflow_dispatch:
 jobs:
   matrix-prep:
     # Prepares the 'bazelversion' axis of the test matrix
