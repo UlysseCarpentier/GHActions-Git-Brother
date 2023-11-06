@@ -20,4 +20,4 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.setup.outputs.mymatrix) }}
     steps:
-      - run: echo ${{ matrix.target }}
+      - run: echo "helo"
