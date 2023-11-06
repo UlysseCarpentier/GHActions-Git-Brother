@@ -19,6 +19,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.setup.outputs.mymatrix) }}
+      matrix:
+        config: ${{ fromJSON(needs.setup.outputs.mymatrix) }}
     steps:
       - run: echo "helo"
