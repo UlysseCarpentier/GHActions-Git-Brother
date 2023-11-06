@@ -19,7 +19,7 @@ jobs:
         shell: bash
       - name: Display the output
         run: |
-          echo "GITHUB_OUTPUT: $GITHUB_OUTPUT"
+          echo "oui output: $GITHUB_OUTPUT"
         shell: bash
   test:
     # The type of runner that the job will run on
