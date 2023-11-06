@@ -14,8 +14,7 @@ jobs:
         run: |
           json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }") 
           echo $json_array
-          echo "myoutput = $json_array" >> $GITHUB_OUTPUT
-
+          echo "myoutput=$json_array" >> $GITHUB_OUTPUT
   run-matrix:
     needs: setup
     runs-on: ubuntu-latest
