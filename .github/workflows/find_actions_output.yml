@@ -1,0 +1,23 @@
+name: Find Actions
+on:
+  workflow_dispatch:
+jobs:
+  matrix-prep:
+    # Prepares the 'bazelversion' axis of the test matrix
+    runs-on: ubuntu-latest
+    steps:
+      # Need the repo checked out in order to read the file
+      - uses: actions/checkout@v3
+      - name: Read and process files
+        run: |
+          files=()
+          while IFS= read -r line; do
+            files+=("$line")
+          done < yaml_files.txt
+          json_array=$(jq -n --argjson files "$(printf '%s\n' "${files[@]}")" '$files')
+          echo "GITHUB_OUTPUT=$json_array" >> $GITHUB_ENV
+        shell: bash
+      - name: Display the output
+        run: |
+          echo "GITHUB_OUTPUT: $GITHUB_OUTPUT"
+        shell: bash
