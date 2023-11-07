@@ -107,4 +107,5 @@ jobs:
         icon_warnings: ${{ inputs.icon_warnings }}
         icon_skipped: ${{ inputs.icon_skipped }}
       env:
-        SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+        #SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
