@@ -23,4 +23,3 @@ jobs:
         target: ${{fromJSON(needs.setup.outputs.matrix).target}}
     steps:
       - run: echo "${{matrix.target}}"
-      - run: echo "${{fromJSON(needs.setup.outputs.matrix).target[*]}}"
