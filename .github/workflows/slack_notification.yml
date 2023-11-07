@@ -77,17 +77,22 @@ on:
 #        required: false
 #        default: ":fast_forward:"
 #        type: string
-#      SLACK_WEBHOOK_URL:
-#        description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
-#        required: false
-#        default: ""
-#        type: string
+      SLACK_WEBHOOK_URL:
+        description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
+        required: false
+        default: ""
+        type: string
 
 
 jobs:
   Send_Notification:
     runs-on: ubuntu-latest
     steps:
+    - name: Print secret
+      run: |
+        echo "${{ secrets.ACTION_MONITORING_SLACK }}"
+        echo "${{ inputs.SLACK_WEBHOOK_URL }}"
+
     - name: Report Status
       if: always()
       uses: ravsamhq/notify-slack-action@v1
