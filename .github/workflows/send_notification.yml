@@ -2,8 +2,6 @@ name: Call a reusable workflow
 
 on:
   workflow_dispatch:
-env:
-    SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
 jobs:
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main

@@ -77,11 +77,11 @@ on:
 #        required: false
 #        default: ":fast_forward:"
 #        type: string
-      SLACK_WEBHOOK_URL:
-        description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
-        required: false
-        default: ""
-        type: string
+#      SLACK_WEBHOOK_URL:
+#        description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
+#        required: false
+#        default: ""
+#        type: string
 
 jobs:
   Send_Notification:
