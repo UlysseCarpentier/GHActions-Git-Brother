@@ -77,15 +77,8 @@ on:
 #        required: false
 #        default: ":fast_forward:"
 #        type: string
-      SLACK_WEBHOOK_URL:
-        description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
-        required: false
-        default: ""
-        type: string
     secrets:
       ACTION_MONITORING_SLACK:
-        required: false
-      SLACK_WEBHOOK_URL:
         required: false
 
 
@@ -122,4 +115,3 @@ jobs:
         #icon_skipped: ${{ inputs.icon_skipped }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
-        #SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
