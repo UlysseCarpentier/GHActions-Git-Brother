@@ -45,7 +45,7 @@ jobs:
         with:
           status: "${{ job.status }}"
           notification_title: "Nom de branche mal formaté"
-          notify_when: 'failure'
+          notify_when: 'failure,success'
           mention_users: ${{ steps.get_github_bio.outputs.bio }}
           message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
           \n Merci de consulter la documentation pour le formatage des noms de branche : https://github.com/UlysseCarpentier/GHActions-Git-Brother"
