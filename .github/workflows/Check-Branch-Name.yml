@@ -43,7 +43,7 @@ jobs:
         if: always()
         uses: ravsamhq/notify-slack-action@v1
         with:
-          status: ${{ job.status }}
+          status: "${{ job.status }}"
           notification_title: "Nom de branche mal formaté"
           notify_when: 'failure'
           mention_users: ${{ steps.get_github_bio.outputs.bio }}
