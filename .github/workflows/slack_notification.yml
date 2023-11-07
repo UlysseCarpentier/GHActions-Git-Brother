@@ -89,7 +89,7 @@ jobs:
     steps:
     - name: Report Status
       if: always()
-      uses: ravsamhq/notify-slack-action@v2.3.0
+      uses: ravsamhq/notify-slack-action@v2
       with:
         status: ${{ inputs.status }}
         token: ${{ inputs.token }}
