@@ -20,6 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        config: ["Notify","action","GHA_Build"]
+        config: ${{fromJson(needs.setup.outputs.myoutput)}}
     steps:
       - run: echo "helo"
