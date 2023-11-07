@@ -1,28 +1,12 @@
-name: Send notification
+name: Call a reusable workflow
+
 on:
   workflow_dispatch:
   create:
     branches:
       - '*'
-jobs:
-  send_slack_message:
-    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-    with:
-      mention_users: ${{ steps.get_github_bio.outputs.bio }}
-    needs: get_slack_id
-  get_slack_id:
-    name: get slack id
-    runs-on: ubuntu-latest
-    steps:
-    - id: get_github_bio
-      name: get github bio
-      run: |
-        id_git=$(curl -L \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ github.token }}" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        https://api.github.com/users/${{ github.actor }} \
-        | jq -r '.bio'); \
-        echo "bio=$id_git" >> $GITHUB_OUTPUT
 
+jobs:
+  call-workflow:
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
 
