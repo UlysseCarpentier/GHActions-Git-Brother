@@ -10,6 +10,6 @@ jobs:
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+      SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
       status: success
 
