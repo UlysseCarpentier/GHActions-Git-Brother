@@ -21,6 +21,4 @@ jobs:
     steps:
       - run: echo "${{needs.setup.outputs.mymatrix}}"
       - run: echo "${{fromJSON(needs.setup.outputs.mymatrix)}}"
-      - run: echo "${{needs.setup.outputs.mymatrix.target}}"
-      - run: echo "${{needs.setup.outputs.mymatrix.myoutput}}"
-      - run: echo "${{needs.setup.outputs.mymatrix.myoutput}}"
+      - run: echo "${{fromJSON(needs.setup.outputs.mymatrix.target)}}"
