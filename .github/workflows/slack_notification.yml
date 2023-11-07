@@ -88,7 +88,7 @@ jobs:
   Send_Notification:
     runs-on: ubuntu-latest
     steps:
-    - name: Print secret
+    - name: Print secret called
       run: |
         echo "${{ secrets.ACTION_MONITORING_SLACK }}"
         echo "${{ inputs.SLACK_WEBHOOK_URL }}"

@@ -13,4 +13,14 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
       status: success
 
+  TestSecret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print secret caller
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+        run: |
+          echo "${{ secrets.ACTION_MONITORING_SLACK }}"
+          echo "${{ env.SLACK_WEBHOOK_URL }}"
+        
 
