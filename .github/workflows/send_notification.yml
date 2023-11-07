@@ -1,6 +1,9 @@
 name: Call a reusable workflow
 
 on:
+  create:
+    branches:
+      - '*'
   workflow_dispatch:
 jobs:
   call-workflow:

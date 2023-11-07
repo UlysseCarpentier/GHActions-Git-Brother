@@ -1,9 +1,10 @@
 name: Branch Name Check
 run-name: ${{ github.actor }} Checking branch name on create
 on:
-  create:
-    branches:
-      - '*'
+  workflow_dispatch:
+#  create:
+#    branches:
+#      - '*'
 
 jobs:
   Check-Branch-Name:
