@@ -19,4 +19,4 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{fromJSON(needs.setup.outputs.matrix).target[@]}}"
+      - run: echo "${{fromJSON(needs.setup.outputs.matrix).target[]}}"
