@@ -103,9 +103,9 @@ jobs:
         mention_groups_when: ${{ inputs.mention_groups_when }}
         icon_success: ${{ inputs.icon_success }}
         icon_failure: ${{ inputs.icon_failure }}
-        icon_cancelled: ${{ inputs.icon_cancelled }}
+        #icon_cancelled: ${{ inputs.icon_cancelled }}
         icon_warnings: ${{ inputs.icon_warnings }}
-        icon_skipped: ${{ inputs.icon_skipped }}
+        #icon_skipped: ${{ inputs.icon_skipped }}
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
         #SLACK_WEBHOOK_URL: ${{ inputs.SLACK_WEBHOOK_URL }}
