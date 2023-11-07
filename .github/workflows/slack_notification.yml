@@ -83,8 +83,10 @@ on:
         default: ""
         type: string
     secrets:
-      SLACK_WEBHOOK_URL:
+      ACTION_MONITORING_SLACK:
         required: true
+      SLACK_WEBHOOK_URL:
+        required: false
 
 
 jobs:
@@ -94,6 +96,7 @@ jobs:
     - name: Print secret called
       run: |
         echo "${{ secrets.ACTION_MONITORING_SLACK }}"
+        echo "${{ secrets.SLACK_WEBHOOK_URL }}"
         echo "${{ inputs.SLACK_WEBHOOK_URL }}"
         echo "${{ env.SLACK_WEBHOOK_URL }}"
         echo "${{ inputs.status }}"
