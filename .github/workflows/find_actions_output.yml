@@ -18,6 +18,5 @@ jobs:
   run-matrix:
     needs: setup
     runs-on: ubuntu-latest
-
     steps:
-      - run: echo "${{fromJson(needs.setup.outputs.myoutput)}}"
+      - run: echo "${{fromJson(needs.setup.outputs.mymatrix.target)}}"
