@@ -79,7 +79,7 @@ on:
 #        type: string
       SLACK_WEBHOOK_URL:
         description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
-        required: true
+        required: false
         default: ""
         type: string
 
