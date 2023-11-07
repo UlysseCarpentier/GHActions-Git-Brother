@@ -20,7 +20,8 @@ jobs:
     with:
       SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
       status: success
-    secrets: inherit
+    secrets:
+      ACTION_MONITORING_SLACK: ${{ secrets.ACTION_MONITORING_SLACK }}
 
 
 

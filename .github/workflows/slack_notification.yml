@@ -84,7 +84,7 @@ on:
         type: string
     secrets:
       ACTION_MONITORING_SLACK:
-        required: true
+        required: false
       SLACK_WEBHOOK_URL:
         required: false
 
