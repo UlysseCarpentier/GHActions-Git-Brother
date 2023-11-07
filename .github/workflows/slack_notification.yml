@@ -92,6 +92,8 @@ jobs:
       run: |
         echo "${{ secrets.ACTION_MONITORING_SLACK }}"
         echo "${{ inputs.SLACK_WEBHOOK_URL }}"
+        echo "${{ env.SLACK_WEBHOOK_URL }}"
+        echo "${{ inputs.status }}"
 
     - name: Report Status
       if: always()
