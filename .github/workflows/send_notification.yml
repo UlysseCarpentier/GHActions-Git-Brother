@@ -7,6 +7,10 @@ on:
 jobs:
   send_slack_message:
     runs-on: ubuntu-latest
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    needs: get_github_bio
+    with:
+      mention_users: ${{ steps.get_github_bio.outputs.bio }}
     steps:
       - name: Get GitHub Bio
         id: get_github_bio
@@ -18,8 +22,5 @@ jobs:
           https://api.github.com/users/${{ github.actor }} \
           | jq -r '.bio'); \
           echo "bio=$id_git" >> $GITHUB_OUTPUT
-      - name: Send message
-        uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-        with:
-          mention_users: ${{ steps.get_github_bio.outputs.bio }}
+
 
