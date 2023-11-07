@@ -68,6 +68,7 @@ inputs:
     description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
     required: true
     default: ${{ secrets.ACTION_MONITORING_SLACK }}
+
 jobs:
   Check-Branch-Name:
     runs-on: ubuntu-latest
