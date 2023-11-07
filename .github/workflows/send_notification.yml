@@ -6,12 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-workflow:
-    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-    secrets: inherit
-    with:
-      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
-      status: success
+  TestSecret:
+    runs-on: ubuntu-latest
     steps:
       - name: Print secret caller
         env:
@@ -19,6 +15,15 @@ jobs:
         run: |
           echo "${{ secrets.ACTION_MONITORING_SLACK }}"
           echo "${{ env.SLACK_WEBHOOK_URL }}"
-      
+  call-workflow:
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    secrets: inherit
+    with:
+      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+      status: success
+    steps:
+
+
+
         
 
