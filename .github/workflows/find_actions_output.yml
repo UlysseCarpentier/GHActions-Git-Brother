@@ -13,7 +13,7 @@ jobs:
           echo $json_array
           echo "matrix=$json_array" >> $GITHUB_OUTPUT
     outputs:
-      matrix: ${{ toJSON(steps.dataStep.outputs.matrix) }}
+      matrix: ${{ steps.dataStep.outputs.matrix  }}
 
   run-matrix:
     needs: setup
