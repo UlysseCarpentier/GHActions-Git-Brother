@@ -17,11 +17,11 @@ jobs:
           echo "${{ env.SLACK_WEBHOOK_URL }}"
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-    secrets: inherit
     with:
       SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
       status: success
-    steps:
+    secrets: inherit
+
 
 
 

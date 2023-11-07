@@ -82,6 +82,9 @@ on:
         required: false
         default: ""
         type: string
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
 
 
 jobs:
