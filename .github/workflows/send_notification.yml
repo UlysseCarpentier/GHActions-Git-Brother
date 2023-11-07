@@ -11,5 +11,5 @@ jobs:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+        SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 
