@@ -19,7 +19,7 @@ jobs:
           | jq -r '.bio'); \
           echo "bio=$id_git" >> $GITHUB_OUTPUT
       - name: Send message
-        uses: UlysseCarpentier/GHActions-Git-Brother.github/workflows/slack_notification.yml
+        uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml
         with:
           mention_users: ${{ steps.get_github_bio.outputs.bio }}
 
