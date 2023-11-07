@@ -62,21 +62,21 @@ on:
         required: false
         default: ":x:"
         type: string
-      icon_cancelled:
-        description: Specify on icon to be used when event is cancelled
-        required: false
-        default: ":x:"
-        type: string
+#      icon_cancelled:
+#        description: Specify on icon to be used when event is cancelled
+#        required: false
+#        default: ":x:"
+#        type: string
       icon_warnings:
         description: Specify on icon to be used when event is warnings
         required: false
         default: ":large_orange_diamond:"
         type: string
-      icon_skipped:
-        description: Specify on icon to be used when event is skipped
-        required: false
-        default: ":fast_forward:"
-        type: string
+#      icon_skipped:
+#        description: Specify on icon to be used when event is skipped
+#        required: false
+#        default: ":fast_forward:"
+#        type: string
       SLACK_WEBHOOK_URL:
         description: Specify the Slack Webhook URL to send the message to. Default to secret "ACTION_MONITORING_SLACK"
         required: true
