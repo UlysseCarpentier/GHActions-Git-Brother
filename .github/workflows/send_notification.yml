@@ -25,12 +25,23 @@ jobs:
         id: status_update
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
+          echo "status=failure" >> $GITHUB_OUTPUT
           exit 1
+  status_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo status
+        shell: bash
+        run: |
+          echo "${{ jobs.check_branch.result }}"
+          echo "${{ jobs.result }}"
+          echo "${{ steps.check-branch_name.outputs.status }}"
+
   call-workflow:
     #needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: ${{ jobs.result }}
+      status: failure
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
