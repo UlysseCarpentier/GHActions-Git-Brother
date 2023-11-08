@@ -6,10 +6,28 @@ on:
   workflow_dispatch:
 
 jobs:
+  check_branch-name:
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - run: echo "🍏 This branch name is ${{ steps.extract_branch.outputs.branch }}."
+      - name: Check branch name
+        id: check-branch_name
+        run: |
+          if echo "${{ steps.extract_branch.outputs.branch }}" | grep -Po '^(chore|feat|fix|hotfix)/[a-zA-Z0-9-]+/(RM|GH)-\d{6}_[a-zA-Z0-9-]+$'; then
+              echo "match=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Exit Status Update
+        id: status_update
+        if: steps.check-branch_name.outputs.match != 'true'
+        run: |
+          exit1
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: "${{ job.status }}"
+      status: "${{ jobs.status_update.result }}"
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
