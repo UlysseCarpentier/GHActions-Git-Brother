@@ -24,6 +24,7 @@ jobs:
           fi
       - name: Exit Status Update
         id: status_update
+        #continue-on-error: true
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
           echo "status=failure" >> $GITHUB_OUTPUT
@@ -34,30 +35,17 @@ jobs:
       - name: Echo status
         shell: bash
         run: |
-          echo "${{ job.result }}"
+          echo "${{ job.status }}"
           echo "${{ steps.check-branch_name.outputs.status }}"
 
   call-workflow:
-    name: Tear Down
+    name: Tear down
     needs: check_branch-name
-    if: always()
-    steps:
-      - name: Tear down
-        run: exit 0
-
-      - name: Notify
-        uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-        if: always()
-        with:
-          status: "${{ job.status }} ${{ join(needs.*.result, ' ') }}"
-        secrets: inherit
-#    name: Tear down
-#    needs: check_branch-name
-#    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-#    with:
-#      status: "${{ job.status }} ${{ join(needs.*.result, ' ') }}"
-#      #Chopper status de CE workflow mais d'un autre job dans ce workflow
-#    secrets: inherit
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    with:
+      status: "success"
+      #Chopper status de CE workflow mais d'un autre job dans ce workflow
+    secrets: inherit
 
 
 
