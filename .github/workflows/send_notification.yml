@@ -9,7 +9,8 @@ jobs:
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: success
+      status: "${{ job.status }}"
+      #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
 
