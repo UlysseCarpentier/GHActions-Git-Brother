@@ -38,7 +38,13 @@ jobs:
     outputs:
       status: ${{steps.step1.outputs.status}}
     steps:
-      - name: Echo and set status
+      - name: Echo status
+        id: step2
+        shell: bash
+        run: |
+          echo "${{ needs.check_branch-name.outputs.status }}"
+          echo "${{ contains(needs.*.status, 'failure') }}"
+      - name: Set status
         id: step1
         shell: bash
         #Essayer de faire la même avec needs.*     ${{ contains(needs.*.result, 'failure') }}
