@@ -9,9 +9,13 @@ jobs:
   check_branch-name:
     name: check_branch
     runs-on: ubuntu-latest
+
+    #Important
     continue-on-error: true
+    #Important
     outputs:
       status: ${{ job.status }}
+
     steps:
       - name: Extract branch name
         shell: bash
@@ -36,18 +40,13 @@ jobs:
         run: |
           exit 0
           
-
-  slack_status_check:
+  #Important
+  slack_setup:
     runs-on: ubuntu-latest
     needs: check_branch-name
     outputs:
       status: ${{steps.set_status.outputs.status}}
     steps:
-      - name: Echo status
-        id: echo_status
-        shell: bash
-        run: |
-          echo "Contains a failure: ${{ contains(needs.*.outputs.status, 'failure') }}"
       - name: Set status
         id: set_status
         shell: bash
@@ -57,12 +56,15 @@ jobs:
           else
             echo "status=success" >> $GITHUB_OUTPUT
           fi
+      #- name: Get Slack ID
+      #  run: |
 
+  #Important
   slack_notification:
-    needs: slack_status_check
+    needs: slack_setup
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: "${{ needs.slack_status_check.outputs.status }}"
+      status: "${{ needs.slack_setup.outputs.status }}"
     secrets: inherit
 
 
