@@ -9,6 +9,7 @@ jobs:
   check_branch-name:
     name: check_branch
     runs-on: ubuntu-latest
+    continue-on-error: true
     outputs:
       status: ${{ job.status }}
     steps:
