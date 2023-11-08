@@ -4,6 +4,7 @@ on:
     branches:
       - '*'
   workflow_dispatch:
+env:
 
 jobs:
   check_branch-name:
@@ -32,19 +33,15 @@ jobs:
           echo "${{ job.status }}"
           echo "${{ job.status }}"
         id: extract_branch
+  get_status:
+    uses: technote-space/workflow-conclusion-action@v3.0.3
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: ${{ github.action_status }}
+      status: ${{ env.WORKFLOW_CONCLUSION }}
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
-    steps:
-      - name: Extract status state
-        shell: bash
-        run: |
-          echo "${{ github.action_status }}"
-          echo "${{ job.status }}"
-          echo "${{ job.status }}" 
+
 
 
 
