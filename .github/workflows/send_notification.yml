@@ -25,12 +25,6 @@ jobs:
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
           exit 1
-      - name: Extract status state
-        shell: bash
-        run: |
-          echo "${{ github.action_status }}"
-          echo "${{ job.status }}"
-          echo "${{ job.status }}"
   call-workflow:
     needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
