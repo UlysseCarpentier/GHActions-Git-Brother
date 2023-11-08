@@ -7,7 +7,6 @@ on:
 
 jobs:
   check_branch-name:
-    id: check_branch
     name: check_branch
     runs-on: ubuntu-latest
     steps:
