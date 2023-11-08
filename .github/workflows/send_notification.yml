@@ -33,12 +33,11 @@ jobs:
           echo "${{ job.status }}"
           echo "${{ job.status }}"
         id: extract_branch
-  get_status:
-    uses: technote-space/workflow-conclusion-action@v3
   call-workflow:
+    needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: ${{ env.WORKFLOW_CONCLUSION }}
+      status: ${{ contains(needs.*.result, 'failure') }}
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
