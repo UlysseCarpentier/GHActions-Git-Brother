@@ -47,7 +47,7 @@ jobs:
         id: set_status
         shell: bash
         run: |
-          if echo "${{ contains(needs.*.status, 'failure') }}"; then 
+          if ${{ contains(needs.*.outputs.status, 'failure') }}; then 
             echo "status=failure" >> $GITHUB_OUTPUT
           else
             echo "status=success" >> $GITHUB_OUTPUT
