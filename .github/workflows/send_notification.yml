@@ -9,6 +9,8 @@ jobs:
   check_branch-name:
     name: check_branch
     runs-on: ubuntu-latest
+    outputs:
+      status: ${{steps.status_update.outputs.status}}
     steps:
       - name: Extract branch name
         shell: bash
@@ -23,9 +25,10 @@ jobs:
           fi
       - name: Exit Status Update
         id: status_update
-        #continue-on-error: true
+        continue-on-error: true
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
+          echo "status=failure" >> $GITHUB_OUTPUT
           exit 1
   status_check:
     runs-on: ubuntu-latest
@@ -38,9 +41,8 @@ jobs:
         shell: bash
         run: |
           echo "${{ job.status }}"
-          echo "${{ needs.*.outputs.status }}"
           echo "${{ needs.check_branch-name.outputs.status }}"
-          echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
+          echo "status=${{ needs.check_branch-name.outputs.status }}" >> $GITHUB_OUTPUT
 
   call-workflow:
     name: Tear down
