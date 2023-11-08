@@ -26,10 +26,10 @@ jobs:
         run: |
           exit 1
   call-workflow:
-    needs: check_branch-name
+    #needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: ${{ contains(needs.*.result, 'failure') }}
+      status: ${{ contains(jobs.*.result, 'failure') }}
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
