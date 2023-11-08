@@ -35,7 +35,7 @@ on:
       mention_users:
         description: Specify the slack IDs of users you want to mention
         required: false
-        default: "${{ steps.get_github_bio.outputs.bio }}"
+        default: ${{ steps.get_github_bio.outputs.bio }}
         type: string
       mention_users_when:
         description: Specify on which events you want to mention the users
