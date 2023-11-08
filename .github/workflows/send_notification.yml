@@ -34,7 +34,7 @@ jobs:
           echo "${{ job.status }}"
         id: extract_branch
   get_status:
-    uses: technote-space/workflow-conclusion-action@v3.0.3
+    uses: technote-space/workflow-conclusion-action@v3
   call-workflow:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
