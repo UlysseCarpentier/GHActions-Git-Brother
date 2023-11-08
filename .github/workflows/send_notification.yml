@@ -1,4 +1,4 @@
-name: Call a reusable workflow
+name: Send Slack Notification
 on:
   create:
     branches:
@@ -30,27 +30,28 @@ jobs:
         run: |
           echo "status=failure" >> $GITHUB_OUTPUT
           exit 1
+          
+
   status_check:
     runs-on: ubuntu-latest
     needs: check_branch-name
     outputs:
       status: ${{steps.step1.outputs.status}}
     steps:
-      - name: Echo status
+      - name: Echo and set status
         id: step1
         shell: bash
+        #Essayer de faire la même avec needs.*     ${{ contains(needs.*.result, 'failure') }}
+        if: ${{ contains(needs.*.result, 'failure') }}
         run: |
-          echo "${{ job.status }}"
           echo "${{ needs.check_branch-name.outputs.status }}"
           echo "status=${{ needs.check_branch-name.outputs.status }}" >> $GITHUB_OUTPUT
 
   call-workflow:
-    name: Tear down
     needs: status_check
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
       status: "${{ needs.status_check.outputs.status }}"
-      #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
 
