@@ -108,6 +108,9 @@ jobs:
         message_format: ${{ inputs.message_format }}
         footer: ${{ inputs.footer }}
         notify_when: ${{ inputs.notify_when }}
+        #mention_users: ${{ inputs.mention_users }}
+        #Soit on laisse pour qu'une seule personne soit notifié
+        #Soit on remet input et le Get GitHub Bio sera dans le job slack-prepare
         mention_users: ${{ steps.get_github_bio.outputs.bio }}
         mention_users_when: ${{ inputs.mention_users_when }}
         mention_groups: ${{ inputs.mention_groups }}
