@@ -31,7 +31,6 @@ jobs:
           echo "${{ github.action_status }}"
           echo "${{ job.status }}"
           echo "${{ job.status }}"
-        id: extract_branch
   call-workflow:
     needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
