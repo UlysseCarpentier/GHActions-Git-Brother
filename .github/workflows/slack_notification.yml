@@ -25,7 +25,7 @@ on:
       footer:
         description: Specify the footer of the message
         required: false
-        default: "<{run_url}|View Run>"
+        default: ""
         type: string
       notify_when:
         description: Specify on which events a slack notification is sent
