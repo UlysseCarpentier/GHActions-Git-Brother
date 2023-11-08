@@ -34,7 +34,7 @@ jobs:
         id: status_update1
         #continue-on-error: true
         run: |
-          exit 1
+          exit 0
           
 
   slack_status_check:
