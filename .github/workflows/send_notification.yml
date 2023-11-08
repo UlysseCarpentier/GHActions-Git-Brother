@@ -36,29 +36,28 @@ jobs:
     runs-on: ubuntu-latest
     needs: check_branch-name
     outputs:
-      status: ${{steps.step1.outputs.status}}
+      status: ${{steps.set_status.outputs.status}}
     steps:
       - name: Echo status
-        id: step2
+        id: echo_status
         shell: bash
         run: |
-          echo "${{ needs.check_branch-name.outputs.status }}"
-          echo "${{ contains(needs.*.outputs.status, 'failure') }}"
+          echo "Contains a failure: ${{ contains(needs.*.outputs.status, 'failure') }}"
       - name: Set status
-        id: step1
+        id: set_status
         shell: bash
-        #Essayer de faire la même avec needs.*     ${{ contains(needs.*.result, 'failure') }}
-        if: ${{ contains(needs.*.outputs.status, 'failure') }}
         run: |
-          echo "${{ needs.check_branch-name.outputs.status }}"
-          echo "${{ contains(needs.*.status, 'failure') }}"
-          echo "status=${{ needs.check_branch-name.outputs.status }}" >> $GITHUB_OUTPUT
+          if echo "${{ contains(needs.*.status, 'failure') }}"; then 
+            echo "status=failure" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
 
   call-workflow:
     needs: status_check
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: "${{ needs.status_check.outputs.status }}"
+      status: "${{ needs.*.outputs.status }}"
     secrets: inherit
 
 
