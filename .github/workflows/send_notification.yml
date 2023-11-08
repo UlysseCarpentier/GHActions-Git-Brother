@@ -32,20 +32,19 @@ jobs:
           echo "${{ job.status }}"
           echo "${{ job.status }}"
         id: extract_branch
-  slack:
-    name: Slack
-    needs: check_branch-name
-    runs-on: ubuntu-latest
-    if: always()
+  call-workflow:
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    with:
+      status: ${{ github.action_status }}
+      #Chopper status de CE workflow mais d'un autre job dans ce workflow
+    secrets: inherit
     steps:
-      - name: Workflow Conclusion Action
-        uses: technote-space/workflow-conclusion-action@v3.0.3
-
-      - uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-        with:
-          status: ${{ env.WORKFLOW_CONCLUSION }}
-          #Chopper status de CE workflow mais d'un autre job dans ce workflow
-        secrets: inherit
+      - name: Extract status state
+        shell: bash
+        run: |
+          echo "${{ github.action_status }}"
+          echo "${{ job.status }}"
+          echo "${{ job.status }}" 
 
 
 
