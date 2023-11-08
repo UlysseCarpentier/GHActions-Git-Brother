@@ -8,6 +8,7 @@ on:
 jobs:
   check_branch-name:
     id: check_branch
+    name: check_branch
     runs-on: ubuntu-latest
     steps:
       - name: Extract branch name
@@ -26,22 +27,22 @@ jobs:
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
           echo "status=failure" >> $GITHUB_OUTPUT
-          exit 1
+          exit 0
   status_check:
     runs-on: ubuntu-latest
     steps:
       - name: Echo status
         shell: bash
         run: |
-          echo "${{ jobs.check_branch.result }}"
-          echo "${{ jobs.result }}"
+          echo "${{ job.result }}"
           echo "${{ steps.check-branch_name.outputs.status }}"
 
   call-workflow:
-    #needs: check_branch-name
+    name: Tear down
+    needs: check_branch-name
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: failure
+      status: "${{ job.status }} ${{ join(needs.*.result, ' ') }}"
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
