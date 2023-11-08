@@ -35,7 +35,7 @@ on:
       mention_users:
         description: Specify the slack IDs of users you want to mention
         required: false
-        default: ${{ steps.get_github_bio.outputs.bio }}
+        default: ""
         type: string
       mention_users_when:
         description: Specify on which events you want to mention the users
@@ -108,7 +108,7 @@ jobs:
         message_format: ${{ inputs.message_format }}
         footer: ${{ inputs.footer }}
         notify_when: ${{ inputs.notify_when }}
-        mention_users: ${{ inputs.mention_users }}
+        mention_users: ${{ steps.get_github_bio.outputs.bio }}
         mention_users_when: ${{ inputs.mention_users_when }}
         mention_groups: ${{ inputs.mention_groups }}
         mention_groups_when: ${{ inputs.mention_groups_when }}
