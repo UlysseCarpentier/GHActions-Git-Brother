@@ -31,8 +31,11 @@ jobs:
   status_check:
     runs-on: ubuntu-latest
     needs: check_branch-name
+    outputs:
+      status: ${{steps.step1.outputs.status}}
     steps:
       - name: Echo status
+        id: step1
         shell: bash
         run: |
           echo "${{ job.status }}"
@@ -45,7 +48,7 @@ jobs:
     needs: status_check
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
-      status: "${{ needs.*.outputs.status }}"
+      status: "${{ needs.status_check.outputs.status }}"
       #Chopper status de CE workflow mais d'un autre job dans ce workflow
     secrets: inherit
 
