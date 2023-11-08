@@ -42,9 +42,10 @@ jobs:
         id: step1
         shell: bash
         #Essayer de faire la même avec needs.*     ${{ contains(needs.*.result, 'failure') }}
-        if: ${{ contains(needs.*.result, 'failure') }}
+        if: ${{ contains(needs.*.status, 'failure') }}
         run: |
           echo "${{ needs.check_branch-name.outputs.status }}"
+          echo "${{ contains(needs.*.status, 'failure') }}"
           echo "status=${{ needs.check_branch-name.outputs.status }}" >> $GITHUB_OUTPUT
 
   call-workflow:
