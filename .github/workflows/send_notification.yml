@@ -24,7 +24,7 @@ jobs:
         id: status_update
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
-          exit1
+          exit 1
       - name: Extract status state
         shell: bash
         run: |
