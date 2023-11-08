@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "status=success" >> $GITHUB_OUTPUT
           exit 0
-      - name: Exit Status Update
+      - name: Exit Status Update1
         id: status_update1
         continue-on-error: true
         run: |
