@@ -43,12 +43,12 @@ jobs:
         shell: bash
         run: |
           echo "${{ needs.check_branch-name.outputs.status }}"
-          echo "${{ contains(needs.*.status, 'failure') }}"
+          echo "${{ contains(needs.*.outputs.status, 'failure') }}"
       - name: Set status
         id: step1
         shell: bash
         #Essayer de faire la même avec needs.*     ${{ contains(needs.*.result, 'failure') }}
-        if: ${{ contains(needs.*.status, 'failure') }}
+        if: ${{ contains(needs.*.outputs.status, 'failure') }}
         run: |
           echo "${{ needs.check_branch-name.outputs.status }}"
           echo "${{ contains(needs.*.status, 'failure') }}"
