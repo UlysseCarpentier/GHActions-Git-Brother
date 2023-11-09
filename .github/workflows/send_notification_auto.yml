@@ -32,7 +32,7 @@ jobs:
       - name: Exit Status Update1
         id: status_update1
         run: |
-          #echo "message=Salut cest le message" >> $GITHUB_OUTPUT
+          echo "message=Salut cest le message" >> $GITHUB_OUTPUT
           exit 0
 
   second_job:
@@ -84,6 +84,7 @@ jobs:
         if: ${{ toJSON(needs.*.outputs.message) }} = []
         run: |
             echo "message=message par default" >> $GITHUB_OUTPUT
+            echo "je suis bien passer par la"
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
         id: get_github_bio
