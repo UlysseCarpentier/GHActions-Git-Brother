@@ -9,9 +9,6 @@ jobs:
   check_branch-name:
     name: check_branch
     runs-on: ubuntu-latest
-
-    #Important
-    #continue-on-error: true
     #Important
     outputs:
       status: ${{ job.status }}
@@ -30,16 +27,27 @@ jobs:
           fi
       - name: Exit Status Update
         id: status_update
-        #continue-on-error: true
         if: steps.check-branch_name.outputs.match != 'true'
         run: |
-          exit 1
+          exit 0
       - name: Exit Status Update1
         id: status_update1
-        #continue-on-error: true
         run: |
           exit 0
-          
+
+  second_job:
+    name: second-job
+    runs-on: ubuntu-latest
+    #Important
+    outputs:
+      status: ${{ job.status }}
+    steps:
+      - name: Exit Status Update
+        id: status_update1
+        run: |
+          exit 1
+
+
   #Important
   slack_setup:
     runs-on: ubuntu-latest
