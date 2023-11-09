@@ -81,7 +81,7 @@ jobs:
       - name: Set message
         id: set_message
         shell: bash
-        if: '${{ toJSON(needs.*.outputs.message) }}' = '[]'
+        if: ${{ toJSON(needs.*.outputs.message) }} = []
         run: |
             echo "message=message par default" >> $GITHUB_OUTPUT
       - run: sudo apt-get install jq -y
