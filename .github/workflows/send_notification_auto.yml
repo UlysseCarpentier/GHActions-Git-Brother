@@ -82,7 +82,7 @@ jobs:
         id: set_message
         shell: bash
         run: |
-          if ${{ needs.*.outputs.message }} = '[]'; then
+          if ${{ toJSON(needs.*.outputs.message) }} = '[]'; then
             echo "message="{emoji} *{workflow}* {status_message} in HOHOHOHO <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}> *<{run_url}|View Run>* "
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
