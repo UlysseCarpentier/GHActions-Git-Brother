@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     #Important
-    continue-on-error: true
+    #continue-on-error: true
     #Important
     outputs:
       status: ${{ job.status }}
