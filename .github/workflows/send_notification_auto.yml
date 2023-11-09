@@ -76,6 +76,7 @@ jobs:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
       status: "${{ needs.slack_setup.outputs.status }}"
+      message_format: ""
     secrets: inherit
 
 
