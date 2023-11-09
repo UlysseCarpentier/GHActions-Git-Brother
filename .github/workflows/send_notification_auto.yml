@@ -51,7 +51,7 @@ jobs:
   #Important
   slack_setup:
     runs-on: ubuntu-latest
-    needs: check_branch-name
+    needs: [check_branch-name, second_job]
     if: always()
     outputs:
       status: ${{steps.set_status.outputs.status}}
