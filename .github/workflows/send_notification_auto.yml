@@ -32,7 +32,7 @@ jobs:
       - name: Exit Status Update1
         id: status_update1
         run: |
-          echo 'message="{emoji} *{workflow}* {status_message} in THE MONOREPO HAHAHA <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}> *<{run_url}|View Run>*" ' >> $GITHUB_OUTPUT
+          echo "message=Salut cest le message" >> $GITHUB_OUTPUT
           exit 1
 
   second_job:
@@ -83,7 +83,7 @@ jobs:
         shell: bash
         if: ${{ toJSON(needs.*.outputs.message) }} = '[]'
         run: |
-            echo "message='{emoji} *{workflow}* {status_message} in HOHOHOHO <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}> *<{run_url}|View Run>*' "
+            echo "message=message par default" >> $GITHUB_OUTPUT
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
         id: get_github_bio
