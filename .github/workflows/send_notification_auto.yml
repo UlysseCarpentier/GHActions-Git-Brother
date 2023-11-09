@@ -50,13 +50,10 @@ jobs:
 
   #Important
   slack_setup:
-    strategy:
-      matrix:
-        needss: [check_branch-name, second_job]
     runs-on: ubuntu-latest
     #important
     #Uses stategy matrix to only have one depenndancy at a time
-    needs: "${{ matrix.needss }}"
+    needs: [check_branch-name, second_job]
     if: always()
     outputs:
       status: ${{steps.set_status.outputs.status}}
@@ -71,6 +68,7 @@ jobs:
         #If there's at least one "cancelled" job, the overall status is "cancelled."
         #If there's at least one "warning" job and no "failure" jobs, the overall status is "warning."
         run: |
+          
           if ${{ contains(needs.*.outputs.status, 'failure') }}; then
             echo "status=failure" >> $GITHUB_OUTPUT
           elif ${{ contains(needs.*.outputs.status, 'cancelled') }}; then
