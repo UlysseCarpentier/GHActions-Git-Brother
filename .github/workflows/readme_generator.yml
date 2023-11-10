@@ -17,7 +17,7 @@ jobs:
           echo $json_array
           echo 'matrix="$json_array"' >> $GITHUB_OUTPUT
       - run: |
-          echo ${{fromJSON(steps.output_matrix.outputs.matrix).target}}
+          echo ${{steps.output_matrix.outputs.matrix}}
 
     outputs:
       actions: ${{ steps.output_matrix.outputs.matrix  }}
