@@ -87,7 +87,7 @@ jobs:
             if ${{ toJSON(needs.*.outputs.title) == '' }}; then
               echo 'title=message par default' >> $GITHUB_OUTPUT
             else
-              titles_string=$(echo "${{ toJSON(needs.*.outputs.title) }}" | jq -r 'join(", ")')
+              titles_string=$(echo '${{ toJSON(needs.*.outputs.title) }}' | jq -r 'join(", ")')
               echo "title=$titles_string" >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
