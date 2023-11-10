@@ -84,7 +84,7 @@ jobs:
         id: set_message
         shell: bash
         run: |
-            if ${{ toJSON(needs.*.outputs.message) == '' }}; then
+            if ${{ toJSON(needs.*.outputs.title) == '' }}; then
               echo 'title=message par default' >> $GITHUB_OUTPUT
             else
               titles_array=($(echo "${{ toJSON(needs.*.outputs.title) }}" | jq -r '.[]'))
