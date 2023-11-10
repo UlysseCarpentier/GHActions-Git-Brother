@@ -81,9 +81,7 @@ jobs:
       - name: Set message
         id: set_message
         shell: bash
-        if: ${{ toJSON(needs.*.outputs.message) == '' }}
         run: |
-            echo "message=message par default" >> $GITHUB_OUTPUT
             if ${{ toJSON(needs.*.outputs.message) == '' }}; then
               echo "message=message par default" >> $GITHUB_OUTPUT
             else
