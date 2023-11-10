@@ -1,6 +1,5 @@
 name: Find Actions
 on:
-  push:
   workflow_dispatch:
 jobs:
   path_file_init:
