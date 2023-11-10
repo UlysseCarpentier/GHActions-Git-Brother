@@ -41,9 +41,10 @@ jobs:
     #Important
     outputs:
       status: ${{ job.status }}
+      title: ${{ steps.status_update12.outputs.title }}
     steps:
       - name: Exit Status Update
-        id: status_update1
+        id: status_update12
         run: |
           echo "title=Salut cest le second message" >> $GITHUB_OUTPUT
           exit 0
