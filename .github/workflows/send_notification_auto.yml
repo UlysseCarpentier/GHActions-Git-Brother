@@ -94,7 +94,7 @@ jobs:
       mention_users: "${{ needs.slack_setup.outputs.slack_id }}"
     secrets:
       #User input
-      ACTION_MONITORING_SLACK: secrets.ACTION_MONITORING_SLACK
+      ACTION_MONITORING_SLACK: ${{ secrets.ACTION_MONITORING_SLACK }}
 
 
 
