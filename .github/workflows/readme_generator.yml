@@ -15,7 +15,7 @@ jobs:
           #json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
           json_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | {target: .}')
           echo $json_array
-          echo "matrix=$json_array" >> $GITHUB_OUTPUT
+          echo 'matrix="$json_array"' >> $GITHUB_OUTPUT
     outputs:
       actions: ${{ steps.output_matrix.outputs.matrix  }}
 
