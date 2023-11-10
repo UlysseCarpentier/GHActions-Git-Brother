@@ -87,7 +87,7 @@ jobs:
             else
               titles=("${{ needs.*.outputs.title }}")
               titles_string=$(IFS=,; echo "${titles[*]}")
-              echo "title=$titles_string" >> $GITHUB_OUTPUT
+              echo "titleFinal=$titles_string" >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
