@@ -88,7 +88,7 @@ jobs:
               echo 'title=message par default' >> $GITHUB_OUTPUT
             else
               titles_array=($(echo '${{ toJSON(needs.*.outputs.title) }}' | jq -r '.[]'))
-              titles_string=$(IFS=',' ; echo "${titles_array[*]}")
+              titles_string=$(IFS=, ; echo "${titles_array[*]}")
               echo "title=$titles_string" >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
