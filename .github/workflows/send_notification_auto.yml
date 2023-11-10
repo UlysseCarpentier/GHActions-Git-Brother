@@ -85,7 +85,7 @@ jobs:
             if ${{ toJSON(needs.*.outputs.message) == '' }}; then
               echo 'message=message par default' >> $GITHUB_OUTPUT
             else
-              messages=$(echo ${{ toJSON(needs.*.outputs.message) }} | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')
+              messages=$(${{ toJSON(needs.*.outputs.message) }} | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')
               echo "message=[$messages]" >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
