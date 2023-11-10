@@ -78,7 +78,7 @@ on:
         default: ":fast_forward:"
         type: string
     secrets:
-      ACTION_MONITORING_SLACK:
+      SLACK_WEBHOOK_URL:
         required: false
 
 
@@ -106,4 +106,4 @@ jobs:
         icon_warnings: ${{ inputs.icon_warnings }}
         icon_skipped: ${{ inputs.icon_skipped }}
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
