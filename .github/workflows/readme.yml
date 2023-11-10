@@ -1,6 +1,5 @@
 name: readme
 on:
-
   workflow_dispatch:
 jobs:
   build:
@@ -24,6 +23,7 @@ jobs:
           done
   run:
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         yaml_file:
@@ -31,7 +31,6 @@ jobs:
     steps:
       - name: Run github-action-readme-generator
         uses: bitflight-devops/github-action-readme-generator@v1.4.0
-        needs: build
         with:
           action: ${{ matrix.yaml_file }}
   cleanup:
