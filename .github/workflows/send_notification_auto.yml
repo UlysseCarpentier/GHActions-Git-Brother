@@ -4,36 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  check_branch-name:
-    name: check_branch
+  first_job:
+    name: first_job
     runs-on: ubuntu-latest
     #Important
     outputs:
       status: ${{ job.status }}
       title: ${{ steps.status_update1.outputs.title }}
-
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-      - run: echo "🍏 This branch name is ${{ steps.extract_branch.outputs.branch }}."
-      - name: Check branch name
-        id: check-branch_name
-        run: |
-          if echo "${{ steps.extract_branch.outputs.branch }}" | grep -Po '^(chore|feat|fix|hotfix)/[a-zA-Z0-9-]+/(RM|GH)-\d{6}_[a-zA-Z0-9-]+$'; then
-              echo "match=true" >> $GITHUB_OUTPUT
-          fi
-      - name: Exit Status Update
-        id: status_update
-        if: steps.check-branch_name.outputs.match != 'true'
-        run: |
-          exit 0
       - name: Exit Status Update1
         id: status_update1
+        #User input
         run: |
-          #User input
-          echo "title=Salut cest le message" >> $GITHUB_OUTPUT
+          echo "title=First Title" >> $GITHUB_OUTPUT
           exit 0
 
   second_job:
@@ -46,8 +29,9 @@ jobs:
     steps:
       - name: Exit Status Update
         id: status_update12
+        #User input
         run: |
-          echo "title=Salut cest le second message" >> $GITHUB_OUTPUT
+          echo "title=Second title" >> $GITHUB_OUTPUT
           exit 0
 
 
@@ -55,7 +39,7 @@ jobs:
   slack_setup:
     runs-on: ubuntu-latest
     #User Input
-    needs: [check_branch-name, second_job]
+    needs: [first_job, second_job]
     if: always()
     outputs:
       status: ${{steps.set_status.outputs.status}}
@@ -64,7 +48,6 @@ jobs:
     steps:
       - name: Set status
         id: set_status
-        shell: bash
         #If there's at least one "failure" job, the overall status is "failure."
         #If all jobs are "success" or "skipped," the overall status is "success."
         #If there's at least one "cancelled" job, the overall status is "cancelled."
@@ -81,7 +64,6 @@ jobs:
           fi
       - name: Set message
         id: set_message
-        shell: bash
         run: |
             if ${{ toJSON(needs.*.outputs.title) == '' }}; then
               echo 'title=Github Action Run' >> $GITHUB_OUTPUT
@@ -89,9 +71,9 @@ jobs:
               titles_string=$(echo '${{ toJSON(needs.*.outputs.title) }}' | jq -r 'join(", ")')
               echo "title=$titles_string" >> $GITHUB_OUTPUT
             fi
-      - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
         id: get_github_bio
+        #FEAT Make the request do a regex to only get the slack ID
         run: |
           id_git=$(curl -L \
           -H "Accept: application/vnd.github+json" \
