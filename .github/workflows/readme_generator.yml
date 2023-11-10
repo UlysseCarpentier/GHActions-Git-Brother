@@ -24,7 +24,7 @@ jobs:
           echo ${{steps.output_matrix.outputs.matrix}}
 
     outputs:
-      actions: ${{ steps.output_matrix.outputs.matrix  }}
+      actions: ${{steps.output_matrix.outputs.matrix}}
 
   run-matrix:
     needs: setup
