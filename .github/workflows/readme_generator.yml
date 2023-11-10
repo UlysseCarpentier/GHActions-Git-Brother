@@ -19,7 +19,7 @@ jobs:
           escaped_json_array=$(echo "$json_array" | sed 's/"/\\"/g')
           echo $escaped_json_array
           echo "$escaped_json_array"
-          echo 'matrix="$escaped_json_array"' >> $GITHUB_OUTPUT
+          echo 'matrix="'$json_array'"' >> $GITHUB_OUTPUT
       - run: |
           echo ${{steps.output_matrix.outputs.matrix}}
 
