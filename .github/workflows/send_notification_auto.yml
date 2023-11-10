@@ -1,6 +1,5 @@
 name: Send Slack Notification
 on:
-  push:
   workflow_dispatch:
 
 jobs:

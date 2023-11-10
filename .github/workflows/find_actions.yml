@@ -12,11 +12,10 @@ jobs:
       - name: List YAML Files
         id: list-yaml-files
         run: |
-          find Python -type f -name '*.yml' -print > yaml_files.txt
-          while IFS= read -r line; do echo "file_output=$line" >> $GITHUB_OUTPUT; done < yaml_files.txt
+          find . -type f -name '*.yml' -print > yaml_files.txt
+          while IFS= read -r line; do echo "files=$line" >> $GITHUB_OUTPUT; done < yaml_files.txt
       - name: Print results
         run: |
-          echo "${{ toJSON(steps.*.outputs.file_output) }}"
+          echo "${{ toJSON(steps.*.outputs.files) }}"
     outputs:
-      # Will look like '["6.0.0rc1", "5.3.2"]'
-      files: ${{ toJSON(steps.*.outputs.file_output) }}
+      files: ${{ toJSON(steps.list-yaml-files.outputs.files) }}

@@ -1,0 +1,30 @@
+name: Readme Generator
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: output_matrix
+        run: |
+          json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
+          echo $json_array
+          echo "matrix=$json_array" >> $GITHUB_OUTPUT
+    outputs:
+      actions: ${{ steps.output_matrix.outputs.matrix  }}
+
+  run-matrix:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ${{fromJSON(needs.setup.outputs.actions).target}}
+    steps:
+      - run: echo "${{matrix.target}}".yml
+#      - name: Run github-action-readme-generator
+#        uses: bitflight-devops/github-action-readme-generator@v1.4.0
+#        with:
+#          action: ${{matrix.target}}.yml
+#          readme: ${{matrix.target}}.md
