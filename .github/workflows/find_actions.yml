@@ -19,3 +19,19 @@ jobs:
           echo "${{ toJSON(steps.*.outputs.files) }}"
     outputs:
       files: ${{ toJSON(steps.list-yaml-files.outputs.files) }}
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "docs(readme): update README.md tables on ${{ github.ref_name }}"
+          commit-message: "docs(readme): updated README.md inputs table"
+          body: "Updated README.md inputs/outputs tables, according to action.yml file"
+          branch: update-readme--${{ github.ref_name }}
+          delete-branch: false
+          labels: bot,documentation
+      - name: Cleanup
+        run: |
+          rm -f matrix_input.yml
+          rm -f yaml_files.txt
