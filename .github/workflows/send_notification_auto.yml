@@ -10,7 +10,7 @@ jobs:
     #Important
     outputs:
       status: ${{ job.status }}
-      message: ${{ steps.status_update1.outputs.message }}
+      title: ${{ steps.status_update1.outputs.title }}
 
     steps:
       - name: Extract branch name
@@ -32,7 +32,7 @@ jobs:
       - name: Exit Status Update1
         id: status_update1
         run: |
-          echo "message=Salut cest le message" >> $GITHUB_OUTPUT
+          echo "title=Salut cest le message" >> $GITHUB_OUTPUT
           exit 0
 
   second_job:
@@ -58,7 +58,7 @@ jobs:
     outputs:
       status: ${{steps.set_status.outputs.status}}
       slack_id: ${{steps.get_github_bio.outputs.bio}}
-      message: ${{steps.set_message.outputs.message}}
+      title: ${{steps.set_message.outputs.title}}
     steps:
       - name: Set status
         id: set_status
@@ -83,10 +83,11 @@ jobs:
         shell: bash
         run: |
             if ${{ toJSON(needs.*.outputs.message) == '' }}; then
-              echo 'message=message par default' >> $GITHUB_OUTPUT
+              echo 'title=message par default' >> $GITHUB_OUTPUT
             else
-              messages=$(${{ toJSON(needs.*.outputs.message) }} | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')
-              echo "message=[$messages]" >> $GITHUB_OUTPUT
+              titles=("${{ needs.*.outputs.title }}")
+              titles_string=$(IFS=,; echo "${titles[*]}")
+              echo "title=$titles_string" >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
@@ -107,7 +108,7 @@ jobs:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
     with:
       status: "${{ needs.slack_setup.outputs.status }}"
-      message_format: "${{ needs.slack_setup.outputs.message }}"
+      notification_title: "${{ needs.slack_setup.outputs.title }}"
       mention_users: "${{ needs.slack_setup.outputs.slack_id }}"
     #Changer le webhook url pour aller cherche le secret
     secrets: inherit
