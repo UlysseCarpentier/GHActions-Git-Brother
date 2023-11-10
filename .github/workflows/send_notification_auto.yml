@@ -32,6 +32,7 @@ jobs:
       - name: Exit Status Update1
         id: status_update1
         run: |
+          #User input
           echo "title=Salut cest le message" >> $GITHUB_OUTPUT
           exit 0
 
@@ -53,8 +54,7 @@ jobs:
   #Important
   slack_setup:
     runs-on: ubuntu-latest
-    #important
-    #Uses stategy matrix to only have one depenndancy at a time
+    #User Input
     needs: [check_branch-name, second_job]
     if: always()
     outputs:
@@ -70,7 +70,6 @@ jobs:
         #If there's at least one "cancelled" job, the overall status is "cancelled."
         #If there's at least one "warning" job and no "failure" jobs, the overall status is "warning."
         run: |
-          
           if ${{ contains(needs.*.outputs.status, 'failure') }}; then
             echo "status=failure" >> $GITHUB_OUTPUT
           elif ${{ contains(needs.*.outputs.status, 'cancelled') }}; then
@@ -85,7 +84,7 @@ jobs:
         shell: bash
         run: |
             if ${{ toJSON(needs.*.outputs.title) == '' }}; then
-              echo 'title=message par default' >> $GITHUB_OUTPUT
+              echo 'title=Github Action Run' >> $GITHUB_OUTPUT
             else
               titles_string=$(echo '${{ toJSON(needs.*.outputs.title) }}' | jq -r 'join(", ")')
               echo "title=$titles_string" >> $GITHUB_OUTPUT
@@ -111,8 +110,9 @@ jobs:
       status: "${{ needs.slack_setup.outputs.status }}"
       notification_title: "${{ needs.slack_setup.outputs.title }}"
       mention_users: "${{ needs.slack_setup.outputs.slack_id }}"
-    #Changer le webhook url pour aller cherche le secret
-    secrets: inherit
+    secrets:
+      #User input
+      ACTION_MONITORING_SLACK: secrets.ACTION_MONITORING_SLACK
 
 
 
