@@ -9,7 +9,10 @@ jobs:
       - uses: actions/checkout@v3
       - id: output_matrix
         run: |
-          json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
+          yaml_files=$(find . -type f -name '*.yml' -print)
+          #find . -type f -name '*.yml' -print > yaml_files.txt
+          #json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
+          json_array=$(echo "{ \"target\": " $(< echo $yaml_files tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
           echo $json_array
           echo "matrix=$json_array" >> $GITHUB_OUTPUT
     outputs:
