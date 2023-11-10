@@ -85,7 +85,7 @@ jobs:
             if ${{ toJSON(needs.*.outputs.message) == '' }}; then
               echo 'message=message par default' >> $GITHUB_OUTPUT
             else
-              echo 'message="${{ fromJSON(toJSON(needs.*.outputs.message)) }}"' >> $GITHUB_OUTPUT
+              echo 'message=${{ toJSON(needs.*.outputs.message)) }}' >> $GITHUB_OUTPUT
             fi
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
