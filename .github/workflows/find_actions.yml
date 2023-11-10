@@ -1,8 +1,9 @@
 name: Find Actions
 on:
+  push:
   workflow_dispatch:
 jobs:
-  matrix-prep:
+  path_file_init:
     # Prepares the 'bazelversion' axis of the test matrix
     runs-on: ubuntu-latest
     steps:
@@ -16,16 +17,6 @@ jobs:
       - name: Print results
         run: |
           echo "${{ toJSON(steps.*.outputs.file_output) }}"
-      - name: Read and process files
-        run: |
-          while IFS= read -r line; do
-          echo "file_outputs=$line" >> $GITHUB_ENV
-          done < yaml_files.txt
-      - name: Display the output
-        run: |
-          echo "File outputs:"
-          echo "file_outputs=${{ env.file_output }}"
-
     outputs:
       # Will look like '["6.0.0rc1", "5.3.2"]'
       files: ${{ toJSON(steps.*.outputs.file_output) }}
