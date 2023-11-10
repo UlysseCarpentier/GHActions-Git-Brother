@@ -81,17 +81,11 @@ jobs:
       - name: Set message
         id: set_message
         shell: bash
-        if: ${{ toJSON(needs.*.outputs.message) }} = []
+        if: ${{ toJSON(needs.*.outputs.message) == '' }}
         run: |
             echo "message=message par default" >> $GITHUB_OUTPUT
             echo "je suis bien passer par la"
       - run: echo "${{ toJSON(needs.*.outputs.message) }} = []"
-      - if: ${{ toJSON(needs.*.outputs.message) == '' }}
-        run: |
-          echo "Empty text"
-      - if: ${{ toJSON(needs.*.outputs.message) != '' }}
-        run: |
-          echo "Text: 'toJSON(needs.*.outputs.message)'"
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio
         id: get_github_bio
