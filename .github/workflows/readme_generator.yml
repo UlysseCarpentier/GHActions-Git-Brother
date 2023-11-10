@@ -21,7 +21,7 @@ jobs:
           echo "$escaped_json_array"
           echo 'matrix="'$json_array'"' >> $GITHUB_OUTPUT
       - run: |
-          echo ${{steps.output_matrix.outputs.matrix}}
+          echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
 
     outputs:
       actions: ${{steps.output_matrix.outputs.matrix}}
