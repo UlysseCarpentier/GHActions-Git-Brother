@@ -23,7 +23,7 @@ jobs:
           escaped_json_array=$(echo "$json_array" | sed 's/"/\\"/g')
           echo $escaped_json_array
           echo "$escaped_json_array"
-          echo 'matrix="'$json_array'"' >> $GITHUB_OUTPUT
+          echo "matrix=$json_array" >> $GITHUB_OUTPUT
       - run: |
           echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
           echo "saleeeeejson  ${{toJSON(steps.output_matrix.outputs.matrix)}}"
@@ -32,7 +32,7 @@ jobs:
           echo "saleeeeejsontargetfromtotarget  ${{fromJSON(toJSON(steps.output_matrix.outputs.matrix)).target}}"
 
     outputs:
-      actions: ${{toJSON(steps.output_matrix.outputs.matrix)}}
+      actions: ${{steps.output_matrix.outputs.matrix}}
 
   run-matrix:
     needs: setup
