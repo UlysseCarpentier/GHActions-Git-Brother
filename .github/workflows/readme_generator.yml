@@ -27,7 +27,7 @@ jobs:
           echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
 
     outputs:
-      actions: ${{steps.output_matrix.outputs.matrix}}
+      actions: ${{toJSON(steps.output_matrix.outputs.matrix)}}
 
   run-matrix:
     needs: setup
@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         #target: ${{fromJSON(needs.setup.outputs.actions).target}}
-       target: ${{fromJSON(needs.setup.outputs.actions)}}
+       target: ${{fromJSON(needs.setup.outputs.actions).target}}
     steps:
       - run: echo "${{matrix.target}}".yml
 #      - name: Run github-action-readme-generator
