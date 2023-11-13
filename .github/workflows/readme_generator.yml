@@ -28,16 +28,24 @@ jobs:
        target: ${{fromJSON(needs.setup.outputs.actions).target}}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check if file exists
+        id: check_file
         run: |
           if [ -e "${{ matrix.target }}".md ]; then
             echo "File exists!"
+            echo "match=true" >> $GITHUB_OUTPUT
           else
             echo "File does not exist."
+            echo "match=false" >> $GITHUB_OUTPUT
           fi
-
+      - name: Copy .md
+        if: steps.check_file.outputs.match != 'true'
+        uses: canastro/copy-file-action@master
+        with:
+          source: "./Ressources/Base_README.md"
+          target: "${{matrix.target}}".md
       - run: |
           echo "${{matrix.target}}".yml
           echo "${{matrix.target}}".md
