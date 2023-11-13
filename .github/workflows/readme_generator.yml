@@ -9,29 +9,14 @@ jobs:
       - uses: actions/checkout@v3
       - id: output_matrix
         run: |
-          yaml_files=$(find . -type f -name '*.yml' -print)
+          yaml_files=$(find . -type f -name '*.yml' -exec basename {} .yml \;)
           echo $yaml_files
-          #find . -type f -name '*.yml' -print > yaml_files.txt
-          #json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
-          
           yaml_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | map(split(" ")) | flatten')
           quoted_array=$(echo "$yaml_array" | jq -c 'map("\"" + . + "\"")')
           target_string='{ "target":'
           end_string=' }'
           json_array="${target_string} ${yaml_array} ${end_string}"
-          echo $json_array
-          echo "$json_array"
-          last=$(echo $json_array)
-          echo $last
-          echo "$last"
           echo 'matrix='$json_array >> $GITHUB_OUTPUT
-      - run: |
-          echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
-          echo "saleeeeejson  ${{toJSON(steps.output_matrix.outputs.matrix)}}"
-          echo "saleeeeejsontarget  ${{toJSON(steps.output_matrix.outputs.matrix).target}}"
-          echo "saleeeeejsontargetfromto  ${{fromJSON(toJSON(steps.output_matrix.outputs.matrix))}}"
-          echo "saleeeeejsontargetfromtotarget  ${{fromJSON(toJSON(steps.output_matrix.outputs.matrix)).target}}"
-
     outputs:
       actions: ${{steps.output_matrix.outputs.matrix}}
 
@@ -40,10 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        #target: ${{fromJSON(needs.setup.outputs.actions).target}}
        target: ${{fromJSON(needs.setup.outputs.actions).target}}
     steps:
-      - run: echo "${{matrix.target}}".yml
+      - run: |
+          echo "${{matrix.target}}".yml
+          echo "${{matrix.target}}".md
 #      - name: Run github-action-readme-generator
 #        uses: bitflight-devops/github-action-readme-generator@v1.4.0
 #        with:
