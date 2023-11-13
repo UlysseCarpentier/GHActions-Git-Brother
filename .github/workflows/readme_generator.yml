@@ -20,7 +20,7 @@ jobs:
           json_array="${target_string} ${quoted_array}"
           echo $json_array
           echo "$json_array"
-          last=echo $json_array
+          last=$(echo $json_array)
           echo $last
           echo "$last"
           echo "matrix=$json_array" >> $GITHUB_OUTPUT
