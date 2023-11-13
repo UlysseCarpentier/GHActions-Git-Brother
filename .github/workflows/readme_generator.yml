@@ -24,7 +24,8 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     outputs:
-      actions: ${{steps.name_action.outputs.filename}}
+      filename: ${{steps.name_action.outputs.filename}}
+      match: ${{steps.check_file.outputs.match}}
     strategy:
       matrix:
        target: ${{fromJSON(needs.setup.outputs.actions).target}}
@@ -43,13 +44,16 @@ jobs:
         run: |
           if [ -e "${{ matrix.target }}".md ]; then
             echo "File exists!"
+            echo "match=true" >> $GITHUB_OUTPUT
           else
             echo "File does not exist."
             cp "./Ressources/Base_README.md" "${{matrix.target}}".md
             echo "copied"
+            echo "match=false" >> $GITHUB_OUTPUT
           fi
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
+        if: ${{steps.check_file.outputs.match}} != 'true'
         with:
           title: "docs(readme): update README.md tables on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated README.md inputs table"
