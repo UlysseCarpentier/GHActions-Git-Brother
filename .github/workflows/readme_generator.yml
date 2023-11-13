@@ -24,7 +24,7 @@ jobs:
           last=$(echo $json_array)
           echo $last
           echo "$last"
-          echo "matrix=$json_array" >> $GITHUB_OUTPUT
+          echo 'matrix=$json_array' >> $GITHUB_OUTPUT
       - run: |
           echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
           echo "saleeeeejson  ${{toJSON(steps.output_matrix.outputs.matrix)}}"
