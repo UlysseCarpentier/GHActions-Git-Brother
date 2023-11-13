@@ -23,12 +23,20 @@ jobs:
   run-matrix:
     needs: setup
     runs-on: ubuntu-latest
+    outputs:
+      actions: ${{steps.name_action.outputs.filename}}
     strategy:
       matrix:
        target: ${{fromJSON(needs.setup.outputs.actions).target}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Action name
+        id: name_action
+        run: |
+          filename=$(basename "${{ matrix.target }}")
+          echo "Filename is: $filename"
+          echo 'filename='$filename >> $GITHUB_OUTPUT
 
       - name: Check if file exists
         id: check_file
@@ -46,7 +54,7 @@ jobs:
           title: "docs(readme): update README.md tables on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated README.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to action.yml file"
-          branch: update-readme--${{ github.ref_name }}--${{matrix.target}}
+          branch: update-readme--${{ github.ref_name }}--${{steps.name_action.outputs.filename}}
           delete-branch: false
           labels: bot,documentation
 #      - name: Run github-action-readme-generator
