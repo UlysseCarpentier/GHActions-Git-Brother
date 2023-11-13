@@ -32,7 +32,7 @@ jobs:
 
       - name: Check if file exists
         run: |
-          if [ -e "${{ matrix.target }}".yml ]; then
+          if [ -e "${{ matrix.target }}".md ]; then
             echo "File exists!"
           else
             echo "File does not exist."
