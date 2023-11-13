@@ -42,7 +42,7 @@ jobs:
           fi
       - name: copy file
         if: steps.check_file.outputs.match != 'true'
-        uses: canastro/copy-file-action@master
+        uses: canastro/copy-action@master
         with:
           source: "./Ressources/Base_README.md"
           target: "${{matrix.target}}".md
