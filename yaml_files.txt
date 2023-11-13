@@ -1,0 +1,9 @@
+./.github/workflows/slack_notification.yml
+./.github/workflows/send_notification_auto.yml
+./.github/workflows/readme_generator.yml
+./.github/workflows/readme.yml
+./.github/workflows/find_actions.yml
+./Archive/Notify.yml
+./Archive/send_notification.yml
+./Python/action.yml
+./Python/GHA_Build.yml
