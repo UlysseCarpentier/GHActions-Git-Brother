@@ -1,6 +1,5 @@
 name: From .txt to Matrix
 on:
-  push:
   workflow_dispatch:
 jobs:
   setup:
