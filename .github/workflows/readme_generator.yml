@@ -64,6 +64,11 @@ jobs:
             echo "copied"
             echo "match=false" >> $GITHUB_OUTPUT
           fi
+      - name: Run github-action-readme-generator
+        uses: bitflight-devops/github-action-readme-generator@v1.4.0
+        with:
+          action: ${{ matrix.target }}.yml
+          readme: ${{ matrix.target }}.md
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         if: ${{steps.check_file.outputs.match}} != 'true'
