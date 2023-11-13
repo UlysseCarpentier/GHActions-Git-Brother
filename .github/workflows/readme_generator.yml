@@ -15,7 +15,7 @@ jobs:
           #json_array=$(echo "{ \"target\": " $(< yaml_files.txt tr -d '\r' | jq -R . | jq -s . | jq -c .) " }")
           yaml_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | map(split(" ")) | flatten')
           quoted_array=$(echo "$yaml_array" | jq -c 'map("\"" + . + "\"")')
-          json_array=$(echo '{ \"target\"': $quoted_array })
+          json_array=$(echo "{ \"target\": $quoted_array }" | tr -d '\n')
           echo $json_array
           echo "$json_array"
           #nul
