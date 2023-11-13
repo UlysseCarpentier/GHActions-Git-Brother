@@ -20,10 +20,9 @@ jobs:
           json_array="${target_string} ${quoted_array}"
           echo $json_array
           echo "$json_array"
-          #nul
-          escaped_json_array=$(echo "$json_array" | sed 's/"/\\"/g')
-          echo $escaped_json_array
-          echo "$escaped_json_array"
+          last=echo $json_array
+          echo $last
+          echo "$last"
           echo "matrix=$json_array" >> $GITHUB_OUTPUT
       - run: |
           echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
