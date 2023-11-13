@@ -25,6 +25,10 @@ jobs:
           echo 'matrix="'$json_array'"' >> $GITHUB_OUTPUT
       - run: |
           echo "saleeeee  ${{steps.output_matrix.outputs.matrix}}"
+          echo "saleeeeejson  ${{toJSON(steps.output_matrix.outputs.matrix)}}"
+          echo "saleeeeejsontarget  ${{toJSON(steps.output_matrix.outputs.matrix).target}}"
+          echo "saleeeeejsontargetfromto  ${{fromJSON(toJSON(steps.output_matrix.outputs.matrix))}}"
+          echo "saleeeeejsontargetfromtotarget  ${{fromJSON(toJSON(steps.output_matrix.outputs.matrix)).target}}"
 
     outputs:
       actions: ${{toJSON(steps.output_matrix.outputs.matrix)}}
