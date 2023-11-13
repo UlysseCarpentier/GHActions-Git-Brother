@@ -16,6 +16,7 @@ jobs:
           json_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | {\"target\": map("\"" + . + "\"")}')
           echo $json_array
           echo "$json_array"
+          #nul
           escaped_json_array=$(echo "$json_array" | sed 's/"/\\"/g')
           echo $escaped_json_array
           echo "$escaped_json_array"
