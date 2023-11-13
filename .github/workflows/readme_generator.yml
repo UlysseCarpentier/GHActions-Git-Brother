@@ -23,6 +23,19 @@ jobs:
   run-matrix:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      discussions: write
+      issues: write
+      pages: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
     outputs:
       filename: ${{steps.name_action.outputs.filename}}
       match: ${{steps.check_file.outputs.match}}
@@ -59,7 +72,7 @@ jobs:
           commit-message: "docs(readme): updated README.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to action.yml file"
           branch: update-readme--${{ github.ref_name }}--${{steps.name_action.outputs.filename}}
-          delete-branch: false
+          delete-branch: true
           labels: bot,documentation
 #      - name: Run github-action-readme-generator
 #        uses: bitflight-devops/github-action-readme-generator@v1.4.0
