@@ -40,7 +40,7 @@ jobs:
             echo "File does not exist."
             echo "match=false" >> $GITHUB_OUTPUT
           fi
-      - name: Copy .md
+      - name: copy file
         if: steps.check_file.outputs.match != 'true'
         uses: canastro/copy-file-action@master
         with:
