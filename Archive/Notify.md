@@ -1,13 +1,17 @@
 # Your Action title here
+
 ## Others infos
 
 <!-- start branding -->
 <!-- end branding -->
 <!-- start title -->
+
+# GitHub Action: Notify
+
 <!-- end title -->
 <!-- start badges -->
-<!-- end badges -->
----
+
+## <!-- end badges -->
 
 </div>
 <!-- start description -->
@@ -15,6 +19,11 @@
 <!-- start contents -->
 <!-- end contents -->
 <!-- start usage -->
+```yaml
+- uses: UlysseCarpentier/GHActions-Git-Brother@main
+  with:
+```
+
 <!-- end usage -->
 <!-- start inputs -->
 <!-- end inputs -->
