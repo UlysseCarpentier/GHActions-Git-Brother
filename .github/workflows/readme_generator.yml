@@ -46,7 +46,7 @@ jobs:
           title: "docs(readme): update README.md tables on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated README.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to action.yml file"
-          branch: update-readme--${{ github.ref_name }}
+          branch: update-readme--${{ github.ref_name }}--${{matrix.target}}
           delete-branch: false
           labels: bot,documentation
 #      - name: Run github-action-readme-generator
