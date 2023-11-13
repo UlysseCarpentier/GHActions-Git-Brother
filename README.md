@@ -98,3 +98,4 @@ Example of the start of a good commit message : GH-123456
 
 Refs:
 https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
+Slack notification to your channel or person if you have his slack ID<<CI test run for Python<Expects project<<- to use pytest as the test engine<- to use Pipenv for managing python virtual environment<
