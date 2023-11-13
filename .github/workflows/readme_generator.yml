@@ -16,8 +16,9 @@ jobs:
           
           yaml_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | map(split(" ")) | flatten')
           quoted_array=$(echo "$yaml_array" | jq -c 'map("\"" + . + "\"")')
-          target_string='{ \"target\":'
-          json_array="${target_string} ${quoted_array}"
+          target_string='{ "target":'
+          end_string=' }'
+          json_array="${target_string} ${yaml_array} ${end_string}"
           echo $json_array
           echo "$json_array"
           last=$(echo $json_array)
