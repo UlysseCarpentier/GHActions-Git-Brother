@@ -1,4 +1,10 @@
 name: Find Actions
+description: |+
+  Action to find otrher actions in a repository
+  aazr
+  Other line 
+  ++
+  :)
 on:
   workflow_dispatch:
 jobs:
