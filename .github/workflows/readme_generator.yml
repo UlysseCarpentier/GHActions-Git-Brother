@@ -68,7 +68,7 @@ jobs:
           start_line=$(grep -n "$start_pattern" "${{matrix.target}}".md | cut -d ":" -f 1)
           end_line=$(grep -n "$end_pattern" "${{matrix.target}}".md | cut -d ":" -f 1)
           content=$(sed -n "$((start_line + 1)),$((end_line - 1))p" "${{matrix.target}}".md)
-          result=$(echo "$content" | tr '\n' '<br>')
+          result=$(echo "$content" | awk '{printf "%s<br>", $0}')
           mkdir -p outputs
           echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
       - uses: actions/upload-artifact@v3
@@ -103,9 +103,35 @@ jobs:
         with:
           name: outputs
           path: outputs
-      - run: |
-          echo "got artifacts"
-          echo $(ls ./outputs)
-          echo $(ls outputs)
-          echo $(cat outputs/*.txt)
-          echo $(cat ./outputs/*.txt)
+      - name: Append Readme
+        id: append_readme
+        run: |
+          README="./README.md"
+          OUTPUTS_DIR="./outputs"
+          for txt_file in "$OUTPUTS_DIR"/*.txt; do
+            file_name=$(basename -- "$txt_file" .txt)
+            location=$(find . -type f -name "$file_name".yml 2>/dev/null | head -n 1 | sed 's/^\.\///')
+            if [ -z "$location" ]; then
+              echo "Warning: $file_name.yml not found!"
+            else
+              description=$(cat "$txt_file")
+              echo "| $file_name | $description | [$file_name](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/$location)  |" >> "$README"
+            fi
+          done
+      - name: Remove files
+        id: remove_files
+        if: steps.append_readme.outcome == 'success'
+        run: |
+          rm -rf ./outputs/
+      - name: Create Pull Request
+        if: steps.append_readme.outcome == 'success'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "docs(readme): update README.md on ${{ github.ref_name }}"
+          commit-message: "docs(readme): updated README.md Actions list table"
+          body: "Updated README.md Action list tables, with the new actions files"
+          branch: update-readme--${{ github.ref_name }}
+          delete-branch: true
+          labels: bot,documentation
+          
+      
