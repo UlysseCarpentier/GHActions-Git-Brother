@@ -15,10 +15,13 @@
 
 </div>
 <!-- start description -->
+sdfsdf Slack notification to your channel or person if you have his slack IDv
+
 <!-- end description -->
 <!-- start contents -->
 <!-- end contents -->
 <!-- start usage -->
+
 ```yaml
 - uses: UlysseCarpentier/GHActions-Git-Brother@main
   with:
