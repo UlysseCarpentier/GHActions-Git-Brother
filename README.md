@@ -58,7 +58,6 @@ https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
 <!-- end description -->
 | Action Name | Description                                                                                                                                                                                              | URL                                                                                                               |
 |-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-
 | GHA_Build | Slack notification to your channel or person if you have his slack ID<br><br>CI test run for Python<br>Expects project<br><br>- to use pytest as the test engine<br>- to use Pipenv for managing python virtual environment<br> | [GHA_Build](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Python/GHA_Build.yml)  |
 | Notify | Notify nulll...sq<br> | [Notify](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Archive/Notify.yml)  |
 | action | Slack notification to your channel or person if you have his slack ID<br> | [action](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Python/action.yml)  |
