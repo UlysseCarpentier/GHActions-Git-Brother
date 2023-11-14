@@ -25,6 +25,7 @@ jobs:
     outputs:
       filename: ${{steps.name_action.outputs.filename}}
       match: ${{steps.check_file.outputs.match}}
+      desc-${{steps.name_action.outputs.filename}}:
     strategy:
       matrix:
        target: ${{fromJSON(needs.setup.outputs.actions).target}}
@@ -69,14 +70,43 @@ jobs:
           end_line=$(grep -n "$end_pattern" "${{matrix.target}}".md | cut -d ":" -f 1)
           content=$(sed -n "$((start_line + 1)),$((end_line - 1))p" "${{matrix.target}}".md)
           result=$(echo "$content" | tr '\n' '<br>')
-          echo "$result" >> ./README.md
-
+          mkdir -p outputs
+          echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
+      - uses: actions/upload-artifact@v3
+        id: upload_artifact
+        with:
+          name: outputs
+          path: outputs/*.txt
+      - name: Remove files
+        id: remove_files
+        if: steps.upload_artifact.outcome == 'success'
+        run: |
+          rm -rf ./outputs/
+        ####Sortir ce résultat avec un output et faire un second job avec un second pull request qui ajoute tout un par un
       - name: Create Pull Request
+        if: steps.remove_files.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
         with:
-          title: "docs(readme): update README.md tables on ${{ github.ref_name }}"
-          commit-message: "docs(readme): updated README.md inputs table"
-          body: "Updated README.md inputs/outputs tables, according to action.yml file"
+          title: "docs(readme): update ${{steps.name_action.outputs.filename}}.md on ${{ github.ref_name }}"
+          commit-message: "docs(readme): updated ${{steps.name_action.outputs.filename}}.md inputs table"
+          body: "Updated README.md inputs/outputs tables, according to ${{steps.name_action.outputs.filename}}.yml file"
           branch: update-readme--${{ github.ref_name }}--${{steps.name_action.outputs.filename}}
           delete-branch: true
           labels: bot,documentation
+
+  set_desc:
+    needs: [run-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Load outputs
+        uses: actions/ownload-artifact@v3
+        with:
+          name: outputs
+          path: outputs
+      - run: |
+          echo "got artifacts"
+          echo $(ls ./outputs)
+          echo $(ls outputs)
+          echo $(cat outputs/*.txt)
+          echo $(cat ./outputs/*.txt)
