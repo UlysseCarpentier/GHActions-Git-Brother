@@ -59,6 +59,7 @@ jobs:
         with:
           action: ${{ matrix.target }}.yml
           readme: ${{ matrix.target }}.md
+  #### Faire une echo de ${{steps.check_file.outputs.match}}
       - name: Get Description
         id: get_desc
         if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
@@ -97,6 +98,7 @@ jobs:
 
 
 ##### S'execute même si aucun nouveau n'a été trouvé donc trouver une condition de lancement
+  #Checl l'artefact juste avec un outcome, si il arrive pas a download peutêtre qui se met en error
   set_desc:
     needs: [run-matrix]
     runs-on: ubuntu-latest
@@ -108,7 +110,7 @@ jobs:
         with:
           name: 'outputs'
       - run: |
-          echo "${{ steps.arti_check.outputs.exists }}"
+          echo "coucou exist or not? ${{ steps.arti_check.outputs.exists }}"
       - name: Load outputs
         uses: actions/download-artifact@v3
         with:
