@@ -61,7 +61,7 @@ jobs:
           readme: ${{ matrix.target }}.md
       - name: Get Description
         id: get_desc
-        if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} == 'true'
+        if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
         run: |
           start_pattern='<!-- start description -->'
           end_pattern='<!-- end description -->'
@@ -115,6 +115,12 @@ jobs:
               echo "Warning: $file_name.yml not found!"
             else
               description=$(cat "$txt_file")
+          
+              #
+              #   !!!ATTENTION!!!
+              #   @ULYSSE
+              #   CHANGER L'URL VERS LA BONNE VERSION
+              #   
               echo "| $file_name | $description | [$file_name](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/$location)  |" >> "$README"
             fi
           done
