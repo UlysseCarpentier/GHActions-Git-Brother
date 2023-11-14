@@ -1,55 +1,9 @@
-<!-- start branding -->
-<!-- end branding -->
-<!-- start title -->
+# GitHub Actions Shared
+## Welcome to EnergyPool's shared GitHub Actions Repository
 
-# GitHub Action: reusable-ci_python_pipenv_pytest
 
-<!-- end title -->
-<!-- start badges -->
-<!-- end badges -->
-<!-- start description -->
 
-Slack notification to your channel or person if you have his slack ID
 
-CI test run for Python
-Expects project
-
-- to use pytest as the test engine
-- to use Pipenv for managing python virtual environment
-
-<!-- end description -->
-<!-- start contents -->
-<!-- end contents -->
-<!-- start usage -->
-
-```yaml
-- uses: UlysseCarpentier/GHActions-Git-Brother@main
-  with:
-    # Slack username to send to
-    # Path within the git repository on the python code
-    # Expects to find Pipfile.lock in that path
-    code-path: ""
-
-    # Python version to
-    python-version: ""
-
-    runner: ""
-```
-
-<!-- end usage -->
-<!-- start inputs -->
-
-| **Input**                       | **Description**                                                                                                                 | **Default** | **Required** |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------ |
-| **<code>code-path</code>**      | Slack username to send to<br />Path within the git repository on the python code<br />Expects to find Pipfile.lock in that path |             | **true**     |
-| **<code>python-version</code>** | Python version to                                                                                                               |             | **true**     |
-| **<code>runner</code>**         |                                                                                                                                 |             | **true**     |
-
-<!-- end inputs -->
-<!-- start outputs -->
-<!-- end outputs -->
-<!-- start [.github/ghadocs/examples/] -->
-<!-- end [.github/ghadocs/examples/] -->
 
 # GHActions-Git-Brother
 
@@ -98,4 +52,12 @@ Example of the start of a good commit message : GH-123456
 
 Refs:
 https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
-<!-- end description --><
+
+
+# Actions list
+<!-- end description -->
+| Action Name | Description                                                                                                                                                                                              | URL                                                                                                               |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| GHA_Build   | Slack notification to your channel or person if you have his slack ID CI test run for Python  Expects project * to use pytest as the test engine * to use Pipenv for managing python virtual environment | [GHA_BUILD](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Python/GHA_Build.yml "Gha build") |
+| GHA_Test    | araeazest engine *  <br> to use Pipenv for managing python virtual environment                                                                                                                           | [GHA_BUILD](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Python/GHA_Build.yml "Gha test")  |
+
