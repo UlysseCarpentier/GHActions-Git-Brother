@@ -108,7 +108,7 @@ jobs:
         with:
           name: 'outputs'
       - run: |
-          echo ${{ steps.arti_check.outputs.exists }}
+          echo "${{ steps.arti_check.outputs.exists }}"
       - name: Load outputs
         uses: actions/download-artifact@v3
         with:
