@@ -69,7 +69,7 @@ jobs:
 
   slack_notification:
     needs: slack_status_check
-    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    #uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification1.yml@main
     with:
       status: "${{ needs.slack_status_check.outputs.status }}"
     secrets: inherit
