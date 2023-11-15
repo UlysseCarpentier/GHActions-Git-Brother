@@ -59,9 +59,10 @@ jobs:
         with:
           action: ${{ matrix.target }}.yml
           readme: ${{ matrix.target }}.md
+  #### Faire une echo de ${{steps.check_file.outputs.match}}
       - name: Get Description
         id: get_desc
-        if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} == 'true'
+        if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
         run: |
           start_pattern='<!-- start description -->'
           end_pattern='<!-- end description -->'
@@ -73,17 +74,18 @@ jobs:
           echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
       - uses: actions/upload-artifact@v3
         id: upload_artifact
+        if: steps.get_desc.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
         with:
           name: outputs
           path: outputs/*.txt
+          retention-days: 1
       - name: Remove files
         id: remove_files
         if: steps.upload_artifact.outcome == 'success'
         run: |
           rm -rf ./outputs/
-        ####Sortir ce résultat avec un output et faire un second job avec un second pull request qui ajoute tout un par un
       - name: Create Pull Request
-        if: steps.remove_files.outcome == 'success'
+        if: steps.remove_files.outcome != 'failed'
         uses: peter-evans/create-pull-request@v5
         with:
           title: "docs(readme): update ${{steps.name_action.outputs.filename}}.md on ${{ github.ref_name }}"
@@ -93,11 +95,22 @@ jobs:
           delete-branch: true
           labels: bot,documentation
 
+
+
+##### S'execute même si aucun nouveau n'a été trouvé donc trouver une condition de lancement
+  #Checl l'artefact juste avec un outcome, si il arrive pas a download peutêtre qui se met en error
   set_desc:
     needs: [run-matrix]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Check artifact existence
+        id: arti_check
+        uses: xSAVIKx/artifact-exists-action@v0
+        with:
+          name: 'outputs'
+      - run: |
+          echo "coucou exist or not? ${{ steps.arti_check.outputs.exists }}"
       - name: Load outputs
         uses: actions/download-artifact@v3
         with:
@@ -115,6 +128,12 @@ jobs:
               echo "Warning: $file_name.yml not found!"
             else
               description=$(cat "$txt_file")
+          
+              #
+              #   !!!ATTENTION!!!
+              #   @ULYSSE
+              #   CHANGER L'URL VERS LA BONNE VERSION
+              #   
               echo "| $file_name | $description | [$file_name](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/$location)  |" >> "$README"
             fi
           done
