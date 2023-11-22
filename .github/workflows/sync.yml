@@ -1,0 +1,33 @@
+name: SYNCRO
+on:
+  workflow_dispatch:
+jobs:
+  token_generator:
+    runs-on: ubuntu-latest
+    steps:
+      - id: create_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+          permissions: >-
+            {
+              "actions": "write",
+              "contents": "read",
+              "pull_requests": "read"
+            }
+      - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
+    outputs:
+      token: ${{ steps.create_token.outputs.token }}
+  sync:
+    runs-on: ubuntu-latest
+    needs: [token_generator]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Run GitHub File Sync
+        uses: BetaHuhn/repo-file-sync-action@v1
+        with:
+          GH_INSTALLATION_TOKEN: ${{ needs.token_generator.outputs.token }}
+          GIT_EMAIL: "ulysse.carpentier@do-now.io"
+          GIT_USERNAME: "UlysseCarpentier"
