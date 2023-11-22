@@ -14,8 +14,32 @@ jobs:
           permissions: >-
             {
               "actions": "write",
+              "administration": "write",
+              "checks": "write",
               "contents": "write",
-              "pull_requests": "write"
+              "deployments": "write",
+              "issues": "write",
+              "members": "write",
+              "metadata": "read",
+              "organization_administration": "write",
+              "organization_hooks": "write",
+              "organization_plan": "read",
+              "organization_projects": "write",
+              "organization_user_blocking": "write",
+              "pages": "write",
+              "pull_requests": "write",
+              "repository_hooks": "write",
+              "repository_hooks_deployments": "write",
+              "repository_hooks_hooks": "write",
+              "repository_hooks_pages": "write",
+              "repository_hooks_pull_requests": "write",
+              "secrets": "write",
+              "security_events": "read",
+              "single_file": "write",
+              "statuses": "write",
+              "team_discussions": "write",
+              "vulnerability_alerts": "read",
+              "workflows": "write"
             }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
       - name: Checkout Repository
