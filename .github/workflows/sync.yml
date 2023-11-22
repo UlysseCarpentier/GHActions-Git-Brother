@@ -3,11 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   token_generator:
-    permissions:
-      id-token: write
-      contents: write
-      issues: write
-      pull-requests: write
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - id: create_token
@@ -18,8 +14,8 @@ jobs:
           permissions: >-
             {
               "actions": "write",
-              "contents": "read",
-              "pull_requests": "read"
+              "contents": "write",
+              "pull_requests": "write"
             }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
       - name: Checkout Repository
