@@ -4,4 +4,4 @@ UlysseCarpentier/GHActions-Git-Brother:
   - source: .github/workflows/
     dest: .github/workflows/
     exclude: |
-      .github/workflows/*.yml
+      ./*.yml
