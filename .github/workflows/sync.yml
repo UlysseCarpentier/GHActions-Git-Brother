@@ -3,7 +3,11 @@ on:
   workflow_dispatch:
 jobs:
   token_generator:
-    permissions: write-all
+    permissions:
+      id-token: write
+      contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - id: create_token
