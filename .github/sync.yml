@@ -1,3 +1,5 @@
 UlysseCarpentier/GHActions-Git-Brother:
   - source: ./test.txt
     dest: .github/workflows/test.txt
+  - exclude: |
+      .github/workflows/*.yml
