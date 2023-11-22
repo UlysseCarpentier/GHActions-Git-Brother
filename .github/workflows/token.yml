@@ -1,0 +1,21 @@
+name: Sync actions
+description: |+
+  Synchronize reusable actions to .github/workflow dir.
+on:
+  workflow_dispatch:
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - id: create_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+          permissions: >-
+            {
+              "actions": "write",
+              "contents": "write",
+              "pull_requests": "write"
+            }
+      - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
