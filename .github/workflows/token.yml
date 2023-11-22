@@ -11,10 +11,6 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PEM }}
-          permissions: >-
-            {
-              "pull_requests": "write"
-            }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
 #              "actions": "write",
 #              "contents": "write",
