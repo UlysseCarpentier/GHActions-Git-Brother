@@ -1,0 +1,3 @@
+UlysseCarpentier/GHActions-Git-Brother:
+  - source: ./test.txt
+    dest: .github/workflows/test.txt
