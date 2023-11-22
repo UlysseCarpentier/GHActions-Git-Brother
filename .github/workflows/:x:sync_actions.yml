@@ -1,0 +1,29 @@
+name: Sync actions
+description: |+
+  Synchronize reusable actions to .github/workflow dir.
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  find_actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: output_actions
+        run: |
+          yaml_files=$(find . -type f -name '*.yml' -not -path './.github/*' -exec sh -c 'echo "$(dirname "$1")/$(basename -s .yml "$1")"' _ {} \;)
+          echo $yaml_files
+          yaml_array=$(echo "$yaml_files" | jq -R -s 'split("\n")[:-1] | map(split(" ")) | flatten')
+          quoted_array=$(echo "$yaml_array" | jq -c 'map("\"" + . + "\"")')
+          target_string='{ "target":'
+          end_string=' }'
+          json_array="${target_string} ${yaml_array} ${end_string}"
+          echo 'matrix='$json_array >> $GITHUB_OUTPUT
+  actions_file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+  sync_actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3

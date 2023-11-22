@@ -39,5 +39,5 @@ Please use the PR Template to create your PR.
 
 ### Files to provide for a reusable workflow
 - Reusable workflow with emoji :rocket:
-- Exemple of use of that workflow with emoji :white_check_mark:
-- Optionnal: Update the .md file with more data if needed
+- Example of use of that workflow with emoji :white_check_mark:
+- Optional: Update the .md file with more data if needed
