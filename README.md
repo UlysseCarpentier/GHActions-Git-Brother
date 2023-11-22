@@ -1,57 +1,34 @@
 # GitHub Actions Shared
 ## Welcome to EnergyPool's shared GitHub Actions Repository
 
+### What is it?
+This Repository is here to share all the reusable workflows that could be used for Everest and other projects. 
+- You will find the list of reusable workflows at the end of this file. They are marked with this emoji :rocket:
+
+**They are in different directories but are always synched with the .github/workflow, so they can be called from 
+another repository.**
+- You will also find at the same place the documentation (same name .md file), and the  minimal working workflow 
+for this reusable. They are marked with this emoji :checked:
+- Other workflows that are used for this repository only are marked with :X:
+
+
+### How to use
+Once you found the reusable workflow that you want to use, first you can check the .md file with the same name as the 
+workflow. 
+You can also check the workflows in the same directory with the emoji :marked:, 
+it's an example of the minimum working workflow.
+
+
+### How to participate
+If you want to make reusable workflows for this repository, please check the documentation : 
+[How to participate in GHA Shared]()
+
+### How to ask for a development, reusable workflow...
+If you didn't find what you want and you have a request for a new reusable workflow, please follow this documentation:
+[How to request for a new development]()
 
 
 
-
-# GHActions-Git-Brother
-
-### Personnal slack notification solutions:
-
-To get useful and relevant slack notifications from the Git Brother, we would need the slack member ID.
-To get this ID, we have couple choices:
-
-- Easiest but requires actions from EVERY DEV (already implemented):
-  - Everybody puts their Slack ID in their Github Bio
-- Also requires actions from EVERY DEV and must be kept up to date :
-  - Create a file where everybody puts their Github ID and Slack ID
-  - Keep it up to date, add it to the Onboarding
-
-### Get started
-
-1. Slack notifications setup :
-   - Getting a Webhook URL
-     - Go to https://api.slack.com/apps and click Create New App.
-     - Give your app a name and choose your Development Workspace from the dropdown.
-     - Once you have created an app, you need to turn on the Incoming Webhook feature and create a new webhook URL.
-     - Create a new webhook by clicking Add New Webhook to Workspace and choose the channel you want the notifications to be posted in.
-     - Copy the webhook link
-   - Add the webhook link to the Github Actions secrets with the name - ACTION_MONITORING_SLACK
-2. Slack ID setup :
-   - Get your Slack ID by clicking on your picture/profile, click the "...", click on "copy member ID"
-   - Set your Github bio to your Slack ID, click on your GH profile, your profile, edit profile, put your Slack ID in the bio, and save
-
-### Check-Branch-Name
-
-Example of a good named branch : fix/microgrid/GH-123456_petite-description
-
-- Branch name must start with chore|feat|fix|hotfix
-- Followed by a directory (can contains numbers)
-- Followed by RM|GH and -
-- Followed by 6 digit number and \_
-- Ended with a short description
-
-### Check-Commit-Message
-
-Example of the start of a good commit message : GH-123456
-**The commit message must start with the issue ID**
-
-- Commit message must start with GH|RM and -
-- Followed by 6 digits
-
-Refs:
-https://www.ravsam.in/blog/send-slack-notification-when-github-actions-fails/
 
 
 # Actions list

@@ -86,8 +86,8 @@ jobs:
   slack_notification:
     if: always()
     needs: slack_setup
-    #uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-    uses: UlysseCarpentier/GHActions-Git-Brother/Slack/slack_notification.yml@main
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    #uses: UlysseCarpentier/GHActions-Git-Brother/Slack/slack_notification.yml@main
     with:
       status: "${{ needs.slack_setup.outputs.status }}"
       notification_title: "${{ needs.slack_setup.outputs.title }}"
