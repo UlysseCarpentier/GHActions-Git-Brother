@@ -1,6 +1,5 @@
 name: Sync actions
-description: |+
-  Synchronize reusable actions to .github/workflow dir.
+#Description
 on:
   workflow_dispatch:
 jobs:
