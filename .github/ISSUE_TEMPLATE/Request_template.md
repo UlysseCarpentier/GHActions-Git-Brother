@@ -1,12 +1,13 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: "[GHA_shared]"
+title: "[GHA_Shared] [Request|Upgrade|Fix] 🚀 | ❌ | ✅ Short description"
 labels: "0 - WIP"
 assignees: "@energypool/gha"
 ---
 
 ## Description:
+
 ### Why should we do the dev?
 
 ### What is the dev?
@@ -25,6 +26,6 @@ assignees: "@energypool/gha"
 
 ### Definition of Done check-list:
 - [ ] Documentation is up to date
-    - includes schema update
 - [ ] Acceptance Tests are successful
 - [ ] Stakeholders accepted this feature as done
+
