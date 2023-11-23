@@ -78,6 +78,9 @@ jobs:
           echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
           echo "Main update : ${{steps.check_file.outputs.main_update}}"
           echo "match : ${{steps.check_file.outputs.match}}"
+          echo "contains : ${{ contains(steps.check_file.outputs.main_update, 'true') }}"
+          echo "condition1 : (${{steps.check_file.outputs.main_update}} == 'true')"
+          echo "condition2 : steps.doc_generator.outcome == 'success' && (${{steps.check_file.outputs.main_update}} == 'true')"
       - uses: actions/upload-artifact@v3
         id: upload_artifact
         if: steps.get_desc.outcome == 'success'
