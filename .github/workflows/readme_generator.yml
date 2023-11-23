@@ -63,7 +63,6 @@ jobs:
           readme: ${{ matrix.target }}.md
       - name: Get Description
         id: get_desc
-        #####Still not good
         if: ${{ steps.check_file.outputs.match != 'true' }}
         run: |
           start_pattern='<!-- start description -->'
