@@ -64,9 +64,7 @@ jobs:
           readme: ${{ matrix.target }}.md
       - name: Get Description
         id: get_desc
-        #if: steps.doc_generator.outcome == 'success' && (${{steps.check_file.outputs.main_update}} == 'true')
-        #if: steps.doc_generator.outcome == 'success' && ('${{steps.check_file.outputs.main_update}}' == 'true')
-        if: ${{ steps.check_file.outputs.main_update == 'true' }}
+        if: steps.doc_generator.outcome == 'success' && ${{ steps.check_file.outputs.match != 'true' }}
         run: |
           start_pattern='<!-- start description -->'
           end_pattern='<!-- end description -->'
@@ -76,11 +74,6 @@ jobs:
           result=$(echo "$content" | awk '{printf "%s<br>", $0}')
           mkdir -p outputs
           echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
-          echo "Main update : ${{steps.check_file.outputs.main_update}}"
-          echo "match : ${{steps.check_file.outputs.match}}"
-          echo "contains : ${{ contains(steps.check_file.outputs.main_update, 'true') }}"
-          echo "condition1 : (${{steps.check_file.outputs.main_update}} == 'true')"
-          echo "condition2 : steps.doc_generator.outcome == 'success' && ('${{steps.check_file.outputs.main_update}}' == 'true')"
       - uses: actions/upload-artifact@v3
         id: upload_artifact
         if: steps.get_desc.outcome == 'success'
@@ -122,6 +115,7 @@ jobs:
         if: steps.load_artifact.outcome == 'success'
         id: append_readme
         run: |
+          echo "${{needs.generate_doc.outputs.main_update}}"
           README="./README.md"
           OUTPUTS_DIR="./outputs"
           for txt_file in "$OUTPUTS_DIR"/*.txt; do
