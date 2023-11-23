@@ -97,28 +97,20 @@ jobs:
 
 
 
-##### S'execute même si aucun nouveau n'a été trouvé donc trouver une condition de lancement
-  #Checl l'artefact juste avec un outcome, si il arrive pas a download peutêtre qui se met en error
   set_desc:
     needs: [run-matrix]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check artifact existence
-        id: arti_check
-        uses: xSAVIKx/artifact-exists-action@v0
-        with:
-          name: 'outputs'
-      - run: |
-          echo "coucou exist or not? ${{ steps.arti_check.outputs.exists }}"
       - name: Load artifact
+        if: ${{ contains(needs.*.outputs.match, 'false') }}
         id: load_artifact
         uses: actions/download-artifact@v3
         with:
           name: outputs
           path: outputs
       - name: Append Readme
-        if: steps.load_artifact.outcome == 'success'
+        if: steps.load_artifact.outcome == 'success' &&
         id: append_readme
         run: |
           README="./README.md"
@@ -144,7 +136,7 @@ jobs:
         if: steps.append_readme.outcome == 'success'
         run: |
           rm -rf ./outputs/
-
+          ls -la
       - name: Create Pull Request
         if: steps.append_readme.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
