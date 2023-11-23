@@ -3,19 +3,19 @@
 
 ### What is it?
 This Repository is here to share all the reusable workflows that could be used for Everest and other projects. 
-- You will find the list of reusable workflows at the end of this file. They are marked with this emoji :rocket:
+- You will find the list of reusable workflows at the end of this file. They are marked with "R_"
 
 **They are in different directories but are always synced with the .github/workflow, so they can be called from 
 another repository.**
 - You will also find the documentation at the same place (Action_name.md file), and the  minimal working workflow(s) 
-for this reusable. They are marked with this emoji :white_check_mark:
-- Other workflows that are used for this repository only are marked with :x:
+for this reusable. They are marked with "V_"
+- Other workflows that are used for this repository only are marked with "X_"
 
 
 ### How to use
 Once you found the reusable workflow that you want to use, first you can check the .md file with the same name as the 
 workflow. This is the documentation for this workflow.
-You can also check the workflows in the same directory with the emoji :white_check_mark:, 
+You can also check the workflows in the same directory with the emoji "V_", 
 it's an example of the minimum working workflow of this reusable.
 If you still need help, you can contact the author. You'll find his name at the top of the reusable workflow file.
 
