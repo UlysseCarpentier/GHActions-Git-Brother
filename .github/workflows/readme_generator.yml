@@ -65,7 +65,7 @@ jobs:
       - name: Get Description
         id: get_desc
         #if: steps.doc_generator.outcome == 'success' && (${{steps.check_file.outputs.main_update}} == 'true')
-        if: steps.doc_generator.outcome == 'success' && ${{ contains(steps.check_file.outputs.main_update, 'true') }}
+        if: steps.doc_generator.outcome == 'success' && ('${{steps.check_file.outputs.main_update}}' == 'true')
         #if: ${{steps.check_file.outputs.main_update}}
         run: |
           start_pattern='<!-- start description -->'
@@ -80,7 +80,7 @@ jobs:
           echo "match : ${{steps.check_file.outputs.match}}"
           echo "contains : ${{ contains(steps.check_file.outputs.main_update, 'true') }}"
           echo "condition1 : (${{steps.check_file.outputs.main_update}} == 'true')"
-          echo "condition2 : steps.doc_generator.outcome == 'success' && (${{steps.check_file.outputs.main_update}} == 'true')"
+          echo "condition2 : steps.doc_generator.outcome == 'success' && ('${{steps.check_file.outputs.main_update}}' == 'true')"
       - uses: actions/upload-artifact@v3
         id: upload_artifact
         if: steps.get_desc.outcome == 'success'
