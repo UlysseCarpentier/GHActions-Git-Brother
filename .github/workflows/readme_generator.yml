@@ -63,7 +63,7 @@ jobs:
           readme: ${{ matrix.target }}.md
       - name: Get Description
         id: get_desc
-        if: steps.doc_generator.outcome == 'success' && (${{steps.check_file.outputs.match}} == 'false')
+        if: steps.doc_generator.outcome == 'success' && !${{steps.check_file.outputs.match}}
         run: |
           start_pattern='<!-- start description -->'
           end_pattern='<!-- end description -->'
