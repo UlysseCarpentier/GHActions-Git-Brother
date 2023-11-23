@@ -1,9 +1,9 @@
-name: SYNCRO
+name: Sync Reusable Workflows
 on:
   workflow_dispatch:
 jobs:
-  token_generator:
-    permissions: write-all
+  sync_files:
+#    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - id: create_token
