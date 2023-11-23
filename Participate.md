@@ -64,3 +64,8 @@ The file name pattern should be :
 - Example of use of that workflow with emoji "V_" and syntax.
 - Update the sync.yml in .github to sync your reusable workflow to the .github/workflow directory.
 - Optional: Update the .md file with more data if needed.
+
+
+### Update/rename workflow
+
+### Delete workflow
