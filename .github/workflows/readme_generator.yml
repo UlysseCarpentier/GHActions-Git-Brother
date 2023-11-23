@@ -63,7 +63,7 @@ jobs:
           readme: ${{ matrix.target }}.md
       - name: Get Description
         id: get_desc
-        if: steps.doc_generator.outcome == 'success' && !${{steps.check_file.outputs.match}}
+        if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.main_update}}
         run: |
           start_pattern='<!-- start description -->'
           end_pattern='<!-- end description -->'
@@ -76,7 +76,7 @@ jobs:
           echo "${{steps.check_file.outputs.match}} == 'false'"
       - uses: actions/upload-artifact@v3
         id: upload_artifact
-        if: steps.get_desc.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
+        if: steps.get_desc.outcome == 'success'
         with:
           name: outputs
           path: outputs/*.txt
