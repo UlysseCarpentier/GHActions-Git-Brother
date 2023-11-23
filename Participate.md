@@ -9,7 +9,7 @@ We can provide some useful trainings/time to spend with you to best help you tak
 ## How to make a reusable workflow
 ### First off
 - You can find an example of a rightfully made reusable workflow here : @ULYSSE CHANGE THIS
-- The auto documentation will create a .md from only your reusable workflow :rocket:.
+- The auto documentation will create a .md from only your reusable workflow "R_".
 - Once your workflow is merged into the repository, it will create the .md file with the same name as your action.
   You will then be able to update this documentation if it's missing any important information.
   For example if you have 2 examples for your reusable workflow, you will be able to change the documentation to add context to those, if the description inside the workflow is not enough.
@@ -22,9 +22,14 @@ We can provide some useful trainings/time to spend with you to best help you tak
 Please use the PR Template to create your PR.
 
 
-### Workflow syntax
-**Everything with  * is mandatory**
-- Name* : `name:`
+### Reusable Workflow syntax
+
+The file name pattern should be :
+- "R_" to mark them as reusable
+- "Directory_SubDir_Description"
+
+**Everything with * is mandatory**
+- Name* : `name:` , it should be close to the directory structure
 - Description* : `description: |`
 - Author* : `author:`
 - Inputs
@@ -36,8 +41,26 @@ Please use the PR Template to create your PR.
   - Name*
     - Description* : `description: |`
 
+### Use example of reusable Workflow syntax
 
-### Files to provide for a reusable workflow
-- Reusable workflow with emoji :rocket:
-- Example of use of that workflow with emoji :white_check_mark:
-- Optional: Update the .md file with more data if needed
+The file name pattern should be :
+- "V_" to mark them as example
+- "Directory_SubDir_Description"
+
+**Everything with  * is mandatory**
+- Name* : `name:` , Same as the reusable name beginning with Example and more description if needed
+- Author* : `author:`
+- Inputs
+  - Name
+    - Description : `description: |`
+    - Required : `required: true or false`
+    - Default : `default:`
+- Outputs
+  - Name
+    - Description : `description: |`
+
+### Steps to provide a reusable workflow
+- Reusable workflow file with emoji "R_" and syntax.
+- Example of use of that workflow with emoji "V_" and syntax.
+- Update the sync.yml in .github to sync your reusable workflow to the .github/workflow directory.
+- Optional: Update the .md file with more data if needed.

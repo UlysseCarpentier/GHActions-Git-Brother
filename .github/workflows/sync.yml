@@ -13,12 +13,9 @@ jobs:
           private_key: ${{ secrets.APP_PEM }}
           permissions: >-
             {
-              "actions": "write",
               "contents": "write",
-              "issues": "write",
               "metadata": "read",
               "pull_requests": "write",
-              "workflows": "write"
             }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
       - name: Checkout Repository
