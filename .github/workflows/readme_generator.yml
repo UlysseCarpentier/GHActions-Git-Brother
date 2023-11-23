@@ -144,6 +144,7 @@ jobs:
         if: steps.append_readme.outcome == 'success'
         run: |
           rm -rf ./outputs/
+
       - name: Create Pull Request
         if: steps.append_readme.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
@@ -154,5 +155,7 @@ jobs:
           branch: update-readme--${{ github.ref_name }}
           delete-branch: true
           labels: bot,documentation
-          
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: outputs
       
