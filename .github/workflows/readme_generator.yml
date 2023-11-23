@@ -43,7 +43,7 @@ jobs:
         run: |
           if [ -e "${{ matrix.target }}".md ]; then
             echo "File exists!"
-            echo "match=true" >> $GITHUB_OUTPUT
+            #echo "match=true" >> $GITHUB_OUTPUT
           else
             echo "File does not exist."
             cp "./Ressources/Base_README.md" "${{matrix.target}}".md
@@ -102,7 +102,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Load artifact
-        if: ${{ contains(needs.*.outputs.match, 'false') }}
+        if: ${{ contains(needs.generate_doc.outputs.match, 'false') }}
         id: load_artifact
         uses: actions/download-artifact@v3
         with:
