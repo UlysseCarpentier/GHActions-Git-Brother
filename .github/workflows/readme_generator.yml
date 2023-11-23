@@ -2,11 +2,11 @@ name: Readme Generator
 on:
   workflow_dispatch:
 jobs:
-  setup:
+  find_reusable_files:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - id: output_matrix
+      - id: reusable_files
         run: |
           yaml_files=$(find . -type f -name 'R_*.yml' -not -path './.github/*' -exec sh -c 'echo "$(dirname "$1")/$(basename -s .yml "$1")"' _ {} \;)
           echo $yaml_files
@@ -17,17 +17,17 @@ jobs:
           json_array="${target_string} ${yaml_array} ${end_string}"
           echo 'matrix='$json_array >> $GITHUB_OUTPUT
     outputs:
-      actions: ${{steps.output_matrix.outputs.matrix}}
+      actions: ${{steps.reusable_files.outputs.matrix}}
 
-  run-matrix:
-    needs: setup
+  generate_doc:
+    needs: find_reusable_files
     runs-on: ubuntu-latest
     outputs:
       filename: ${{steps.name_action.outputs.filename}}
       match: ${{steps.check_file.outputs.match}}
     strategy:
       matrix:
-       target: ${{fromJSON(needs.setup.outputs.actions).target}}
+       target: ${{fromJSON(needs.find_reusable_files.outputs.actions).target}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -59,7 +59,6 @@ jobs:
         with:
           action: ${{ matrix.target }}.yml
           readme: ${{ matrix.target }}.md
-  #### Faire une echo de ${{steps.check_file.outputs.match}}
       - name: Get Description
         id: get_desc
         if: steps.doc_generator.outcome == 'success' && ${{steps.check_file.outputs.match}} != 'true'
@@ -98,7 +97,7 @@ jobs:
 
 
   set_desc:
-    needs: [run-matrix]
+    needs: [ generate_doc ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
