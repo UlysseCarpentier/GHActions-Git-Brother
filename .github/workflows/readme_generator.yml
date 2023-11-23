@@ -110,7 +110,7 @@ jobs:
           name: outputs
           path: outputs
       - name: Append Readme
-        if: steps.load_artifact.outcome == 'success' &&
+        if: steps.load_artifact.outcome == 'success'
         id: append_readme
         run: |
           README="./README.md"
