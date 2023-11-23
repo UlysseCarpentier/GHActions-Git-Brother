@@ -38,7 +38,7 @@ jobs:
           echo "Filename is: $filename"
           echo 'filename='$filename >> $GITHUB_OUTPUT
 
-      - name: Check if file exists
+      - name: Check if file exists, if not copy base_README.md
         id: check_file
         run: |
           if [ -e "${{ matrix.target }}".md ]; then
@@ -111,12 +111,14 @@ jobs:
           name: 'outputs'
       - run: |
           echo "coucou exist or not? ${{ steps.arti_check.outputs.exists }}"
-      - name: Load outputs
+      - name: Load artifact
+        id: load_artifact
         uses: actions/download-artifact@v3
         with:
           name: outputs
           path: outputs
       - name: Append Readme
+        if: steps.load_artifact.outcome == 'success'
         id: append_readme
         run: |
           README="./README.md"

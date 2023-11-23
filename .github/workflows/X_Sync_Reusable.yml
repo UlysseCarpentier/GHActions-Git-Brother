@@ -1,9 +1,9 @@
 name: Sync Reusable Workflows
+# Restricts rights for Git app
 on:
   workflow_dispatch:
 jobs:
   sync_files:
-#    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - id: create_token
@@ -24,12 +24,6 @@ jobs:
         uses: BetaHuhn/repo-file-sync-action@v1
         with:
           GH_INSTALLATION_TOKEN: ${{ steps.create_token.outputs.token }}
+#Update this
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
-
-#              "actions": "write",
-#              "contents": "write",
-#              "issues": "write",
-#              "metadata": "read",
-#              "pull_requests": "write",
-#              "workflows": "write"
