@@ -45,6 +45,7 @@ jobs:
           if [ -e "${{ matrix.target }}".md ]; then
             echo "File exists!"
             echo "match=true" >> $GITHUB_OUTPUT
+            echo "main_update=false" >> $GITHUB_OUTPUT
           else
             echo "File does not exist."
             cp "./Ressources/Base_README.md" "${{matrix.target}}".md
@@ -73,7 +74,8 @@ jobs:
           result=$(echo "$content" | awk '{printf "%s<br>", $0}')
           mkdir -p outputs
           echo "$result" >> outputs/${{steps.name_action.outputs.filename}}.txt
-          echo "${{steps.check_file.outputs.match}} == 'false'"
+          echo "Main update : ${{steps.check_file.outputs.main_update}}"
+          echo "match : ${{steps.check_file.outputs.match}}"
       - uses: actions/upload-artifact@v3
         id: upload_artifact
         if: steps.get_desc.outcome == 'success'
