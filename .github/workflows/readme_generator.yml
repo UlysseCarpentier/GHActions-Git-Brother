@@ -114,7 +114,7 @@ jobs:
         if: steps.load_artifact.outcome == 'success'
         id: append_readme
         run: |
-          echo "${{needs.generate_doc.outputs.main_update}}"
+          echo "slt ${{needs.generate_doc.outputs.main_update}}"
           README="./README.md"
           OUTPUTS_DIR="./outputs"
           for txt_file in "$OUTPUTS_DIR"/*.txt; do
