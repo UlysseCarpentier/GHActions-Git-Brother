@@ -1,0 +1,39 @@
+name: Notify
+run-name: ${{ github.actor }} Testing name branch on create
+description: |+
+  Notify nulll...sq
+on:
+  create:
+    branches:
+      - 'test/'
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install jq -y
+      - name: Get GitHub Bio
+        id: get_github_bio
+        run: |
+          id_git=$(curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ github.token }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/users/${{ github.actor }} \
+          | jq -r '.bio'); \
+          echo "bio=$id_git" >> $GITHUB_OUTPUT
+      - name: Access id_git in Another Run
+        run: |
+          echo "The value of id_git from a previous run is: ${{ steps.get_github_bio.outputs.bio }}"
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notification_title: "Nom de branche mal formaté"
+          notify_when: 'success'
+          mention_users: ${{ steps.get_github_bio.outputs.bio }}
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}@{branch}> on <{commit_url}|{commit_sha}>  
+          \n Merci de consulter la documentation pour le format des noms de branches : https://github.com/UlysseCarpentier/GHActions-Git-Brother"
+          footer: "<{run_url}|View Run>"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
