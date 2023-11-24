@@ -15,7 +15,7 @@
 
 </div>
 <!-- start description -->
-Slack notification to your channel or person if you have his slack ID
+Slack notification to your channel or person if you have his slack ID.
 
 <!-- end description -->
 <!-- start contents -->
