@@ -2,8 +2,8 @@ name: Readme Generator
 on:
   workflow_dispatch:
   push:
-    tags:
-      - reusable
+    branches:
+      - master
 jobs:
   find_reusable_files:
     runs-on: ubuntu-latest
