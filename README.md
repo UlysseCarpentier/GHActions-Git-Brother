@@ -34,3 +34,4 @@ If you didn't find what you wanted, and you have a request for a new reusable wo
 # Actions list
 | Action Name | Description                                                                                                                                                                                              | URL                                                                                                               |
 |-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| R_slack_notification | Slack notification action to change defaults<br> | [R_slack_notification](https://github.com/UlysseCarpentier/GHActions-Git-Brother/blob/main/Slack/R_slack_notification.yml)  |
