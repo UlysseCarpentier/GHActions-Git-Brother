@@ -16,7 +16,7 @@ jobs:
               "contents": "read",
               "metadata": "read",
               "pull_requests": "write",
-              "workflows": "read"
+              "workflows": "write"
             }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
       - name: Checkout Repository
