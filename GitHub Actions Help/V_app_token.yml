@@ -1,5 +1,4 @@
-name: Reusable Sync actions
-#Description
+name: R_App token generation
 on:
   workflow_dispatch:
 jobs:
@@ -18,5 +17,3 @@ jobs:
               "pull_requests": "read"
             }
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
-#              "actions": "write",
-#              "contents": "write",

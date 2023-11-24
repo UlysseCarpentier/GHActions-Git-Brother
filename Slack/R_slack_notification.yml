@@ -1,4 +1,7 @@
 name: Notify Slack Action
+author: Ulysse Carpentier <ulysse@live.io>
+description: |+
+  Slack notification action to change defaults
 on:
   workflow_call:
     inputs:
@@ -79,7 +82,7 @@ on:
         type: string
     secrets:
       SLACK_WEBHOOK_URL:
-        required: false
+        required: true
 
 
 jobs:
