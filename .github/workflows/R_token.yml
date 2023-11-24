@@ -1,4 +1,4 @@
-name: Sync actions
+name: Reusable Sync actions
 #Description
 on:
   workflow_dispatch:
