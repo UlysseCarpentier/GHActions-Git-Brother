@@ -1,5 +1,15 @@
 UlysseCarpentier/GHActions-Git-Brother:
-  - source: ./test.txt
-    dest: .github/workflows/test.txt
-  - source: ./README.md
-    dest: .github/workflows/README.md
+  - source: ./Archive/R_GHA_Build.yml
+    dest: .github/workflows/R_GHA_Build.yml
+
+  - source: ./Python/R_action.yml
+    dest: .github/workflows/R_action.yml
+
+  - source: ./Python/R_GHA_Build.yml
+    dest: .github/workflows/R_GHA_Build.yml
+
+  - source: ./Archive/R_Archive_Reusable.yml
+    dest: .github/workflows/R_Archive_Reusable.yml
+
+  - source: ./Archive/R_Notify.yml
+    dest: .github/workflows/R_Notify.yml
