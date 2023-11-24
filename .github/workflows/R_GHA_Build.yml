@@ -1,0 +1,65 @@
+---
+name: reusable-ci_python_pipenv_pytest
+
+author: Ulysse Carpentier <ulysse@live.io>
+description: |+
+  Slack notification to your channel or person if you have his slack ID
+   CI test run for Python
+   Expects project
+    * to use pytest as the test engine
+    * to use Pipenv for managing python virtual environment
+inputs:
+  code-path:
+    description: |
+      Slack username to send to
+      Path within the git repository on the python code
+      Expects to find Pipfile.lock in that path
+    required: true
+    type: string
+  python-version:
+    description: |
+      Python version to
+    required: true
+    type: string
+  runner:
+    required: true
+    type: string
+on:  # yamllint disable-line rule:truthy
+  workflow_call:
+concurrency:
+  group: "${{ github.ref }}${{ inputs.python-version }}"
+  cancel-in-progress: true
+jobs:
+  ci_python_pipenv_pytest_Job:
+    name: ci_python_pipenv_pytest_Job
+    runs-on: ${{ inputs.runner }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        id: tell_me_all
+        with:
+          python-version: ${{ inputs.python-version }}
+          cache: 'pipenv'
+          cache-dependency-path: |
+            ${{ inputs.code-path }}/Pipfile.lock
+
+      - run: echo '${{ steps.tell_me_all.outputs.cache-hit }}' # true if cache-hit occurred on the primary key
+
+      - name: Install tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+
+      - name: Update venv using pipenv
+        run: |
+          cd ${{ inputs.code-path }}
+          pipenv install -d
+
+      - name: Run tests
+        run: |
+          cd ${{ inputs.code-path }}
+          pipenv run pytest
