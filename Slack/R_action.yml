@@ -1,7 +1,7 @@
 name: slack notification
 author: Ulysse Carpentier <ulysse@live.io>
 description: |+
- Slack notification to your channel or person if you have his slack ID
+ Slack notification to your channel or person if you have his slack ID.
 on:
   workflow_call:
     inputs:
