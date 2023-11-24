@@ -1,7 +1,7 @@
 # Slack notifications
 
-## You have multiple options, depending on what you need is.
-### Your need
+## You have multiple options, depending on what you need.
+### Your need :
 #### Number of jobs
 - If you have multiple jobs, and you don't want to wait for the end of all the jobs to be finished to notify, 
 use the Simple Slack notification 
@@ -9,7 +9,7 @@ use the Simple Slack notification
   - If you want personalized Slack notification title and/or job/steps status, check the 2.2 Advanced Slack Notification
   - Otherwise, check the 2.1 Advanced Slack Notification
   
-#### Notification with personnal ping
+#### Notification with personal ping
 
 To get useful and relevant Slack notifications from the Slack notification action, we would need the slack member ID.
 To get this ID, the easiest but requires actions from EVERY DEV :
@@ -25,10 +25,10 @@ To get this ID, the easiest but requires actions from EVERY DEV :
         - Once you have created an app, you need to turn on the Incoming Webhook feature and create a new webhook URL.
         - Create a new webhook by clicking Add New Webhook to Workspace and choose the channel you want the notifications to be posted in.
         - Copy the webhook link
-    - Add the webhook link to the Github Actions secrets with the name - ACTION_MONITORING_SLACK
+    - Add the webhook link to the GitHub Actions secrets with the name - ACTION_MONITORING_SLACK
 2. Slack ID setup :
     - Get your Slack ID by clicking on your picture/profile, click the "...", click on "copy member ID"
-    - Set your Github bio to your Slack ID, click on your GH profile, your profile, edit profile, put your Slack ID in the bio, and save
+    - Set your GitHub bio to your Slack ID, click on your GH profile, your profile, edit profile, put your Slack ID in the bio, and save
 
 ### 1. Simple Slack Notification
 

@@ -59,10 +59,17 @@ The file name pattern should be :
   - Name
     - Description : `description: |`
 
+### Runners
+
+⚠️ Use only provided private runners in your workflow using `runs-on` parameter [Runners](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on). Currently, you can use :
+
+- `gha-private-runners`
+- `gha-private-runners-java-11`
+
 ### Steps to provide a reusable workflow
 - Reusable workflow file with emoji "R_" and syntax.
 - Example of use of that workflow with emoji "V_" and syntax.
-- Update the sync.yml in .github to sync your reusable workflow to the .github/workflow directory.
+- Update the sync.yml in .GitHub to sync your reusable workflow to the .GitHub/workflow directory.
 - Optional: Update the .md file with more data if needed.
 
 
