@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   find_reusable_files:
     runs-on: ubuntu-latest
