@@ -3,7 +3,6 @@ name: Sync Reusable Workflows
 # Contents write
 # Pull requests write
 # Workflows write
-
 on:
   workflow_dispatch:
   push:
