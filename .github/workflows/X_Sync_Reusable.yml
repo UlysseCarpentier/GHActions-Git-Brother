@@ -1,5 +1,9 @@
 name: Sync Reusable Workflows
-# Restricts rights for Git app
+# Git App Rights (Repo):
+# Contents write
+# Pull requests write
+# Workflows write
+
 on:
   workflow_dispatch:
 jobs:
