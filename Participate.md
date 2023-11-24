@@ -67,5 +67,11 @@ The file name pattern should be :
 
 
 ### Update/rename workflow
+If you modify the top description of your reusable workflow, the changes won't be applied to the list of actions in the README.md
+- You need to update the description in the action list in README.md
+- You also need to update the sync.yml file to reflect the new name
 
 ### Delete workflow
+If you delete your reusable workflow, the changes won't be applied to the list of actions in the README.md
+- You need to update the description in the action list in README.md
+- You also need to update the sync.yml file to reflect remove the corresponding line
