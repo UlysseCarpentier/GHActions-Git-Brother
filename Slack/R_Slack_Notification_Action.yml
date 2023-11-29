@@ -1,7 +1,8 @@
 name: Notify Slack Action
-author: Ulysse Carpentier <ulysse@live.io>
+author: Ulysse Carpentier <ulysse.carpentier@ext-energy-pool.eu>
 description: |+
   Slack notification action to change defaults
+  Ref: [notify-slack-action](https://github.com/ravsamhq/notify-slack-action)
 on:
   workflow_call:
     inputs:
@@ -10,7 +11,7 @@ on:
         required: true
         type: string
       token:
-        description: Github Token for accessing workflow url
+        description: Github Token for accessing workflow url, prefer the use of secret.
         required: false
         default: ""
         type: string
@@ -82,12 +83,13 @@ on:
         type: string
     secrets:
       SLACK_WEBHOOK_URL:
+        description: Slack webhook url secret
         required: true
 
 
 jobs:
   Send_Notification:
-    runs-on: ubuntu-latest
+    runs-on: gha-private-runners
     steps:
     - name: Report Status
       if: always()

@@ -30,13 +30,14 @@ The file name pattern should be :
 
 **Everything with * is mandatory**
 - Name* : `name:` , it should be close to the directory structure
-- Description* : `description: |`
-- Author* : `author:`
+- Description* : `description: |+`
+- Author* : `author: [your name] [your email]`
 - Inputs
   - Name*
     - Description* : `description: |`
     - Required* : `required: true or false`
     - Default : `default:`
+    - Type* : `type: string or bool or number`
 - Outputs
   - Name*
     - Description* : `description: |`
@@ -49,10 +50,10 @@ The file name pattern should be :
 
 **Everything with  * is mandatory**
 - Name* : `name:` , Same as the reusable name beginning with Example and more description if needed
-- Author* : `author:`
+- Author* : `author:[your name] [your email]`
 - Inputs
   - Name
-    - Description : `description: |`
+    - Description : `description: |+`
     - Required : `required: true or false`
     - Default : `default:`
 - Outputs
