@@ -72,22 +72,21 @@ jobs:
             fi
       - name: Get GitHub Bio
         id: get_github_bio
-        #FEAT Make the request do a regex to only get the slack ID
         run: |
-          id_git=$(curl -L \
+          bio=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ github.token }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/users/${{ github.actor }} \
-          | jq -r '.bio'); \
-          echo "bio=$id_git" >> $GITHUB_OUTPUT
-
+          | jq -r '.bio')
+          slack_ids=$(echo "$bio" | grep -oE 'U[0-9A-Z]+')
+          echo "bio=$slack_ids" >> $GITHUB_OUTPUT
+          #Refaire avec le script
   #Important
   slack_notification:
     if: always()
     needs: slack_setup
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
-    #uses: UlysseCarpentier/GHActions-Git-Brother/Slack/slack_notification.yml@main
     with:
       status: "${{ needs.slack_setup.outputs.status }}"
       notification_title: "${{ needs.slack_setup.outputs.title }}"
