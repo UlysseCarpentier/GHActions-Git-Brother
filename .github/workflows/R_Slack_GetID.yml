@@ -1,12 +1,6 @@
 name: Get Slack ID
 on:
   workflow_call:
-    inputs:
-      actor:
-        description: GitHub Actor
-        required: false
-        type: string
-        default: ${{ github.actor }}
     outputs:
       slack_id:
         description: Slack ID

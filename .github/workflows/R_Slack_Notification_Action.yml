@@ -89,7 +89,7 @@ on:
 
 jobs:
   Send_Notification:
-    runs-on: gha-private-runners
+    runs-on: ubuntu-latest
     steps:
     - name: Report Status
       if: always()
