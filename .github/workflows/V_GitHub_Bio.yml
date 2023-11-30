@@ -21,7 +21,7 @@ jobs:
     - name : Get Slack ID from bio
       id: get_slack_id
       run: |
-        slack_id=$(echo "${{steps.get_github_bio.outputs.response}}" | grep -oE 'U[0-9A-Z]+')
+        slack_id=$(echo "${{steps.get_github_bio.outputs.result}}" | grep -oE 'U[0-9A-Z]+')
         echo "bio=$slack_id"
         echo "bio=$slack_id" >> $GITHUB_OUTPUT
         
