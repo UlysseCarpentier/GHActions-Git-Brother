@@ -16,6 +16,8 @@ To get this ID, the easiest but requires actions from EVERY DEV :
 
 **Everybody puts their Slack ID in their GitHub Bio**
 
+Once set, to get this ID, you can use this action [Get Slack ID]() as an example. Only take the job "Get Slack ID".
+
 ### Get started
 
 1. Slack notifications setup :
