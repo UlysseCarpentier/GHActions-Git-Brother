@@ -14,7 +14,7 @@ use the 1. Simple Slack notification
 To get useful and relevant Slack notifications from the Slack notification action, we would need the slack member ID.
 To get this ID, the easiest but requires actions from EVERY DEV :
 
-**Everybody puts their Slack ID in their GitHub Bio**
+_Everybody puts their Slack ID in their GitHub Bio_
 
 Once set, to get this ID, you can use this action [Get Slack ID]() as an example. Only take the job "Get Slack ID".
 
