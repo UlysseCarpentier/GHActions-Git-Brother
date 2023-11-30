@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: get_github_bio
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: { bio } } = await github.users.${{ github.actor }}.get()
+            const { data: { bio } } = await github.users.${{ github.actor }}
             console.log(bio)
       - run: "echo 'The bio is masked: ${{ steps.get_github_bio.outputs.bio }}'"
