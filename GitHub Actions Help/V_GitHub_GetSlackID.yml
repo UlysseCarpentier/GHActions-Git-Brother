@@ -3,9 +3,12 @@ on:
   workflow_dispatch:
 
 jobs:
+# Use this snippet in another workflow file to get Slack ID From GitHub Bio
   get_slack_id:
     name: Get GitHub Bio
     runs-on: ubuntu-latest
+    outputs:
+        bio: ${{ steps.get_slack_id.outputs.bio }}
     steps:
     - name: Get user github bio
       id: get_github_bio
@@ -27,6 +30,15 @@ jobs:
     - name: Echo Slack ID
       run: |
         echo "${{steps.get_slack_id.outputs.bio}}"
-        
+
+# Use this snippet in another workflow file to get the output
+  get_slack_id_output:
+    name: Get Slack ID From GitHub Bio
+    runs-on: ubuntu-latest
+    needs: get_slack_id
+    steps:
+    - name: Echo Slack ID
+      run: |
+        echo "${{needs.get_slack_id.outputs.bio}}"
             
 
