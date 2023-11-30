@@ -18,10 +18,22 @@ jobs:
                 console.log(response.data.bio)
                 return response.data.bio
             })
+    - name: Get user github bio
+      id: get_github_bio1
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const bio = await github.rest.users.getByUsername({
+                username: context.actor
+            }).then((response) => {
+                console.log(response.data.bio)
+                return response.data.bio
+            })
+          return bio
     - name : Get Slack ID from bio
       id: get_slack_id
       run: |
-        slack_id=$(echo "${{steps.get_github_bio.outputs.result}}" | grep -oE 'U[0-9A-Z]+')
+        slack_id=$(echo "${{steps.get_github_bio1.outputs.result}}" | grep -oE 'U[0-9A-Z]+')
         echo "bio=$slack_id"
         echo "bio=$slack_id" >> $GITHUB_OUTPUT
         
