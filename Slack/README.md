@@ -20,14 +20,14 @@ Once set, to get this ID, you can use this action [Get Slack ID]() as an example
 
 ### Get started
 
-1. Slack notifications setup :
+1. Slack notifications' setup :
     - Getting a Webhook URL
         - Go to https://api.slack.com/apps and click Create New App.
         - Give your app a name and choose your Development Workspace from the dropdown.
         - Once you have created an app, you need to turn on the Incoming Webhook feature and create a new webhook URL.
         - Create a new webhook by clicking Add New Webhook to Workspace and choose the channel you want the notifications to be posted in.
         - Copy the webhook link
-    - Add the webhook link to the GitHub Actions secrets with the name - ACTION_MONITORING_SLACK
+    - Add the webhook link to the GitHub Actions secrets with the name of your choice, for example - ACTION_MONITORING_SLACK
 2. Slack ID setup :
     - Get your Slack ID by clicking on your picture/profile, click the "...", click on "copy member ID"
     - Set your GitHub bio to your Slack ID, click on your GH profile, your profile, edit profile, put your Slack ID in the bio, and save
