@@ -1,0 +1,17 @@
+name: Get Github Bio
+on:
+  workflow_dispatch:
+
+jobs:
+  get_bio:
+    name: Get Bio
+    runs-on: ubuntu-latest
+    steps:
+      - id: get_github_bio
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: { bio } } = await github.users.${{ github.actor }}.get()
+            console.log(bio)
+      - run: "echo 'The bio is masked: ${{ steps.get_github_bio.outputs.bio }}'"
