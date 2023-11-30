@@ -4,7 +4,7 @@ on:
     inputs:
       actor:
         description: GitHub Actor
-        required: true
+        required: false
         type: string
         default: ${{ github.actor }}
     outputs:
