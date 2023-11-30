@@ -1,0 +1,17 @@
+name: Get SlackIdssss
+on:
+  workflow_dispatch:
+
+jobs:
+  get_slackID:
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_GetID.yml@main
+  slack_notification:
+    if: always()
+    needs: get_slackID
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    with:
+      status: "failed"
+      notification_title: "Yes"
+      mention_users: "${{ needs.get_slackID.outputs.slack_id }}"
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}

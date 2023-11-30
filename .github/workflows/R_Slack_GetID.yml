@@ -1,0 +1,40 @@
+name: Get Slack ID
+on:
+  workflow_call:
+    inputs:
+      actor:
+        description: GitHub Actor
+        required: true
+        type: string
+        default: ${{ github.actor }}
+    outputs:
+      slack_id:
+        description: Slack ID
+        value: ${{ jobs.get_slack_id.outputs.bio }}
+jobs:
+  get_slack_id:
+    name: Get GitHub Bio
+    runs-on: ubuntu-latest
+    outputs:
+      bio: ${{ steps.get_slack_id.outputs.bio }}
+    steps:
+      - name: Get user github bio
+        id: get_github_bio
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const bio = await github.rest.users.getByUsername({
+                  username: ${{ inputs.actor }}
+              }).then((response) => {
+                  console.log(response.data.bio)
+                  return response.data.bio
+              })
+            return bio
+      - name: Get Slack ID from bio
+        id: get_slack_id
+        run: |
+          slack_id=$(echo "${{steps.get_github_bio.outputs.result}}" | grep -oE 'U[0-9A-Z]+')
+          echo "bio=$slack_id" >> $GITHUB_OUTPUT
+      - name: Echo Slack ID
+        run: |
+          echo "${{steps.get_slack_id.outputs.bio}}"
