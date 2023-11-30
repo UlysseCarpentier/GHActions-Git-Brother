@@ -1,5 +1,5 @@
 name: Notify Slack Action
-#author: Ulysse Carpentier <ulysse.carpentier@ext-energy-pool.eu>
+author:
 #description: |+
 #  Slack notification action to change defaults
 #  Ref: [notify-slack-action](https://github.com/ravsamhq/notify-slack-action)
