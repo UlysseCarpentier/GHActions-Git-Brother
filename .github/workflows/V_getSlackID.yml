@@ -10,8 +10,9 @@ jobs:
     needs: get_slackID
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification_Action.yml@main
     with:
-      status: "failed"
+      status: "failure"
       notification_title: "Yes"
       mention_users: "${{ needs.get_slackID.outputs.slack_id }}"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+##Envoie rien...
