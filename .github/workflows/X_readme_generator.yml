@@ -1,9 +1,11 @@
 name: Readme Generator
 on:
   workflow_dispatch:
-#  push:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   find_reusable_files:
@@ -90,15 +92,24 @@ jobs:
         run: |
           rm -rf ./outputs/
       - name: Create Pull Request
+        id: cpr_reusable
         if: steps.remove_files.outcome != 'failed'
         uses: peter-evans/create-pull-request@v5
         with:
           title: "docs(readme): update ${{steps.name_action.outputs.filename}}.md on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated ${{steps.name_action.outputs.filename}}.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to ${{steps.name_action.outputs.filename}}.yml file"
-          branch: update-readme--${{ github.ref_name }}--${{steps.name_action.outputs.filename}}
+          branch: bot-repo/reusable-readme-update
           delete-branch: true
           labels: bot,documentation
+      - name: Enable Pull Request Automerge
+        id: automerge
+        if: steps.cpr_reusable.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr_reusable.outputs.pull-request-number }}
+          merge-method: squash
 
 
 
@@ -144,16 +155,25 @@ jobs:
           rm -rf ./outputs/
           ls -la
       - name: Create Pull Request
+        id: cpr_main
         if: steps.append_readme.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
         with:
           title: "docs(readme): update README.md on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated README.md Actions list table"
           body: "Updated README.md Action list tables, with the new actions files"
-          branch: update-readme--${{ github.ref_name }}
+          branch: bot-repo/main-readme-update
           delete-branch: true
           labels: bot,documentation
       - uses: geekyeggo/delete-artifact@v2
         with:
           name: outputs
+      - name: Enable Pull Request Automerge
+        id: automerge
+        if: steps.cpr_main.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr_main.outputs.pull-request-number }}
+          merge-method: squash
       

@@ -1,4 +1,4 @@
-name: R_App token generation
+name: App token generation
 on:
   workflow_dispatch:
 jobs:

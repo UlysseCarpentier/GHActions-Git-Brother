@@ -5,7 +5,6 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      # Need the repo checked out in order to read the file
       - uses: actions/checkout@v3
       - id: dataStep
         run: |

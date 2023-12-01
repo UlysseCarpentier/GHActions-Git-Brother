@@ -1,11 +1,11 @@
 name: Send Slack Notification
+
+#### ULysse Rewrite basic basic workflow
+
 description: |+
-  sdfsdf 
-  
-  notification to your channel o
-  
-  
-  r person if you have his slack IDv
+  Send Slack Notification.
+  To use when you want to send a notification at the end of each job.
+  If you want to send a notification at the end of all the jobs, use the V_Slack_Notification_Auto.yml file.
 
 on:
 #  create:
@@ -70,6 +70,7 @@ jobs:
   slack_notification:
     needs: slack_status_check
     #uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification1.yml@main
+
     with:
       status: "${{ needs.slack_status_check.outputs.status }}"
     secrets: inherit
