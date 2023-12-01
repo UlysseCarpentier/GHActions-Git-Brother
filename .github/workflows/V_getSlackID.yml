@@ -11,5 +11,6 @@ jobs:
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification_Action_Original.yml@main
     with:
       mention_users: "${{ needs.get_slackID.outputs.slack_id }}"
+      status: "${{ needs.get_slackID.outputs.outcome }}"
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
