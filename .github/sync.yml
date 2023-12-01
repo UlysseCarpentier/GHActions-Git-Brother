@@ -2,7 +2,7 @@ UlysseCarpentier/GHActions-Git-Brother:
 ####################
 # GitHub Actions Help
 ####################
-  - source: ./GitHub Actions Help/R_GitHub_GetSlackID.yml
+  - source: ./GitHubActionsHelp/R_GitHub_GetSlackID.yml
     dest: .github/workflows/R_GitHub_GetSlackID.yml
 
 
