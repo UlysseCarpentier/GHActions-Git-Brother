@@ -11,13 +11,14 @@ on:
         value: ${{ jobs.get_slack_id.outputs.bio }}
       status:
         description: Status of the called job
-        value: ${{ job.status }}
+        value: ${{ jobs.get_slack_id.outputs.status }}
 jobs:
   get_slack_id:
     name: Get GitHub Bio
     runs-on: ubuntu-latest
     outputs:
       bio: ${{ steps.get_slack_id.outputs.bio }}
+      status: ${{ job.status }}
     steps:
       - name: Get user github bio
         id: get_github_bio
