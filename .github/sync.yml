@@ -1,3 +1,15 @@
 UlysseCarpentier/GHActions-Git-Brother:
-  - source: ./GitHub Actions Help/R_TestActionSync.yml
-    dest: .github/workflows/R_TestActionSync.yml
+####################
+# GitHub Actions Help
+####################
+  - source: ./GitHub Actions Help/R_GitHub_GetSlackID.yml
+    dest: .github/workflows/R_GitHub_GetSlackID.yml
+
+
+
+
+####################
+# Slack
+####################
+  - source: ./Slack/R_Slack_Notification.yml
+    dest: .github/workflows/R_Slack_Notification.yml
