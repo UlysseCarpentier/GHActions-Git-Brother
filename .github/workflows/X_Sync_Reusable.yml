@@ -8,10 +8,10 @@ name: Sync Reusable Workflows
 on:
   workflow_dispatch:
   push:
-    tags:
-      - reusable
     branches:
       - main
+    paths-ignore:
+      - '.github/**'
 jobs:
   sync_files:
     runs-on: ubuntu-latest
