@@ -6,8 +6,6 @@ UlysseCarpentier/GHActions-Git-Brother:
     dest: .github/workflows/R_GitHub_GetSlackID.yml
 
 
-
-
 ####################
 # Slack
 ####################
