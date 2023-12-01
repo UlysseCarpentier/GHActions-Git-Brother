@@ -36,3 +36,29 @@ jobs:
 #Update this
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
+
+
+  comment_lines:
+    runs-on: ubuntu-latest
+    needs: sync_files
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Comment lines
+        id: comment_lines
+        run: |
+          for file in $(find . -type f -name 'R_*.yml' -path './.github/workflows/*' ); do
+            echo "Commenting lines in $file"
+            awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file $file
+          done
+
+      - name: Create Pull Request
+        if: steps.comment_lines.outcome == 'success'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "Reusable Workflows: Commenting lines"
+          commit-message: "Reusable Workflows: Commenting lines"
+          body: "Updated workflows files with commented lines"
+          branch: update-reusables--${{ github.ref_name }}
+          delete-branch: true
+          labels: bot,documentation
