@@ -9,6 +9,9 @@ on:
       slack_id:
         description: Slack ID
         value: ${{ jobs.get_slack_id.outputs.bio }}
+      status:
+        description: Status of the called job
+        value: ${{ job.status }}
 jobs:
   get_slack_id:
     name: Get GitHub Bio
