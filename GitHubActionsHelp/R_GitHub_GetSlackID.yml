@@ -1,5 +1,6 @@
 name: Get Slack ID
-description: Get Slack ID from GitHub Bio
+#name: Get Slack ID
+#description: Get Slack ID from GitHub Bio
 on:
   workflow_call:
     outputs:
