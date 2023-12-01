@@ -177,3 +177,4 @@ jobs:
           pull-request-number: ${{ steps.cpr_main.outputs.pull-request-number }}
           merge-method: squash
       
+# Slack Notify if failure
