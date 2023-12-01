@@ -75,7 +75,7 @@ jobs:
   slack_notification:
     if: always()
     needs: sync_files
-    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/slack_notification.yml@main
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification_Action.yml@main
     with:
       notify_when: "failure,success"
       status: "${{ needs.sync_files.outputs.status }}"
