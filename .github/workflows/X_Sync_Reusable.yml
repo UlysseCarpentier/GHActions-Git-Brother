@@ -46,10 +46,16 @@ jobs:
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
 
+      - name: Checkout Repository
+        id: checkout_branch
+        if: steps.sync_files.outcome == 'success'
+        uses: actions/checkout@v3
+        with:
+          ref: repo-sync/GHActions-Git-Brother/default
 
       #Maybe delete files before commenting lines
       - name: Comment lines
-        if: steps.sync_files.outcome == 'success'
+        if: steps.checkout_branch.outcome == 'success'
         id: comment_lines
         run: |
           for file in $(find . -type f -name 'R_*.yml' -path './.github/*' ); do
