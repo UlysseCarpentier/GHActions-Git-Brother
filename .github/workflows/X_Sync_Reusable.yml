@@ -84,6 +84,7 @@ jobs:
           for file in $(find . -type f -name 'R_*.yml' -path './.github/*' ); do
             echo "Commenting lines in $file"
             awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file "${file/_temp/}"
+            rm $file
           done
 
 
