@@ -62,9 +62,15 @@ jobs:
             echo "Commenting lines in $file"
             awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file $file
           done
+
+      - name: Checkout Repository
+        id: checkout_repo
+        if: steps.sync_files.outcome == 'success'
+        uses: actions/checkout@v3
+
       - name: Create Pull Request
         id: cpr
-        if: steps.comment_lines.outcome == 'success'
+        if: steps.checkout_repo.outcome == 'success'
         uses: peter-evans/create-pull-request@v5
         with:
           title: "Reusable Workflows: Commenting lines"
