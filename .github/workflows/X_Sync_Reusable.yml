@@ -96,7 +96,6 @@ jobs:
           commit-message: "Reusable Workflows: Commenting lines"
           body: "Updated workflows files with commented lines"
           branch: repo-sync/GHActions-Git-Brother/comments
-          base: main
           delete-branch: true
           token: ${{ steps.create_token.outputs.token }}
 
