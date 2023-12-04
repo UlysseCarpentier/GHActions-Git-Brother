@@ -41,7 +41,7 @@ jobs:
         uses: BetaHuhn/repo-file-sync-action@v1
         with:
           GH_INSTALLATION_TOKEN: ${{ steps.create_token.outputs.token }}
-          DRY_RUN: true
+          DRY_RUN: false
 #Update this
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
