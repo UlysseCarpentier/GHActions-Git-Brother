@@ -42,12 +42,12 @@ jobs:
 #Update this
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
-#Auto merge
+
+
       - name: Enable Pull Request Automerge
         run: |
           url="${{ steps.sync_files.outputs.pull_request_urls }}"
           pr_numbers=$(echo "$url_array" | jq -r '.[] | capture("/pull/(?<number>\\d+)").number')
-# Boucle sur les numéros de pull request et exécute la commande gh pr merge
           for pr_number in $pr_numbers; do
             gh pr merge --merge --auto "$pr_number"
           done
@@ -84,15 +84,6 @@ jobs:
             echo "Commenting lines in $file"
             awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file $file
           done
-#          git config --global user.email "ulysse.carpentier@do-now.io"
-#          git config --global user.name "UlysseCarpentier"
-#          GIT_COMMITTER_NAME="${{ steps.create_token.outputs.token }}" git commit -a -m "Add changes"
-#      - name: Push changes
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ steps.create_token.outputs.token }}
-#          force: true
-#          tags: true
 
 
       - name: Create Pull Request
