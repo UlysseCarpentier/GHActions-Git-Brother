@@ -35,6 +35,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Run GitHub File Sync
         id: sync_files
+        #
+        #Test dry run or skip pr
+        #cause next step only takes whats in the .g/workflows folder
         uses: BetaHuhn/repo-file-sync-action@v1
         with:
           GH_INSTALLATION_TOKEN: ${{ steps.create_token.outputs.token }}
@@ -42,7 +45,19 @@ jobs:
 #Update this
           GIT_EMAIL: "ulysse.carpentier@do-now.io"
           GIT_USERNAME: "UlysseCarpentier"
+      - name: Create Pull Request
+        id: cpr1
+        if: steps.sync_files.outcome == 'success'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "Reusable Workflows: Commenting lines"
+          commit-message: "Reusable Workflows: Syncing files"
+          body: "Updated workflows files"
+          branch: bot-repo-sync/reusables-commenting-lines-${{ github.run_id }}
+          delete-branch: true
+          token: ${{ steps.create_token.outputs.token }}
 
+      #Maybe delete files before commenting lines
       - name: Comment lines
         if: steps.sync_files.outcome == 'success'
         id: comment_lines
@@ -59,18 +74,18 @@ jobs:
           title: "Reusable Workflows: Commenting lines"
           commit-message: "Reusable Workflows: Commenting lines"
           body: "Updated workflows files with commented lines"
-          branch: bot-repo-sync/reusables-commenting-lines
+          branch: bot-repo-sync/reusables-commenting-lines-${{ github.run_id }}
           delete-branch: true
           token: ${{ steps.create_token.outputs.token }}
 
-      - name: Enable Pull Request Automerge
-        id: automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ steps.create_token.outputs.token }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+#      - name: Enable Pull Request Automerge
+#        id: automerge
+#        if: steps.cpr.outputs.pull-request-operation == 'created'
+#        uses: peter-evans/enable-pull-request-automerge@v3
+#        with:
+#          token: ${{ steps.create_token.outputs.token }}
+#          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+#          merge-method: squash
 
   slack_notification:
     if: always()
