@@ -62,12 +62,11 @@ jobs:
             echo "Commenting lines in $file"
             awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file $file
           done
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
           GIT_COMMITTER_NAME="${{ steps.create_token.outputs.token }}" git commit -a -m "Add changes"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
+          github_token: ${{ steps.create_token.outputs.token }}
           force: true
           tags: true
 #      - name: Checkout Repository
