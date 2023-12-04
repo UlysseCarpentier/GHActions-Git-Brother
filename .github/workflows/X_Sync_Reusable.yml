@@ -47,7 +47,7 @@ jobs:
       - name: Enable Pull Request Automerge
         run: |
           url='${{ steps.sync_files.outputs.pull_request_urls }}'
-          pr_numbers=$(echo '$url' | jq -r '.[] | capture("/pull/(?<number>\\d+)").number')
+          pr_numbers=$(echo "$url" | jq -r '.[] | capture("/pull/(?<number>\\d+)").number')
           for pr_number in $pr_numbers; do
             gh pr merge --merge --auto "$pr_number"
           done
