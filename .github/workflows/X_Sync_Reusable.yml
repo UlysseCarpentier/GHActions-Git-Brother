@@ -81,16 +81,14 @@ jobs:
         if: steps.checkout_branch.outcome == 'success'
         id: comment_lines
         run: |
-          for file in $(find . -type f -name 'R_*.yml' -path './.github/*' ); do
-            echo "Commenting lines in $file"
-            awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file "${file/_temp/}"
-          done
           for file in $(find . -type f -name 'R_*_temp.yml' -path './.github/*' ); do
-            echo "Deleting $file"
-            rm -f $file
+            echo "Commenting lines in $file"
+            oldname=$file
+            awk '/^name:/ { inside_block = 1; print $0 } inside_block { if (!/^on:/) print "#" $0 } /^on:/ && inside_block { inside_block = 0 } !inside_block { print $0 }' $file > temp_file && mv temp_file "${file/_temp/}"
+            echo "Deleting $oldname"
+            rm -f $oldname
+            echo "Deleted $oldname"
           done
-
-
       - name: Create Pull Request
         id: cpr
         if: steps.comment_lines.outcome == 'success'
