@@ -19,8 +19,6 @@ Slack notification action to change defaults.
 
 Ref: [notify-slack-action](https://github.com/ravsamhq/notify-slack-action)
 
-Oui
-
 <!-- end description -->
 <!-- start contents -->
 <!-- end contents -->
