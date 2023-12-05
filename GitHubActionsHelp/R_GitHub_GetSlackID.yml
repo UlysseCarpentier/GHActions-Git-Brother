@@ -1,6 +1,6 @@
 name: Get Slack ID
 author: Ulysse Carpentier <ulysse.carpentier@ext-energy-pool.eu>
-description: Get Slack ID from GitHub Bio
+description: Get Slack ID from GitHub Bio.
 on:
   workflow_call:
     outputs:
