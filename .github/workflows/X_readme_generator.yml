@@ -99,17 +99,15 @@ jobs:
           title: "docs(readme): update ${{steps.name_action.outputs.filename}}.md on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated ${{steps.name_action.outputs.filename}}.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to ${{steps.name_action.outputs.filename}}.yml file"
-          branch: bot-repo/reusable-readme-update
+          branch: repo-sync/readme-reusable
           delete-branch: true
           labels: bot,documentation
-      - name: Enable Pull Request Automerge
-        id: automerge
+      - name: Pull Request Automerge
         if: steps.cpr_reusable.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ github.token }}
-          pull-request-number: ${{ steps.cpr_reusable.outputs.pull-request-number }}
-          merge-method: squash
+        run: |
+          gh pr merge --squash --auto ${{ steps.cpr_reusable.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ github.token }}
 
 
 
@@ -162,19 +160,17 @@ jobs:
           title: "docs(readme): update README.md on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated README.md Actions list table"
           body: "Updated README.md Action list tables, with the new actions files"
-          branch: bot-repo/main-readme-update
+          branch: repo-sync/readme-main
           delete-branch: true
           labels: bot,documentation
       - uses: geekyeggo/delete-artifact@v2
         with:
           name: outputs
-      - name: Enable Pull Request Automerge
-        id: automerge
+      - name: Pull Request Automerge
         if: steps.cpr_main.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ github.token }}
-          pull-request-number: ${{ steps.cpr_main.outputs.pull-request-number }}
-          merge-method: squash
+        run: |
+          gh pr merge --squash --auto ${{ steps.cpr_main.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ github.token }}
       
 # Slack Notify if failure
