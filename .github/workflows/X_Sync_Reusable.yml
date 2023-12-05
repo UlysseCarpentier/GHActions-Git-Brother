@@ -4,7 +4,7 @@ name: Sync Reusable Workflows
 # Pull requests write
 # Workflows write
 
-# Create ruleset protection repo-sync/comments for bot-repo Pull request without review
+# OPTIONAL Create ruleset protection repo-sync/comments for bot-repo Pull request without review
 on:
   workflow_dispatch:
   push:
