@@ -1,5 +1,10 @@
 name: Sync Reusable Workflows
-# Create ruleset protection repo-sync/** rule for bot-repo Pull request without review
+# Git App Rights (Repo):
+# Contents write
+# Pull requests write
+# Workflows write
+
+# Create ruleset protection repo-sync/comments for bot-repo Pull request without review
 on:
   workflow_dispatch:
   push:
@@ -57,16 +62,14 @@ jobs:
           body: "Updated workflows files with commented lines"
           branch: repo-sync/comments
           delete-branch: true
-          #token: ${{ steps.create_token.outputs.token }}
-          token: ${{ github.token }}
+          token: ${{ steps.create_token.outputs.token }}
 
       - name: Pull Request Automerge
         if: steps.cpr.outputs.pull-request-operation == 'created'
         run: |
           gh pr merge --squash --auto ${{ steps.cpr.outputs.pull-request-number }}
         env:
-          #GH_TOKEN: ${{ steps.create_token.outputs.token }}
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
   slack_notification:
     if: always()
