@@ -56,3 +56,13 @@ jobs:
             titles_string=$(echo '${{ inputs.jobs_titles }}' | jq -r 'join(", ")')
             echo "title=$titles_string" >> $GITHUB_OUTPUT
           fi
+
+
+
+
+#          if ${{ inputs.jobs_titles == '' }}; then
+#            echo 'title=Github Action Run' >> $GITHUB_OUTPUT
+#          else
+#            titles_string=$(echo '${{ inputs.jobs_titles }}' | jq -r 'join(", ")')
+#            echo "title=$titles_string" >> $GITHUB_OUTPUT
+#          fi
