@@ -37,8 +37,8 @@ jobs:
     needs: [first_job, second_job]
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Setup.yml@main
     with:
-      jobs_status: "${{ needs.*.outputs.status }}"
-      jobs_titles: "${{ needs.*.outputs.title }}"
+      jobs_status: "${{ toJSON(needs.*.outputs.status) }}"
+      jobs_titles: "${{ toJSON(needs.*.outputs.title) }}"
 
   echo_result:
     needs: slack_setup
