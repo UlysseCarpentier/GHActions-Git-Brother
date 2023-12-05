@@ -10,9 +10,10 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '.github/**'
-      - '**/*.md'
+    paths:
+      - 'R_*.yml'
+      - '!.github/**'
+      - '!**/*.md'
 jobs:
   sync_files:
     runs-on: ubuntu-latest
