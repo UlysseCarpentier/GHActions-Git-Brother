@@ -48,9 +48,7 @@ jobs:
             mv "$new_name" "$destination"
             echo "copied files from "$new_name" to "$destination""
             newfile="${destination}$(basename "$new_name")"
-            echo "newfile is  "$newfile" "
             last_path="${newfile/_temp/}"
-            echo "last_path is  "$last_path" "
             mv "$newfile" "$last_path"
             echo "moved files from "$newfile" to "$last_path""
           done
@@ -73,14 +71,15 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
-#  slack_notification:
-#    if: always()
-#    needs: comment_files
-#    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
-#    with:
-#      notify_when: "failure,success"
-#      status: "${{ needs.comment_files.outputs.status }}"
-#      notification_title: "Reusable workflows sync failed"
-#    secrets:
-#      #User input
-#      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+  slack_notification:
+    if: always()
+    needs: sync_files
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
+    with:
+      notify_when: "success,failure,cancelled,warnings,skipped"
+      status: "${{ needs.sync_files.outputs.status }}"
+      notification_title: "Reusable workflows sync failed"
+      mention_users: "U05UEBK18V6"
+    secrets:
+      #User input
+      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
