@@ -107,7 +107,7 @@ jobs:
         if: steps.cpr_reusable.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ GITHUB_TOKEN }}
+          token: ${{ github.token }}
           pull-request-number: ${{ steps.cpr_reusable.outputs.pull-request-number }}
           merge-method: squash
 
@@ -173,7 +173,7 @@ jobs:
         if: steps.cpr_main.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ GITHUB_TOKEN }}
+          token: ${{ github.token }}
           pull-request-number: ${{ steps.cpr_main.outputs.pull-request-number }}
           merge-method: squash
       
