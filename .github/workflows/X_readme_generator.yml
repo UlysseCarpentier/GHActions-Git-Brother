@@ -111,7 +111,7 @@ jobs:
           title: "docs(readme): update ${{steps.name_action.outputs.filename}}.md on ${{ github.ref_name }}"
           commit-message: "docs(readme): updated ${{steps.name_action.outputs.filename}}.md inputs table"
           body: "Updated README.md inputs/outputs tables, according to ${{steps.name_action.outputs.filename}}.yml file"
-          branch: repo-sync/readme-reusable
+          branch: repo-sync/readme-${{ matrix.target }}
           delete-branch: true
           labels: bot,documentation
           token: ${{ steps.create_token.outputs.token }}
