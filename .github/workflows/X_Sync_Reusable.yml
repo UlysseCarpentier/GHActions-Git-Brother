@@ -109,14 +109,14 @@ jobs:
             GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
 
-  slack_notification:
-    if: always()
-    needs: comment_files
-    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
-    with:
-      notify_when: "failure,success"
-      status: "${{ needs.comment_files.outputs.status }}"
-      notification_title: "Reusable workflows sync failed"
-    secrets:
-      #User input
-      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+#  slack_notification:
+#    if: always()
+#    needs: comment_files
+#    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
+#    with:
+#      notify_when: "failure,success"
+#      status: "${{ needs.comment_files.outputs.status }}"
+#      notification_title: "Reusable workflows sync failed"
+#    secrets:
+#      #User input
+#      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
