@@ -12,6 +12,7 @@ on:
       - main
     paths-ignore:
       - '.github/**'
+      - '**/*.md'
 jobs:
   sync_files:
     runs-on: ubuntu-latest
