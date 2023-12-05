@@ -1,0 +1,58 @@
+name: Slack Setup
+#author: Ulysse Carpentier <ulysse.carpentier@ext-energy-pool.eu>
+#description: |+
+#  Slack notification action to change defaults.
+#  Ref: [notify-slack-action](https://github.com/ravsamhq/notify-slack-action)
+on:
+  workflow_call:
+    inputs:
+      jobs_status:
+        description: Job Status you want to merge
+        required: true
+        type: string
+      jobs_titles:
+        description: Job Titles you wan to merge
+        required: true
+        type: string
+    outputs:
+      status:
+        description: Jobs status
+        value: ${{ jobs.get_status.outputs.status }}
+      titles:
+        description: Titles of the jobs
+        value: ${{ jobs.get_titles.outputs.titles }}
+jobs:
+  get_status:
+    name: Get Merged Status
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.get_status.outputs.status }}
+    steps:
+      - name: Get status
+        id: get_status
+        run: |
+          if ${{ contains(inputs.jobs_status, 'failure') }}; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+          elif ${{ contains(inputs.jobs_status, 'cancelled') }}; then
+            echo "status=cancelled" >> $GITHUB_OUTPUT
+          elif ${{ contains(inputs.jobs_status, 'warning') }}; then
+            echo "status=warning" >> $GITHUB_OUTPUT
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+          fi
+
+  get_titles:
+    name: Get Merged titles
+    runs-on: ubuntu-latest
+    outputs:
+      titles: ${{ steps.get_titles.outputs.title }}
+    steps:
+      - name: Get titles
+        id: get_titles
+        run:
+          if ${{ toJSON(inputs.jobs_titles) == '' }}; then
+            echo 'title=Github Action Run' >> $GITHUB_OUTPUT
+          else
+            titles_string=$(echo '${{ toJSON(inputs.jobs_titles) }}' | jq -r 'join(", ")')
+            echo "title=$titles_string" >> $GITHUB_OUTPUT
+          fi

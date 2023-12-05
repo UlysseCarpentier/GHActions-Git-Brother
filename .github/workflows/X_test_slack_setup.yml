@@ -1,0 +1,50 @@
+name: Test slack setup workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  first_job:
+    name: first_job
+    runs-on: ubuntu-latest
+    #Important
+    outputs:
+      status: ${{ job.status }}
+      title: ${{ steps.status_update1.outputs.title }}
+    steps:
+      - name: Exit Status Update1
+        id: status_update1
+        #User input
+        run: |
+          echo "title=First Title" >> $GITHUB_OUTPUT
+          exit 0
+
+  second_job:
+    name: second-job
+    runs-on: ubuntu-latest
+    #Important
+    outputs:
+      status: ${{ job.status }}
+      title: ${{ steps.status_update12.outputs.title }}
+    steps:
+      - name: Exit Status Update
+        id: status_update12
+        #User input
+        run: |
+          echo "title=Second title" >> $GITHUB_OUTPUT
+          exit 0
+
+  slack_setup:
+    needs: [first_job, second_job]
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Setup.yml@main
+    with:
+      jobs_status: "${{ needs.*.outputs.status }}"
+      jobs_titles: "${{ needs.*.outputs.title }}"
+
+  echo_result:
+    needs: slack_setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Slack ID
+        run: |
+          echo "${{needs.slack_setup.outputs.status}}"
+          echo "${{needs.slack_setup.outputs.titles}}"
