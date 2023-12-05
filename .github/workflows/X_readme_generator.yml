@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'R_*.yml'
+      - 'R_**.yml'
       - '!.github/**'
       - '!**/*.md'
 jobs:
