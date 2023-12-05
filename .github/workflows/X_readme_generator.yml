@@ -36,6 +36,18 @@ jobs:
       matrix:
        target: ${{fromJSON(needs.find_reusable_files.outputs.actions).target}}
     steps:
+      - id: create_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+          permissions: >-
+            {
+              "contents": "write",
+              "metadata": "read",
+              "pull_requests": "write",
+              "workflows": "write"
+            }
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Action name
@@ -102,12 +114,13 @@ jobs:
           branch: repo-sync/readme-reusable
           delete-branch: true
           labels: bot,documentation
+          token: ${{ steps.create_token.outputs.token }}
       - name: Pull Request Automerge
         if: steps.cpr_reusable.outputs.pull-request-operation == 'created'
         run: |
           gh pr merge --squash --auto ${{ steps.cpr_reusable.outputs.pull-request-number }}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.create_token.outputs.token }}
 
 
 
@@ -115,6 +128,18 @@ jobs:
     needs: [ generate_doc ]
     runs-on: ubuntu-latest
     steps:
+      - id: create_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+          permissions: >-
+            {
+              "contents": "write",
+              "metadata": "read",
+              "pull_requests": "write",
+              "workflows": "write"
+            }
       - uses: actions/checkout@v3
       - name: Load artifact
         if: ${{ needs.generate_doc.outputs.main_update != '' }}
@@ -163,6 +188,7 @@ jobs:
           branch: repo-sync/readme-main
           delete-branch: true
           labels: bot,documentation
+          token: ${{ steps.create_token.outputs.token }}
       - uses: geekyeggo/delete-artifact@v2
         with:
           name: outputs
@@ -171,6 +197,6 @@ jobs:
         run: |
           gh pr merge --squash --auto ${{ steps.cpr_main.outputs.pull-request-number }}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.create_token.outputs.token }}
       
 # Slack Notify if failure
