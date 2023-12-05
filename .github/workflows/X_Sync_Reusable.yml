@@ -12,8 +12,8 @@ on:
       - main
     paths:
       - '**/R_*.yml'
-#      - '!.github/**'
-#      - '!**/*.md'
+      - '!.github/**'
+      - '!**/*.md'
 jobs:
   sync_files:
     runs-on: ubuntu-latest
