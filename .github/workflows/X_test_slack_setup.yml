@@ -34,6 +34,7 @@ jobs:
           exit 1
 
   slack_setup:
+    if: always()
     needs: [first_job, second_job]
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Setup.yml@main
     with:
@@ -50,6 +51,7 @@ jobs:
           echo "${{needs.slack_setup.outputs.titles}}"
 
   slack_notification:
+    if: always()
     needs: slack_setup
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
     with:
