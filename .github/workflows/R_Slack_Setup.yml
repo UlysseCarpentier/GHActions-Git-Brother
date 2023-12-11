@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: Get titles
         id: get_titles
-        run:
+        run: |
           echo "title=test" >> $GITHUB_OUTPUT
           jobs_titles='${{ inputs.jobs_titles }}'
           if [ '$jobs_titles' == '[]' ]; then
