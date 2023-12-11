@@ -44,20 +44,19 @@ jobs:
   get_titles:
     name: Get Merged titles
     runs-on: ubuntu-latest
-#    outputs:
-#      titles: ${{ steps.get_titles.outputs.title }}
+    outputs:
+      titles: ${{ steps.get_titles.outputs.title }}
     steps:
       - name: Get titles
         id: get_titles
         run:
           jobs_titles='${{ inputs.jobs_titles }}'
           # Test the modified command
-          if [ "${jobs_titles}" == '[]' ]; then
-            echo 'title=Github Action Run'
+          if [ '${jobs_titles}' == '[]' ]; then
+            echo 'title=Github Action Run' >> $GITHUB_OUTPUT
           else
             titles_string=$(echo "${jobs_titles}" | jq -r '. | join(", ")')
-            echo "title=$titles_string"
-            echo "title=$titles_string" >> $GITHUB_OUTPUT
+            echo 'title=$titles_string' >> $GITHUB_OUTPUT
           fi
 #### MARCHE TOUJOURS PAS
 
