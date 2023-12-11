@@ -31,7 +31,7 @@ jobs:
         #User input
         run: |
           echo "title=Second title" >> $GITHUB_OUTPUT
-          exit 0
+          exit 1
 
   slack_setup:
     needs: [first_job, second_job]
