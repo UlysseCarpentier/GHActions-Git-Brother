@@ -48,3 +48,10 @@ jobs:
         run: |
           echo "${{needs.slack_setup.outputs.status}}"
           echo "${{needs.slack_setup.outputs.titles}}"
+
+  slack_notification:
+    needs: slack_setup
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
+    with:
+      status: ${{needs.slack_setup.outputs.status}}
+      notification_title: ${{needs.slack_setup.outputs.titles}}
