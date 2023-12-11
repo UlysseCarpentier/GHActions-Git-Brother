@@ -58,6 +58,7 @@ jobs:
           else
             titles_string=$(echo "${jobs_titles}" | jq -r '. | join(", ")')
             echo "title=$titles_string"
+            echo "title=$titles_string" >> $GITHUB_OUTPUT
           fi
 #### MARCHE TOUJOURS PAS
 
