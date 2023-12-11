@@ -33,23 +33,16 @@ jobs:
           echo "title=Second title" >> $GITHUB_OUTPUT
           exit 1
 
+
+
   slack_setup:
     if: always()
+    #User input
     needs: [first_job, second_job]
     uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Setup.yml@main
     with:
       jobs_status: "${{ toJSON(needs.*.outputs.status) }}"
       jobs_titles: "${{ toJSON(needs.*.outputs.title) }}"
-
-  echo_result:
-    needs: slack_setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo Slack ID
-        run: |
-          echo "${{needs.slack_setup.outputs.status}}"
-          echo "${{needs.slack_setup.outputs.titles}}"
-
   slack_notification:
     if: always()
     needs: slack_setup
