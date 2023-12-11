@@ -50,10 +50,10 @@ jobs:
       - name: Get titles
         id: get_titles
         run:
-          if [ "${jobs_titles}" == '[]' ]; then
+          if [ "${{ inputs.jobs_titles }}" == '[]' ]; then
             echo 'title=Github Action Run'
           else
-            titles_string=$(echo "${jobs_titles}" | jq -r '. | join(", ")')
+            titles_string=$(echo "${{ inputs.jobs_titles }}" | jq -r '. | join(", ")')
             echo "title=$titles_string"
           fi
 #### MARCHE TOUJOURS PAS
