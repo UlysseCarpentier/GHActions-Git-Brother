@@ -55,3 +55,6 @@ jobs:
     with:
       status: ${{needs.slack_setup.outputs.status}}
       notification_title: ${{needs.slack_setup.outputs.titles}}
+    secrets:
+      #User input
+      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
