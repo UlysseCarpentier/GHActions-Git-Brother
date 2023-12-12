@@ -1,4 +1,9 @@
-name: Test slack setup workflow
+name: Slack Notification with setup
+description: |+
+  Send Slack Notification with setup.
+  To use when you want to send a notification at the end of every jobs.
+  If you want to send a notification at the end of each jobs, use the V_slack_notification.yml file.
+  Documentation: [Slack](https://github.com/energypool/gha_shared/blob/doc/slack.adoc)
 on:
   workflow_dispatch:
 

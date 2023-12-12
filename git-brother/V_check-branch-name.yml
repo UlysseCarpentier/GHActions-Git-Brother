@@ -8,7 +8,7 @@ on:
 
 jobs:
   Check-Branch-Name:
-    runs-on: ubuntu-latest
+    runs-on: gha-private-runners
     steps:
       - run: sudo apt-get install jq -y
       - name: Get GitHub Bio

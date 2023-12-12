@@ -1,0 +1,19 @@
+name: Send Slack Notification
+description: |+
+  Send Slack Notification.
+  To use when you want to send a notification at the end of each job.
+  If you want to send a notification at the end of all the jobs, use the V_slack_notification_setup.yml file.
+  Documentation: [Slack](https://github.com/energypool/gha_shared/blob/doc/slack.adoc)
+on:
+#  create:
+#    branches:
+#      - '*'
+  workflow_dispatch:
+
+jobs:
+  slack_notification:
+    if: always()
+    uses: UlysseCarpentier/GHActions-Git-Brother/.github/workflows/R_Slack_Notification.yml@main
+    secrets:
+      #User input
+      SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}

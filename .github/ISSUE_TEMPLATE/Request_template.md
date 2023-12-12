@@ -26,11 +26,10 @@ assignees: "@energypool/gha"
 
 ### Definition of Done if new reusable workflow:
 - [ ] Reusable workflow file with emoji "R_" and syntax.
-- [ ] Example of use of that workflow with emoji "V_" and syntax.
-- [ ] Update the sync.yml in .github to sync your reusable workflow to the .github/workflow directory.
+- [ ] Optional: Example of use of that workflow with emoji "V_" and syntax.
 - [ ] Optional: Update the .md file with more data if needed.
 
 ### Definition of Done check-list:
-- [ ] Documentation is up to date
+- [ ] Documentation is up-to-date
 - [ ] Acceptance Tests are successful
 - [ ] Stakeholders accepted this feature as done

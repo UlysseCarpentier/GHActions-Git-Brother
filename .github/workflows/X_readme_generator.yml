@@ -66,7 +66,7 @@ jobs:
             echo "match=true" >> $GITHUB_OUTPUT
           else
             echo "File does not exist."
-            cp "./Ressources/Base_README.md" "${{matrix.target}}".md
+            cp "./resources/Base_README.md" "${{matrix.target}}".md
             echo "copied"
             echo "match=false" >> $GITHUB_OUTPUT
             echo "main_update=true" >> $GITHUB_OUTPUT

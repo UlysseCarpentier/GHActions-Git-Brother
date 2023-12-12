@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: gha-private-runners
     steps:
       - uses: actions/checkout@v3
       - id: dataStep
@@ -16,7 +16,7 @@ jobs:
 
   run-matrix:
     needs: setup
-    runs-on: ubuntu-latest
+    runs-on: gha-private-runners
     strategy:
       matrix:
         target: ${{fromJSON(needs.setup.outputs.matrix).target}}
