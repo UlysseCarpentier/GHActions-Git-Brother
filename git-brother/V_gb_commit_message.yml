@@ -1,0 +1,26 @@
+name: Check commit message syntax
+on:
+  pull_request:
+    paths:
+      - '**/*'
+
+jobs:
+  check_commit_convention:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Check Commit Messages
+        run: |
+          commit_messages=$(git log --pretty=format:"%s" ${{ github.event.before }}..${{ github.sha }})
+          
+          commit_message_regex="^[a-z]+(\(\w*\))?:\s.*"
+          
+          for message in $commit_messages; do
+            if ! [[ $message =~ $commit_message_regex ]]; then
+              echo "Le commit message '$message' ne respecte pas la syntaxe définie."
+              exit 1
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
