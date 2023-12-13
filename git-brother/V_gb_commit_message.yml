@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check Commit Messages
         run: |
-          commit_messages=$(git log --pretty=format:"%s" ${{ github.event.before }}..${{ github.sha }})
+          commit_messages=${{ github.event.head_commit.message }}
           
           commit_message_regex="^[a-z]+(\(\w*\))?:\s.*"
           
