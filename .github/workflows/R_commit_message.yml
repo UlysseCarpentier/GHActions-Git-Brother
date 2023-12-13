@@ -1,4 +1,5 @@
 name: 'Commit Message Check'
+# https://regexr.com/
 on:
   pull_request:
     types:
@@ -25,7 +26,7 @@ jobs:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v2
         with:
-          pattern: '^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test){1}(\([\w\-\.]+\))?(!)?: ([\w ])+([\s\S]*)'
+          pattern: '^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|ops){1}(\([\w\-\.]+\))?(!)?: ([\w ])+([\s\S]*)'
           flags: 'gi'
           error: 'Your first line has to contain a commit type like "[BUGFIX]".'
           excludeTitle: 'true' # optional: this excludes the title of a pull request
@@ -46,6 +47,7 @@ jobs:
         uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^.*?(Resolves|Fixes): \#[0-9]+.*$'
+          flags: 'gm'
           error: 'You need at least one "Resolves|Fixes: #<issue number>" line.'
 
 
