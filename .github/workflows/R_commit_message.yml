@@ -45,7 +45,7 @@ jobs:
       - name: Check for Resolves / Fixes
         uses: gsactions/commit-message-checker@v2
         with:
-          pattern: '^.+(Resolves|Fixes): \#[0-9]+$'
+          pattern: '^.*?(Resolves|Fixes): \#[0-9]+.*$'
           error: 'You need at least one "Resolves|Fixes: #<issue number>" line.'
 
 
