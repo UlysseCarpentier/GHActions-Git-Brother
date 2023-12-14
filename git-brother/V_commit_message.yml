@@ -1,0 +1,50 @@
+name: 'Commit Message Check'
+# https://regexr.com/
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: gha-private-runners
+    steps:
+      - name: Check Commit Type, Scope and ! for Breaking changes
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|ops){1}(\([\w\-\.]+\))?(!)?: ([\w ])+([\s\S]*)'
+          flags: 'gi'
+          error: 'Your first line has to contain a commit type like "[BUGFIX](scope) description".'
+          excludeTitle: 'true' # optional: this excludes the title of a pull request
+          excludeDescription: 'true' # optional: this excludes the description body of a pull request
+          checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
+          accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
+
+      - name: Check Line Length
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '^.{1,74}$'
+          flags: 'gm'
+          error: 'The maximum line length of 74 characters is exceeded.'
+          excludeDescription: 'true' # optional: this excludes the description body of a pull request
+          excludeTitle: 'true' # optional: this excludes the title of a pull request
+          checkAllCommitMessages: 'true' # optional: this checks all commits associated with a pull request
+          accessToken: ${{ secrets.GITHUB_TOKEN }} # github access token is only required if checkAllCommitMessages is true
+
+# Add a way to notify the user that the commit message is not correct
+# In the PR comments?
+# Via Slack? (carefully not to public shame the user)
